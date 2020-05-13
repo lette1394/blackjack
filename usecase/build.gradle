@@ -1,0 +1,23 @@
+apply plugin: 'java-library'
+
+ext.moduleName = 'blackjack.usecase'
+
+dependencies {
+    implementation(
+            project(':domain'),
+            'org.apache.commons:commons-lang3:3.7'
+    )
+
+    testImplementation(
+            'org.junit.jupiter:junit-jupiter-api:5.6.2',
+            'org.assertj:assertj-core:3.16.0',
+    )
+    testRuntimeOnly(
+            'org.junit.jupiter:junit-jupiter-engine:5.6.2',
+            'org.junit.vintage:junit-vintage-engine:5.6.2'
+    )
+}
+
+test {
+    useJUnitPlatform()
+}
