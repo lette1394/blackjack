@@ -12,10 +12,12 @@ public class BlackjackEndToEndTest {
         runner.hasShownWaitForPlayer();
 
         player.joinTheGame();
-        runner.hasReceivedPlayersJoinInput();
+        runner.hasReceivedPlayerJoinInput();
 
+        runner.startGame();
         runner.hasShownGameIsStarted();
 
+        runner.endGame();
         runner.hasShownGameIsEnded();
     }
 }

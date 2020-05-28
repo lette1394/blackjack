@@ -8,6 +8,11 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 
 public class ConsoleGameRunner {
+    public static final String WAIT_MESSAGE = "wait for player...";
+    public static final String START_MESSAGE = "new blackjack game start";
+    public static final String END_MESSAGE = "game ended";
+
+
     private final ByteArrayOutputStream out;
 
     public ConsoleGameRunner() {
@@ -17,20 +22,20 @@ public class ConsoleGameRunner {
 
     public void hasShownWaitForPlayer() {
         final Scanner scanner = new Scanner(out.toString());
-        assertThat(scanner.nextLine(), is("wait for player..."));
+        assertThat(scanner.nextLine(), is(WAIT_MESSAGE));
     }
 
-    public void hasReceivedPlayersJoinInput() {
+    public void hasReceivedPlayerJoinInput() {
         final Scanner scanner = new Scanner(out.toString());
         scanner.nextLine();
-        assertThat(scanner.nextLine(), is("player now join"));
+        assertThat(scanner.nextLine(), is(StandardInputOutputUI.COMMAND_JOIN));
     }
 
     public void hasShownGameIsStarted() {
         final Scanner scanner = new Scanner(out.toString());
         scanner.nextLine();
         scanner.nextLine();
-        assertThat(scanner.nextLine(), is("new blackjack start"));
+        assertThat(scanner.nextLine(), is(START_MESSAGE));
     }
 
     public void hasShownGameIsEnded() {
@@ -38,13 +43,20 @@ public class ConsoleGameRunner {
         scanner.nextLine();
         scanner.nextLine();
         scanner.nextLine();
-        assertThat(scanner.nextLine(), is("game finished"));
+        assertThat(scanner.nextLine(), is(END_MESSAGE));
     }
-
 
 
 
     public void waitForPlayer() {
+        System.out.println(WAIT_MESSAGE);
     }
 
+    public void startGame() {
+        System.out.println(START_MESSAGE);
+    }
+
+    public void endGame() {
+        System.out.println(END_MESSAGE);
+    }
 }
