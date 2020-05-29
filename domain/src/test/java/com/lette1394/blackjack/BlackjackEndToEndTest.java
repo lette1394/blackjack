@@ -40,8 +40,8 @@ public class BlackjackEndToEndTest {
         player.stay();
         runner.hasReceivedPlayerStayInput();
 
-        runner.showPlayerScore();
-        runner.hasShownPlayerScore();
+        runner.showPlayerScore(10);
+        runner.hasShownPlayerScore(10);
 
         runner.end();
         runner.hasShownGameIsEnded();

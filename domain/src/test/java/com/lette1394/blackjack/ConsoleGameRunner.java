@@ -50,8 +50,8 @@ public class ConsoleGameRunner {
         assertThat(nextUserInput(), is(StandardInputOutputUI.COMMAND_STAY));
     }
 
-    public void hasShownPlayerScore() {
-        assertThat(nextUserInput(), is(10));
+    public void hasShownPlayerScore(int score) {
+        assertThat(nextUserInput(), is(String.valueOf(score)));
     }
 
     private String nextUserInput() {
@@ -60,26 +60,26 @@ public class ConsoleGameRunner {
 
 
     public void waitForPlayer() {
-        sendOutputToUser(WAIT_MESSAGE);
+        send(WAIT_MESSAGE);
     }
 
     public void start() {
-        sendOutputToUser(START_MESSAGE);
+        send(START_MESSAGE);
     }
 
     public void end() {
-        sendOutputToUser(END_MESSAGE);
+        send(END_MESSAGE);
     }
 
     public void drawTrumps(String trumps) {
-        sendOutputToUser(trumps);
+        send(trumps);
     }
 
-    private void sendOutputToUser(final String output) {
+    public void showPlayerScore(int score) {
+        send(score);
+    }
+
+    private void send(final Object output) {
         System.out.println(output);
-    }
-
-    public void showPlayerScore() {
-
     }
 }
