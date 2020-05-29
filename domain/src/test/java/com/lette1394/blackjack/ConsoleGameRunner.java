@@ -50,6 +50,10 @@ public class ConsoleGameRunner {
         assertThat(nextUserInput(), is("(♦️2) (♣️8)")); // (♥️1) (♠️A)
     }
 
+    public void hasReceivedPlayerStayInput() {
+        assertThat(nextUserInput(), is(StandardInputOutputUI.COMMAND_STAY));
+    }
+
 
     public void waitForPlayer() {
         sendOutputToUser(WAIT_MESSAGE);
@@ -69,9 +73,5 @@ public class ConsoleGameRunner {
 
     private void sendOutputToUser(final String output) {
         System.out.println(output);
-    }
-
-    public void hasReceivedPlayerStayInput() {
-        sendOutputToUser("stay");
     }
 }
