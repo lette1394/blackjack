@@ -3,7 +3,9 @@ package com.lette1394.blackjack;
 import java.io.PipedInputStream;
 import java.io.PipedOutputStream;
 import java.io.PrintStream;
+import java.util.Arrays;
 import java.util.Scanner;
+import java.util.stream.Collectors;
 
 import lombok.SneakyThrows;
 
@@ -16,6 +18,7 @@ public class ConsoleGameRunner {
     public static final String END_MESSAGE = "game ended";
 
     private final Scanner userInput;
+    private int score = 0;
 
     @SneakyThrows
     public ConsoleGameRunner() {
@@ -50,7 +53,7 @@ public class ConsoleGameRunner {
         assertThat(nextUserInput(), is(StandardInputOutputUI.COMMAND_STAY));
     }
 
-    public void hasShownPlayerScore(int score) {
+    public void hasShownPlayerScore() {
         assertThat(nextUserInput(), is(String.valueOf(score)));
     }
 
@@ -71,11 +74,20 @@ public class ConsoleGameRunner {
         send(END_MESSAGE);
     }
 
-    public void drawTrumps(String trumps) {
-        send(trumps);
+    public void drawTrumps(Trump... trumps) {
+        String toView = Arrays.stream(trumps)
+                              .map(trump -> String.format("(%s%s)", trump.suit, trump.value))
+                              .collect(Collectors.joining(" "));
+
+        score = Arrays.stream(trumps)
+                      .map(trump -> trump.value)
+                      .map(Integer::parseInt)
+                      .reduce(0, Integer::sum);
+
+        send(toView);
     }
 
-    public void showPlayerScore(int score) {
+    public void showPlayerScore() {
         send(score);
     }
 
