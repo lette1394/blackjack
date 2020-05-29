@@ -42,6 +42,11 @@ public class ConsoleGameRunner {
         assertThat(userInput.nextLine(), is(END_MESSAGE));
     }
 
+    public void hasShownCards() {
+        assertThat(userInput.nextLine(), is("(♦️2) (♣️8)")); // (♥️1) (♠️A)
+    }
+
+    /////////
 
 
     public void waitForPlayer() {
@@ -54,5 +59,8 @@ public class ConsoleGameRunner {
 
     public void endGame() {
         System.out.println(END_MESSAGE);
+    }
+
+    public void drawCardsToPlayer() {
     }
 }
