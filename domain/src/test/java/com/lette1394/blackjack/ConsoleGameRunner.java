@@ -50,6 +50,10 @@ public class ConsoleGameRunner {
         assertThat(nextUserInput(), is(StandardInputOutputUI.COMMAND_STAY));
     }
 
+    public void hasShownPlayerScore() {
+        assertThat(nextUserInput(), is(10));
+    }
+
     private String nextUserInput() {
         return userInput.nextLine();
     }
@@ -67,11 +71,15 @@ public class ConsoleGameRunner {
         sendOutputToUser(END_MESSAGE);
     }
 
-    public void drawTrumps() {
-        sendOutputToUser("(♦️2) (♣️8)");
+    public void drawTrumps(String trumps) {
+        sendOutputToUser(trumps);
     }
 
     private void sendOutputToUser(final String output) {
         System.out.println(output);
+    }
+
+    public void showPlayerScore() {
+
     }
 }

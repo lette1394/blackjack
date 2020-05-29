@@ -34,11 +34,14 @@ public class BlackjackEndToEndTest {
         runner.start();
         runner.hasShownGameIsStarted();
 
-        runner.drawTrumps();
+        runner.drawTrumps("(♦️2) (♣️8)");
         runner.hasShownCards();
 
         player.stay();
         runner.hasReceivedPlayerStayInput();
+
+        runner.showPlayerScore();
+        runner.hasShownPlayerScore();
 
         runner.end();
         runner.hasShownGameIsEnded();
