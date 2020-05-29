@@ -30,10 +30,6 @@ public class ConsoleGameRunner {
         assertThat(nextUserInput(), is(WAIT_MESSAGE));
     }
 
-    private String nextUserInput() {
-        return userInput.nextLine();
-    }
-
     public void hasReceivedPlayerJoinInput() {
         assertThat(nextUserInput(), is(StandardInputOutputUI.COMMAND_JOIN));
     }
@@ -52,6 +48,10 @@ public class ConsoleGameRunner {
 
     public void hasReceivedPlayerStayInput() {
         assertThat(nextUserInput(), is(StandardInputOutputUI.COMMAND_STAY));
+    }
+
+    private String nextUserInput() {
+        return userInput.nextLine();
     }
 
 
