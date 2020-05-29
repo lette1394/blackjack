@@ -57,4 +57,8 @@ public class ConsoleGameTestRunner {
     private String nextUserInput() {
         return userInput.nextLine();
     }
+
+    public void hasReceivedPlayerHitInput() {
+        assertThat(nextUserInput(), is(StandardInputOutputUI.COMMAND_HIT));
+    }
 }
