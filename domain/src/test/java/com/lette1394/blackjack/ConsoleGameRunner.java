@@ -62,5 +62,6 @@ public class ConsoleGameRunner {
     }
 
     public void drawCardsToPlayer() {
+        System.out.println("(♦️2) (♣️8)");
     }
 }
