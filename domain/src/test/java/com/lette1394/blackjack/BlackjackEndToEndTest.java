@@ -5,46 +5,47 @@ import org.junit.jupiter.api.Timeout;
 
 public class BlackjackEndToEndTest {
     private final ConsoleGameRunner runner = new ConsoleGameRunner();
+    private final ConsoleGameTestRunner assertions = new ConsoleGameTestRunner();
     private final StandardInputOutputUI player = new StandardInputOutputUI();
 
     @Test
     void APlayerJoinTheGame() {
         runner.waitForPlayer();
-        runner.hasShownWaitForPlayer();
+        assertions.hasShownWaitForPlayer();
 
         player.join();
-        runner.hasReceivedPlayerJoinInput();
+        assertions.hasReceivedPlayerJoinInput();
 
         runner.start();
-        runner.hasShownGameIsStarted();
+        assertions.hasShownGameIsStarted();
 
         runner.end();
-        runner.hasShownGameIsEnded();
+        assertions.hasShownGameIsEnded();
     }
 
     @Test
     @Timeout(1)
     void APlayerReceivedTwoTrumpsCardsThenStayAfterJoin() {
         runner.waitForPlayer();
-        runner.hasShownWaitForPlayer();
+        assertions.hasShownWaitForPlayer();
 
         player.join();
-        runner.hasReceivedPlayerJoinInput();
+        assertions.hasReceivedPlayerJoinInput();
 
         runner.start();
-        runner.hasShownGameIsStarted();
+        assertions.hasShownGameIsStarted();
 
         Trump[] trumps = new Trump[]{ new Trump("♦️", "2"), new Trump("♣️", "8") };
         runner.drawTrumps(trumps);
-        runner.hasShownCards();
+        assertions.hasShownCards("(♦️2) (♣️8)");
 
         player.stay();
-        runner.hasReceivedPlayerStayInput();
+        assertions.hasReceivedPlayerStayInput();
 
         runner.showPlayerScore();
-        runner.hasShownPlayerScore();
+        assertions.hasShownPlayerScore(2 + 8);
 
         runner.end();
-        runner.hasShownGameIsEnded();
+        assertions.hasShownGameIsEnded();
     }
 }
