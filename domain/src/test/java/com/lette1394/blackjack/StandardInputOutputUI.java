@@ -5,10 +5,14 @@ public class StandardInputOutputUI {
     public static final String COMMAND_STAY = "stay";
 
     public void join() {
-        System.out.println(COMMAND_JOIN);
+        send(COMMAND_JOIN);
     }
 
     public void stay() {
-        System.out.println(COMMAND_STAY);
+        send(COMMAND_STAY);
+    }
+
+    private void send(String input) {
+        System.out.println(input);
     }
 }
