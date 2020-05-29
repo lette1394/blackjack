@@ -70,4 +70,8 @@ public class ConsoleGameRunner {
     private void sendOutputToUser(final String output) {
         System.out.println(output);
     }
+
+    public void hasReceivedPlayerStayInput() {
+        sendOutputToUser("stay");
+    }
 }

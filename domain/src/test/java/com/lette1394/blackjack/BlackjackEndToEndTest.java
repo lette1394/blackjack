@@ -24,7 +24,7 @@ public class BlackjackEndToEndTest {
 
     @Test
     @Timeout(1)
-    void APlayerReceivedTwoTrumpsCardsAfterJoin() {
+    void APlayerReceivedTwoTrumpsCardsThenStayAfterJoin() {
         runner.waitForPlayer();
         runner.hasShownWaitForPlayer();
 
@@ -36,6 +36,9 @@ public class BlackjackEndToEndTest {
 
         runner.drawTrumps();
         runner.hasShownCards();
+
+        player.stay();
+        runner.hasReceivedPlayerStayInput();
 
         runner.end();
         runner.hasShownGameIsEnded();

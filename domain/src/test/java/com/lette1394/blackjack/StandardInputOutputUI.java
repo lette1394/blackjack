@@ -6,4 +6,7 @@ public class StandardInputOutputUI {
     public void join() {
         System.out.println(COMMAND_JOIN);
     }
+
+    public void stay() {
+    }
 }
