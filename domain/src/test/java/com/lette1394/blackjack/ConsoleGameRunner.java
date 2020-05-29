@@ -55,15 +55,15 @@ public class ConsoleGameRunner {
         sendOutputToUser(WAIT_MESSAGE);
     }
 
-    public void startGame() {
+    public void start() {
         sendOutputToUser(START_MESSAGE);
     }
 
-    public void endGame() {
+    public void end() {
         sendOutputToUser(END_MESSAGE);
     }
 
-    public void drawCardsToPlayer() {
+    public void drawTrumps() {
         sendOutputToUser("(♦️2) (♣️8)");
     }
 

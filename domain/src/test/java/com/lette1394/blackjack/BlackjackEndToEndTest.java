@@ -12,13 +12,13 @@ public class BlackjackEndToEndTest {
         runner.waitForPlayer();
         runner.hasShownWaitForPlayer();
 
-        player.joinTheGame();
+        player.join();
         runner.hasReceivedPlayerJoinInput();
 
-        runner.startGame();
+        runner.start();
         runner.hasShownGameIsStarted();
 
-        runner.endGame();
+        runner.end();
         runner.hasShownGameIsEnded();
     }
 
@@ -28,16 +28,16 @@ public class BlackjackEndToEndTest {
         runner.waitForPlayer();
         runner.hasShownWaitForPlayer();
 
-        player.joinTheGame();
+        player.join();
         runner.hasReceivedPlayerJoinInput();
 
-        runner.startGame();
+        runner.start();
         runner.hasShownGameIsStarted();
 
-        runner.drawCardsToPlayer();
+        runner.drawTrumps();
         runner.hasShownCards();
 
-        runner.endGame();
+        runner.end();
         runner.hasShownGameIsEnded();
     }
 }
