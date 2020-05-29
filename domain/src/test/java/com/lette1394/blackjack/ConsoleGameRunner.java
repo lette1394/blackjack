@@ -27,41 +27,47 @@ public class ConsoleGameRunner {
     }
 
     public void hasShownWaitForPlayer() {
-        assertThat(userInput.nextLine(), is(WAIT_MESSAGE));
+        assertThat(nextUserInput(), is(WAIT_MESSAGE));
+    }
+
+    private String nextUserInput() {
+        return userInput.nextLine();
     }
 
     public void hasReceivedPlayerJoinInput() {
-        assertThat(userInput.nextLine(), is(StandardInputOutputUI.COMMAND_JOIN));
+        assertThat(nextUserInput(), is(StandardInputOutputUI.COMMAND_JOIN));
     }
 
     public void hasShownGameIsStarted() {
-        assertThat(userInput.nextLine(), is(START_MESSAGE));
+        assertThat(nextUserInput(), is(START_MESSAGE));
     }
 
     public void hasShownGameIsEnded() {
-        assertThat(userInput.nextLine(), is(END_MESSAGE));
+        assertThat(nextUserInput(), is(END_MESSAGE));
     }
 
     public void hasShownCards() {
-        assertThat(userInput.nextLine(), is("(♦️2) (♣️8)")); // (♥️1) (♠️A)
+        assertThat(nextUserInput(), is("(♦️2) (♣️8)")); // (♥️1) (♠️A)
     }
-
-    /////////
 
 
     public void waitForPlayer() {
-        System.out.println(WAIT_MESSAGE);
+        sendOutputToUser(WAIT_MESSAGE);
     }
 
     public void startGame() {
-        System.out.println(START_MESSAGE);
+        sendOutputToUser(START_MESSAGE);
     }
 
     public void endGame() {
-        System.out.println(END_MESSAGE);
+        sendOutputToUser(END_MESSAGE);
     }
 
     public void drawCardsToPlayer() {
-        System.out.println("(♦️2) (♣️8)");
+        sendOutputToUser("(♦️2) (♣️8)");
+    }
+
+    private void sendOutputToUser(final String output) {
+        System.out.println(output);
     }
 }
