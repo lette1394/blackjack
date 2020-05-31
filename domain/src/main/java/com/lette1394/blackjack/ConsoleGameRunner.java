@@ -104,7 +104,7 @@ public class ConsoleGameRunner {
     }
 
     public void drawToDealer() {
-        Trump[] trumps = new Trump[]{ new Trump("♦️", "3"), new Trump("♣️", "8") };
+        Trump[] trumps = new Trump[]{ new Trump("♥️", "3"), new Trump("♠️", "9") };
         String toView = Arrays.stream(trumps)
                               .map(trump -> String.format("(%s%s)", trump.suit, trump.value))
                               .collect(Collectors.joining(" "));
@@ -113,11 +113,11 @@ public class ConsoleGameRunner {
     }
 
     public void showDealerScore() {
-        send("Dealer's Score: " + 10);
+        send("Dealer's Score: " + 12);
     }
 
     public void showWinner() {
-        send("Winner: Dealer");
+        send("You LOSE");
     }
 
     private void send(final Object output) {

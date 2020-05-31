@@ -49,27 +49,31 @@ public class ConsoleGameRunnerAssertion {
     }
 
 
-    public void hasShownDrawCardToPlayer() {
-        assertThat(nextConsoleInput(), containsString("Your Cards: "));
+    public void hasShownDrawCardToPlayer(String cards) {
+        assertThat(nextConsoleInput(), is("Your Cards: " + cards));
     }
 
-    public void hasShownPlayerScore() {
-        assertThat(nextConsoleInput(), containsString("Your Score: "));
+    public void hasShownPlayerScore(final int score) {
+        assertThat(nextConsoleInput(), is("Your Score: " + score));
     }
 
-    public void hasShownDealerGotCards() {
-        assertThat(nextConsoleInput(), containsString("Dealer's Cards: "));
+    public void hasShownDealerGotCards(final String cards) {
+        assertThat(nextConsoleInput(), is("Dealer's Cards: " + cards));
     }
 
-    public void hasShownDealerScore() {
-        assertThat(nextConsoleInput(), containsString("Dealer's Score: "));
+    public void hasShownDealerScore(final int score) {
+        assertThat(nextConsoleInput(), is("Dealer's Score: " + score));
     }
 
-    public void hasShownWinner() {
-        assertThat(nextConsoleInput(), containsString("Winner: "));
+    public void hasShownPlayerLose() {
+        assertThat(nextConsoleInput(), containsString("You LOSE"));
     }
 
     private String nextConsoleInput() {
         return userInput.nextLine();
+    }
+
+    public void hasShownPlayerWin() {
+        assertThat(nextConsoleInput(), containsString("You WIN"));
     }
 }

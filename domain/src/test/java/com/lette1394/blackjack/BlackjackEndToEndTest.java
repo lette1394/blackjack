@@ -30,25 +30,43 @@ public class BlackjackEndToEndTest {
 
     @Test
     @Timeout(1)
-    void APlayerLosesAfterStay() {
+    void APlayerLoseAfterStay() {
         runner.run();
         assertion.hasShownWaitForPlayer();
 
         player.join();
         assertion.hasShownGameIsStarted();
-        assertion.hasShownDrawCardToPlayer();
+        assertion.hasShownDrawCardToPlayer("(♦️2) (♣️8)");
 
         player.stay();
-        assertion.hasShownPlayerScore();
+        assertion.hasShownPlayerScore(10);
 
-        assertion.hasShownDealerGotCards();
-        assertion.hasShownDealerScore();
+        assertion.hasShownDealerGotCards("(♥️3) (♠️9)");
+        assertion.hasShownDealerScore(12);
 
-        assertion.hasShownWinner();
+        assertion.hasShownPlayerLose();
 
         assertion.hasShownGameIsEnded();
     }
 
+    @Test
+    @Timeout(1)
+    void APlayerWinAfterStay() {
+        runner.run();
+        assertion.hasShownWaitForPlayer();
 
+        player.join();
+        assertion.hasShownGameIsStarted();
+        assertion.hasShownDrawCardToPlayer("(♦️5) (♣️5)");
 
+        player.stay();
+        assertion.hasShownPlayerScore(10);
+
+        assertion.hasShownDealerGotCards("(♥️3) (♠️1)");
+        assertion.hasShownDealerScore(4);
+
+        assertion.hasShownPlayerWin();
+
+        assertion.hasShownGameIsEnded();
+    }
 }
