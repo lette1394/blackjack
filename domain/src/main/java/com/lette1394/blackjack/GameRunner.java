@@ -7,7 +7,9 @@ public interface GameRunner {
 
     void end();
 
-    void drawTrumps(Trump... trumps);
+    void drawToPlayer();
 
     void showPlayerScore();
+
+    void drawToDealer();
 }

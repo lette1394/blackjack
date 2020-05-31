@@ -11,6 +11,7 @@ import static com.lette1394.blackjack.ConsoleGameRunner.END_MESSAGE;
 import static com.lette1394.blackjack.ConsoleGameRunner.START_MESSAGE;
 import static com.lette1394.blackjack.ConsoleGameRunner.WAIT_MESSAGE;
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.containsString;
 import static org.hamcrest.Matchers.is;
 
 public class ConsoleGameTestRunner {
@@ -49,14 +50,30 @@ public class ConsoleGameTestRunner {
         assertThat(nextConsoleInput(), is(StandardInputOutputUI.COMMAND_STAY));
     }
 
-    public void hasShownPlayerScore(int score) {
-        assertThat(nextConsoleInput(), is(String.valueOf(score)));
-    }
-
     public void hasReceivedPlayerHitInput() {
         assertThat(nextConsoleInput(), is(StandardInputOutputUI.COMMAND_HIT));
     }
 
+
+    public void hasShownDrawCardToPlayer() {
+        assertThat(nextConsoleInput(), containsString("Your Cards: "));
+    }
+
+    public void hasShownPlayerScore() {
+        assertThat(nextConsoleInput(), containsString("Your Score: "));
+    }
+
+    public void hasShownDealerGotCards() {
+        assertThat(nextConsoleInput(), containsString("Dealer's Cards: "));
+    }
+
+    public void hasShownDealerScore() {
+        assertThat(nextConsoleInput(), containsString("Dealer's Score: "));
+    }
+
+    public void hasShownWinner() {
+        assertThat(nextConsoleInput(), containsString("Winner: "));
+    }
 
     private String nextConsoleInput() {
         return userInput.nextLine();

@@ -10,13 +10,24 @@ public class BlackjackEndToEndTest {
 
     @Test
     @Timeout(1)
-    void APlayerJoinTheGame() {
+    void APlayerLosesAfterStay() {
         runner.waitForPlayer();
         assertions.hasShownWaitForPlayer();
 
         player.join();
         assertions.hasReceivedPlayerJoinInput();
         assertions.hasShownGameIsStarted();
+
+        assertions.hasShownDrawCardToPlayer();
+
+        player.stay();
+        assertions.hasReceivedPlayerStayInput();
+        assertions.hasShownPlayerScore();
+
+        assertions.hasShownDealerGotCards();
+        assertions.hasShownDealerScore();
+
+        assertions.hasShownWinner();
 
         runner.end();
         assertions.hasShownGameIsEnded();
