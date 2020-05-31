@@ -1,35 +1,39 @@
 package com.lette1394.blackjack;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.Timeout;
 
 public class BlackjackEndToEndTest {
-    private final ConsoleGameRunner runner = new ConsoleGameRunner();
-    private final ConsoleGameTestRunner assertions = new ConsoleGameTestRunner();
-    private final StandardInputOutputUI player = new StandardInputOutputUI(runner);
+    private ConsoleGameRunner runner;
+    private StandardInputOutputUI player;
+    private final ConsoleGameRunnerAssertion assertion = new ConsoleGameRunnerAssertion();
+
+    @BeforeEach
+    void setUp() {
+        assertion.mockStandardInputOutput();
+        runner = new ConsoleGameRunner();
+        player = new StandardInputOutputUI();
+    }
 
     @Test
     @Timeout(1)
     void APlayerLosesAfterStay() {
-        runner.waitForPlayer();
-        assertions.hasShownWaitForPlayer();
+        runner.run();
+        assertion.hasShownWaitForPlayer();
 
         player.join();
-        assertions.hasReceivedPlayerJoinInput();
-        assertions.hasShownGameIsStarted();
-
-        assertions.hasShownDrawCardToPlayer();
+        assertion.hasShownGameIsStarted();
+        assertion.hasShownDrawCardToPlayer();
 
         player.stay();
-        assertions.hasReceivedPlayerStayInput();
-        assertions.hasShownPlayerScore();
+        assertion.hasShownPlayerScore();
 
-        assertions.hasShownDealerGotCards();
-        assertions.hasShownDealerScore();
+        assertion.hasShownDealerGotCards();
+        assertion.hasShownDealerScore();
 
-        assertions.hasShownWinner();
+        assertion.hasShownWinner();
 
-        runner.end();
-        assertions.hasShownGameIsEnded();
+        assertion.hasShownGameIsEnded();
     }
 }

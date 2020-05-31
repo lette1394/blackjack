@@ -1,14 +1,60 @@
 package com.lette1394.blackjack;
 
+import java.io.InputStream;
+import java.io.PrintStream;
 import java.util.Arrays;
+import java.util.Scanner;
 import java.util.stream.Collectors;
+
+import lombok.SneakyThrows;
 
 public class ConsoleGameRunner {
     public static final String WAIT_MESSAGE = "wait for player...";
     public static final String START_MESSAGE = "new blackjack game start";
     public static final String END_MESSAGE = "game ended";
 
-    private int score = 0;
+    public static final String COMMAND_JOIN = "join";
+    public static final String COMMAND_STAY = "stay";
+    public static final String COMMAND_HIT = "hit";
+
+    public final Scanner in;
+    public final PrintStream out;
+
+    public ConsoleGameRunner(InputStream in, PrintStream out) {
+        this.in = new Scanner(in);
+        this.out = out;
+    }
+
+    public ConsoleGameRunner() {
+        this(System.in, System.out);
+    }
+
+    public void run() {
+        waitForPlayer();
+    }
+
+    public void runCommand() {
+        final String userInput = in.nextLine();
+        if (userInput.equals(COMMAND_JOIN)) {
+            start();
+            drawToPlayer();
+        } else if (userInput.equals(COMMAND_STAY)) {
+            showPlayerScore();
+
+            drawToDealer();
+            showDealerScore();
+
+            showWinner();
+            end();
+        } else {
+            throw new RuntimeException();
+        }
+    }
+
+    @SneakyThrows
+    private boolean needWaitForPlayerInput() {
+        return in.hasNextLine() == false;
+    }
 
     public void waitForPlayer() {
         send(WAIT_MESSAGE);
@@ -28,12 +74,7 @@ public class ConsoleGameRunner {
                               .map(trump -> String.format("(%s%s)", trump.suit, trump.value))
                               .collect(Collectors.joining(" "));
 
-        score = Arrays.stream(trumps)
-                      .map(trump -> trump.value)
-                      .map(Integer::parseInt)
-                      .reduce(0, Integer::sum);
-
-        send("Your Cards: "+toView);
+        send("Your Cards: " + toView);
     }
 
     public void showPlayerScore() {
@@ -46,12 +87,7 @@ public class ConsoleGameRunner {
                               .map(trump -> String.format("(%s%s)", trump.suit, trump.value))
                               .collect(Collectors.joining(" "));
 
-        score = Arrays.stream(trumps)
-                      .map(trump -> trump.value)
-                      .map(Integer::parseInt)
-                      .reduce(0, Integer::sum);
-
-        send("Dealer's Cards: "+toView);
+        send("Dealer's Cards: " + toView);
     }
 
     public void showDealerScore() {
@@ -63,6 +99,6 @@ public class ConsoleGameRunner {
     }
 
     private void send(final Object output) {
-        System.out.println(output);
+        out.println(output);
     }
 }

@@ -4,29 +4,17 @@ import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
 public class StandardInputOutputUI {
-    public static final String COMMAND_JOIN = "join";
-    public static final String COMMAND_STAY = "stay";
-    public static final String COMMAND_HIT = "hit";
-
-    private final ConsoleGameRunner gameRunner;
+    private final ConsoleGameRunner runner = new ConsoleGameRunner();
 
     public void join() {
-        send(COMMAND_JOIN);
-        gameRunner.start();
-        gameRunner.drawToPlayer();
+        send(ConsoleGameRunner.COMMAND_JOIN);
+        runner.runCommand();
     }
 
     public void stay() {
-        send(COMMAND_STAY);
-        gameRunner.showPlayerScore();
-
-        gameRunner.drawToDealer();
-        gameRunner.showDealerScore();
-
-        gameRunner.showWinner();
+        send(ConsoleGameRunner.COMMAND_STAY);
+        runner.runCommand();
     }
-
-
 
     private void send(String input) {
         System.out.println(input);
