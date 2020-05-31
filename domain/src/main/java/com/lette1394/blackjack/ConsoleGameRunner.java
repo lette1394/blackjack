@@ -66,6 +66,8 @@ public class ConsoleGameRunner {
             try {
 
                 final String userInput = in.nextLine();
+                System.out.println("\f");
+
                 if (userInput.equals(COMMAND_JOIN)) {
                     start();
                     drawToPlayer();
@@ -83,6 +85,7 @@ public class ConsoleGameRunner {
                     log.error("cannot process user command: " + userInput);
                     System.exit(1);
                 }
+
 
                 Thread.sleep(50);
             } catch (Exception e) {
