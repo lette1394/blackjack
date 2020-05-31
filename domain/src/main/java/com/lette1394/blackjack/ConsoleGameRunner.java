@@ -25,15 +25,24 @@ public class ConsoleGameRunner {
     public static final String COMMAND_STAY = "stay";
     public static final String COMMAND_HIT = "hit";
 
+    // TODO: 이거 input output이 너무 구체적인 거 같다.
+    //  뭔가 의미있는 입력으로 바꿔야함.
+
     public final Scanner in;
     public final PrintStream out;
 
+    // TODO: 이거 좀 없앨 수 없나? 흠...
+    //  생성자 의존성으로 빼야하는데 그렇게하면 테스트 만들기가 어렵네. 부분 빌더 패턴?
     @Setter
     private CardProvider cardProvider;
 
     private ExecutorService executorService;
 
+    // TODO: 딜러가 뽑은 카드만 특별하게 체크해야하나? 이건 player가 hit하는 테스트를 추가하고나서 더 생각해보자.
     private Trumps trumpsForDealer;
+
+    // TODO: score도 마찬가지. 확실히 Trump 클래스에 들어가는 건 아닌 거 같고, 테스트를 조금 더 추가해서 생각해보자.
+    //  아마도 1:1이 아니라 1:N으로 게임할때, 그러니까 딜러는 한명이고 여러 다른 사람들이 게임할때 테스트를 추가하면 더 잘 드러날듯.
     int playerScore = 0;
     int dealerScore = 0;
 
@@ -48,6 +57,7 @@ public class ConsoleGameRunner {
 
     public static void main(String[] args) {
         final ConsoleGameRunner runner = new ConsoleGameRunner();
+        // TODO: 랜덤 생성기로
         runner.setCardProvider(new ArrayDeque<>(Lists.newArrayList(new Trump("♦️", "5"), new Trump("♣️", "5"),
                                                                    new Trump("♥️", "3"), new Trump("♠️", "1")))::poll);
         runner.run();
@@ -62,15 +72,22 @@ public class ConsoleGameRunner {
 
     @SneakyThrows
     public void runCommand() {
+        // TODO: 무한 루프 괜찮나? -> 나중에 웹으로 게임을 제공하면 어떻게 되나?
+        //  runner가 여러개 있어야할듯.
         while (true) {
             try {
 
+                // TODO: blocking 되는 코드 괜찮나? notify 형식으로 해야하는거 아닌가...
                 final String userInput = in.nextLine();
                 System.out.println("\f");
 
+                // TODO: state machine?
+                //  command translator?
                 if (userInput.equals(COMMAND_JOIN)) {
                     start();
                     drawToPlayer();
+
+                    // TODO: 카드를 보여준다/안보여준다는 도메인 개념으로 빼야할 것 같다.
                     drawToDealer(1);
                 } else if (userInput.equals(COMMAND_STAY)) {
                     showPlayerScore();
@@ -82,6 +99,7 @@ public class ConsoleGameRunner {
                     end();
                     break;
                 } else {
+                    // TODO: 에러처리 필요. 이거 메인 클래스로 전파가 안된다. 다른 러너에서는 괜찮나?
                     log.error("cannot process user command: " + userInput);
                     System.exit(1);
                 }
@@ -93,11 +111,6 @@ public class ConsoleGameRunner {
                 System.exit(99);
             }
         }
-    }
-
-    @SneakyThrows
-    private boolean needWaitForPlayerInput() {
-        return in.hasNextLine() == false;
     }
 
     public void waitForPlayer() {
@@ -147,6 +160,8 @@ public class ConsoleGameRunner {
         out.println(output);
     }
 
+
+    // TODO: formatter?
     private String formatTrump(Trumps trumps) {
         return trumps.raw().stream()
                      .map(trump -> String.format("(%s%s)", trump.suit, trump.value))
