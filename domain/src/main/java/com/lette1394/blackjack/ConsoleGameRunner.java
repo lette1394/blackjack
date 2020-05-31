@@ -3,7 +3,6 @@ package com.lette1394.blackjack;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.PrintStream;
-import java.util.Arrays;
 import java.util.Scanner;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -105,17 +104,9 @@ public class ConsoleGameRunner {
     }
 
     public void drawToPlayer() {
-        Trump[] trumps = new Trump[]{ cardProvider.provide(), cardProvider.provide() };
-        String toView = Arrays.stream(trumps)
-                              .map(trump -> String.format("(%s%s)", trump.suit, trump.value))
-                              .collect(Collectors.joining(" "));
-
-        playerScore = Arrays.stream(trumps)
-                .map(trump -> trump.value)
-                .map(Integer::valueOf)
-                .reduce(0, Integer::sum);
-
-        send("Your Cards: " + toView);
+        Trumps trumps = new Trumps(cardProvider.provide(), cardProvider.provide());
+        playerScore = trumps.getScore();
+        send("Your Cards: " + formatTrump(trumps));
     }
 
     public void showPlayerScore() {
@@ -123,17 +114,9 @@ public class ConsoleGameRunner {
     }
 
     public void drawToDealer() {
-        Trump[] trumps = new Trump[]{ cardProvider.provide(), cardProvider.provide() };
-        String toView = Arrays.stream(trumps)
-                              .map(trump -> String.format("(%s%s)", trump.suit, trump.value))
-                              .collect(Collectors.joining(" "));
-
-        dealerScore = Arrays.stream(trumps)
-                            .map(trump -> trump.value)
-                            .map(Integer::valueOf)
-                            .reduce(0, Integer::sum);
-
-        send("Dealer's Cards: " + toView);
+        Trumps trumps = new Trumps(cardProvider.provide(), cardProvider.provide());
+        dealerScore = trumps.getScore();
+        send("Dealer's Cards: " + formatTrump(trumps));
     }
 
     public void showDealerScore() {
@@ -150,5 +133,11 @@ public class ConsoleGameRunner {
 
     private void send(final Object output) {
         out.println(output);
+    }
+
+    private String formatTrump(Trumps trumps) {
+        return trumps.raw().stream()
+                     .map(trump -> String.format("(%s%s)", trump.suit, trump.value))
+                     .collect(Collectors.joining(" "));
     }
 }
