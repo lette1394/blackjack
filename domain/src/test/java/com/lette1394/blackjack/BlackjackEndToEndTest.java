@@ -2,11 +2,14 @@ package com.lette1394.blackjack;
 
 import java.io.PipedInputStream;
 import java.io.PipedOutputStream;
+import java.util.ArrayDeque;
+import java.util.Deque;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.Timeout;
 import lombok.SneakyThrows;
+import org.assertj.core.util.Lists;
 
 public class BlackjackEndToEndTest {
     private ConsoleGameRunner runner;
@@ -31,6 +34,8 @@ public class BlackjackEndToEndTest {
     @Test
     @Timeout(1)
     void APlayerLoseAfterStay() {
+        runner.setCardProvider(cardProvider(new Trump("♦️", "2"), new Trump("♣️", "8"),
+                                            new Trump("♥️", "3"), new Trump("♠️", "9")));
         runner.run();
         assertion.hasShownWaitForPlayer();
 
@@ -52,6 +57,8 @@ public class BlackjackEndToEndTest {
     @Test
     @Timeout(1)
     void APlayerWinAfterStay() {
+        runner.setCardProvider(cardProvider(new Trump("♦️", "5"), new Trump("♣️", "5"),
+                                            new Trump("♥️", "3"), new Trump("♠️", "1")));
         runner.run();
         assertion.hasShownWaitForPlayer();
 
@@ -68,5 +75,9 @@ public class BlackjackEndToEndTest {
         assertion.hasShownPlayerWin();
 
         assertion.hasShownGameIsEnded();
+    }
+
+    private CardProvider cardProvider(Trump... trumps) {
+        return new ArrayDeque<>(Lists.list(trumps))::poll;
     }
 }

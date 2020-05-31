@@ -69,11 +69,11 @@ public class ConsoleGameRunnerAssertion {
         assertThat(nextConsoleInput(), containsString("You LOSE"));
     }
 
-    private String nextConsoleInput() {
-        return userInput.nextLine();
-    }
-
     public void hasShownPlayerWin() {
         assertThat(nextConsoleInput(), containsString("You WIN"));
+    }
+
+    private String nextConsoleInput() {
+        return userInput.nextLine();
     }
 }

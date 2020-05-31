@@ -9,6 +9,7 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.stream.Collectors;
 
+import lombok.Setter;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 
@@ -25,7 +26,14 @@ public class ConsoleGameRunner {
     public final Scanner in;
     public final PrintStream out;
 
+    @Setter
+    private CardProvider cardProvider;
+
     private ExecutorService executorService;
+
+
+    int playerScore = 0;
+    int dealerScore = 0;
 
     public ConsoleGameRunner(InputStream in, OutputStream out) {
         this.in = new Scanner(in);
@@ -50,25 +58,31 @@ public class ConsoleGameRunner {
     @SneakyThrows
     public void runCommand() {
         while (true) {
-            final String userInput = in.nextLine();
-            if (userInput.equals(COMMAND_JOIN)) {
-                start();
-                drawToPlayer();
-            } else if (userInput.equals(COMMAND_STAY)) {
-                showPlayerScore();
+            try {
 
-                drawToDealer();
-                showDealerScore();
+                final String userInput = in.nextLine();
+                if (userInput.equals(COMMAND_JOIN)) {
+                    start();
+                    drawToPlayer();
+                } else if (userInput.equals(COMMAND_STAY)) {
+                    showPlayerScore();
 
-                showWinner();
-                end();
-                break;
-            } else {
-                log.error("cannot process user command: " + userInput);
-                System.exit(1);
+                    drawToDealer();
+                    showDealerScore();
+
+                    showWinner();
+                    end();
+                    break;
+                } else {
+                    log.error("cannot process user command: " + userInput);
+                    System.exit(1);
+                }
+
+                Thread.sleep(50);
+            } catch (Exception e) {
+                log.error("unexpected error : " + e);
+                System.exit(99);
             }
-
-            Thread.sleep(50);
         }
     }
 
@@ -91,33 +105,47 @@ public class ConsoleGameRunner {
     }
 
     public void drawToPlayer() {
-        Trump[] trumps = new Trump[]{ new Trump("♦️", "2"), new Trump("♣️", "8") };
+        Trump[] trumps = new Trump[]{ cardProvider.provide(), cardProvider.provide() };
         String toView = Arrays.stream(trumps)
                               .map(trump -> String.format("(%s%s)", trump.suit, trump.value))
                               .collect(Collectors.joining(" "));
+
+        playerScore = Arrays.stream(trumps)
+                .map(trump -> trump.value)
+                .map(Integer::valueOf)
+                .reduce(0, Integer::sum);
 
         send("Your Cards: " + toView);
     }
 
     public void showPlayerScore() {
-        send("Your Score: " + 10);
+        send("Your Score: " + playerScore);
     }
 
     public void drawToDealer() {
-        Trump[] trumps = new Trump[]{ new Trump("♥️", "3"), new Trump("♠️", "9") };
+        Trump[] trumps = new Trump[]{ cardProvider.provide(), cardProvider.provide() };
         String toView = Arrays.stream(trumps)
                               .map(trump -> String.format("(%s%s)", trump.suit, trump.value))
                               .collect(Collectors.joining(" "));
+
+        dealerScore = Arrays.stream(trumps)
+                            .map(trump -> trump.value)
+                            .map(Integer::valueOf)
+                            .reduce(0, Integer::sum);
 
         send("Dealer's Cards: " + toView);
     }
 
     public void showDealerScore() {
-        send("Dealer's Score: " + 12);
+        send("Dealer's Score: " + dealerScore);
     }
 
     public void showWinner() {
-        send("You LOSE");
+        if (playerScore > dealerScore) {
+            send("You WIN");
+        } else {
+            send("You LOSE");
+        }
     }
 
     private void send(final Object output) {
