@@ -3,11 +3,14 @@ package com.lette1394.blackjack;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.PrintStream;
+import java.util.ArrayDeque;
+import java.util.Objects;
 import java.util.Scanner;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.stream.Collectors;
 
+import com.google.common.collect.Lists;
 import lombok.Setter;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
@@ -30,7 +33,7 @@ public class ConsoleGameRunner {
 
     private ExecutorService executorService;
 
-
+    private Trumps trumpsForDealer;
     int playerScore = 0;
     int dealerScore = 0;
 
@@ -44,7 +47,10 @@ public class ConsoleGameRunner {
     }
 
     public static void main(String[] args) {
-        new ConsoleGameRunner().run();
+        final ConsoleGameRunner runner = new ConsoleGameRunner();
+        runner.setCardProvider(new ArrayDeque<>(Lists.newArrayList(new Trump("♦️", "5"), new Trump("♣️", "5"),
+                                                                   new Trump("♥️", "3"), new Trump("♠️", "1")))::poll);
+        runner.run();
     }
 
     public void run() {
@@ -63,10 +69,11 @@ public class ConsoleGameRunner {
                 if (userInput.equals(COMMAND_JOIN)) {
                     start();
                     drawToPlayer();
+                    drawToDealer(1);
                 } else if (userInput.equals(COMMAND_STAY)) {
                     showPlayerScore();
 
-                    drawToDealer();
+                    drawToDealer(2);
                     showDealerScore();
 
                     showWinner();
@@ -113,10 +120,12 @@ public class ConsoleGameRunner {
         send("Your Score: " + playerScore);
     }
 
-    public void drawToDealer() {
-        Trumps trumps = new Trumps(cardProvider.provide(), cardProvider.provide());
-        dealerScore = trumps.getScore();
-        send("Dealer's Cards: " + formatTrump(trumps));
+    public void drawToDealer(int showCards) {
+        if (Objects.isNull(trumpsForDealer)) {
+            trumpsForDealer = new Trumps(cardProvider.provide(), cardProvider.provide());
+        }
+        dealerScore = trumpsForDealer.getScore();
+        send("Dealer's Cards: " + formatTrump(trumpsForDealer, showCards));
     }
 
     public void showDealerScore() {
@@ -139,5 +148,21 @@ public class ConsoleGameRunner {
         return trumps.raw().stream()
                      .map(trump -> String.format("(%s%s)", trump.suit, trump.value))
                      .collect(Collectors.joining(" "));
+    }
+
+    private String formatTrump(Trumps trumps, int howManyShowingCards) {
+        StringBuilder sb = new StringBuilder();
+        int i = 0;
+
+        for (Trump trump : trumps.raw()) {
+            if (i < howManyShowingCards) {
+                sb.append(String.format("(%s%s)", trump.suit, trump.value));
+            } else {
+                sb.append("(??)");
+            }
+            sb.append(" ");
+            i++;
+        }
+        return sb.toString().substring(0, sb.toString().length() - 1);
     }
 }
