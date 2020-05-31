@@ -1,19 +1,31 @@
 package com.lette1394.blackjack;
 
+import java.io.PipedInputStream;
+import java.io.PipedOutputStream;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.Timeout;
+import lombok.SneakyThrows;
 
 public class BlackjackEndToEndTest {
     private ConsoleGameRunner runner;
     private StandardInputOutputUI player;
-    private final ConsoleGameRunnerAssertion assertion = new ConsoleGameRunnerAssertion();
+    private ConsoleGameRunnerAssertion assertion;
 
     @BeforeEach
+    @SneakyThrows
     void setUp() {
-        assertion.mockStandardInputOutput();
-        runner = new ConsoleGameRunner();
-        player = new StandardInputOutputUI();
+        PipedInputStream playerInput = new PipedInputStream();
+        PipedOutputStream playerOutput = new PipedOutputStream(playerInput);
+
+        PipedInputStream runnerInput = new PipedInputStream();
+        PipedOutputStream runnerOutput = new PipedOutputStream(runnerInput);
+
+        player = new StandardInputOutputUI(playerOutput);
+        runner = new ConsoleGameRunner(playerInput, runnerOutput);
+
+        assertion = new ConsoleGameRunnerAssertion(runnerInput);
     }
 
     @Test
@@ -36,4 +48,7 @@ public class BlackjackEndToEndTest {
 
         assertion.hasShownGameIsEnded();
     }
+
+
+
 }

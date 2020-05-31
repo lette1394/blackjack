@@ -1,13 +1,18 @@
 package com.lette1394.blackjack;
 
 import java.io.InputStream;
+import java.io.OutputStream;
 import java.io.PrintStream;
 import java.util.Arrays;
 import java.util.Scanner;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 import java.util.stream.Collectors;
 
 import lombok.SneakyThrows;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 public class ConsoleGameRunner {
     public static final String WAIT_MESSAGE = "wait for player...";
     public static final String START_MESSAGE = "new blackjack game start";
@@ -20,34 +25,50 @@ public class ConsoleGameRunner {
     public final Scanner in;
     public final PrintStream out;
 
-    public ConsoleGameRunner(InputStream in, PrintStream out) {
+    private ExecutorService executorService;
+
+    public ConsoleGameRunner(InputStream in, OutputStream out) {
         this.in = new Scanner(in);
-        this.out = out;
+        this.out = new PrintStream(out, true);
     }
 
     public ConsoleGameRunner() {
         this(System.in, System.out);
     }
 
-    public void run() {
-        waitForPlayer();
+    public static void main(String[] args) {
+        new ConsoleGameRunner().run();
     }
 
+    public void run() {
+        waitForPlayer();
+
+        executorService = Executors.newSingleThreadExecutor();
+        executorService.submit(() -> runCommand());
+    }
+
+    @SneakyThrows
     public void runCommand() {
-        final String userInput = in.nextLine();
-        if (userInput.equals(COMMAND_JOIN)) {
-            start();
-            drawToPlayer();
-        } else if (userInput.equals(COMMAND_STAY)) {
-            showPlayerScore();
+        while (true) {
+            final String userInput = in.nextLine();
+            if (userInput.equals(COMMAND_JOIN)) {
+                start();
+                drawToPlayer();
+            } else if (userInput.equals(COMMAND_STAY)) {
+                showPlayerScore();
 
-            drawToDealer();
-            showDealerScore();
+                drawToDealer();
+                showDealerScore();
 
-            showWinner();
-            end();
-        } else {
-            throw new RuntimeException();
+                showWinner();
+                end();
+                break;
+            } else {
+                log.error("cannot process user command: " + userInput);
+                System.exit(1);
+            }
+
+            Thread.sleep(50);
         }
     }
 
@@ -66,6 +87,7 @@ public class ConsoleGameRunner {
 
     public void end() {
         send(END_MESSAGE);
+        executorService.shutdown();
     }
 
     public void drawToPlayer() {

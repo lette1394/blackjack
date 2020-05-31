@@ -1,11 +1,7 @@
 package com.lette1394.blackjack;
 
-import java.io.PipedInputStream;
-import java.io.PipedOutputStream;
-import java.io.PrintStream;
+import java.io.InputStream;
 import java.util.Scanner;
-
-import lombok.SneakyThrows;
 
 import static com.lette1394.blackjack.ConsoleGameRunner.COMMAND_HIT;
 import static com.lette1394.blackjack.ConsoleGameRunner.COMMAND_JOIN;
@@ -18,16 +14,10 @@ import static org.hamcrest.Matchers.containsString;
 import static org.hamcrest.Matchers.is;
 
 public class ConsoleGameRunnerAssertion {
-    private Scanner userInput;
+    private final Scanner userInput;
 
-    @SneakyThrows
-    public void mockStandardInputOutput() {
-        PipedOutputStream out = new PipedOutputStream();
-        PipedInputStream in = new PipedInputStream(out);
-
-        System.setOut(new PrintStream(out));
-        System.setIn(in);
-        this.userInput = new Scanner(in);
+    public ConsoleGameRunnerAssertion(final InputStream userInput) {
+        this.userInput = new Scanner(userInput);
     }
 
     public void hasShownWaitForPlayer() {

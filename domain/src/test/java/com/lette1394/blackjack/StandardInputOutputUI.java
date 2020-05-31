@@ -1,22 +1,24 @@
 package com.lette1394.blackjack;
 
-import lombok.RequiredArgsConstructor;
+import java.io.OutputStream;
+import java.io.PrintStream;
 
-@RequiredArgsConstructor
 public class StandardInputOutputUI {
-    private final ConsoleGameRunner runner = new ConsoleGameRunner();
+    private final PrintStream out;
+
+    public StandardInputOutputUI(final OutputStream out) {
+        this.out = new PrintStream(out, true);
+    }
 
     public void join() {
         send(ConsoleGameRunner.COMMAND_JOIN);
-        runner.runCommand();
     }
 
     public void stay() {
         send(ConsoleGameRunner.COMMAND_STAY);
-        runner.runCommand();
     }
 
     private void send(String input) {
-        System.out.println(input);
+        out.println(input);
     }
 }
