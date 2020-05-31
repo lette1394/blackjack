@@ -42,6 +42,7 @@ public class BlackjackEndToEndTest {
         player.join();
         assertion.hasShownGameIsStarted();
         assertion.hasShownDrawCardToPlayer("(♦️2) (♣️8)");
+        assertion.hasShownDealerGotCards("(♥️3) (??)");
 
         player.stay();
         assertion.hasShownPlayerScore(10);
@@ -65,6 +66,7 @@ public class BlackjackEndToEndTest {
         player.join();
         assertion.hasShownGameIsStarted();
         assertion.hasShownDrawCardToPlayer("(♦️5) (♣️5)");
+        assertion.hasShownDealerGotCards("(♥️3) (??)");
 
         player.stay();
         assertion.hasShownPlayerScore(10);
