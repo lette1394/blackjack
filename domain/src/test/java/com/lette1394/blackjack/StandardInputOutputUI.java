@@ -1,20 +1,18 @@
 package com.lette1394.blackjack;
 
+import lombok.RequiredArgsConstructor;
+
+@RequiredArgsConstructor
 public class StandardInputOutputUI {
     public static final String COMMAND_JOIN = "join";
     public static final String COMMAND_STAY = "stay";
     public static final String COMMAND_HIT = "hit";
 
+    private final GameRunner gameRunner;
+
     public void join() {
         send(COMMAND_JOIN);
-    }
-
-    public void stay() {
-        send(COMMAND_STAY);
-    }
-
-    public void hit() {
-        send(COMMAND_HIT);
+        gameRunner.start();
     }
 
     private void send(String input) {

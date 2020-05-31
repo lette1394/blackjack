@@ -16,7 +16,6 @@ import static org.hamcrest.Matchers.is;
 public class ConsoleGameTestRunner {
     private final Scanner userInput;
 
-
     @SneakyThrows
     public ConsoleGameTestRunner() {
         PipedOutputStream out = new PipedOutputStream();
@@ -27,38 +26,39 @@ public class ConsoleGameTestRunner {
     }
 
     public void hasShownWaitForPlayer() {
-        assertThat(nextUserInput(), is(WAIT_MESSAGE));
+        assertThat(nextConsoleInput(), is(WAIT_MESSAGE));
     }
 
     public void hasReceivedPlayerJoinInput() {
-        assertThat(nextUserInput(), is(StandardInputOutputUI.COMMAND_JOIN));
+        assertThat(nextConsoleInput(), is(StandardInputOutputUI.COMMAND_JOIN));
     }
 
     public void hasShownGameIsStarted() {
-        assertThat(nextUserInput(), is(START_MESSAGE));
+        assertThat(nextConsoleInput(), is(START_MESSAGE));
     }
 
     public void hasShownGameIsEnded() {
-        assertThat(nextUserInput(), is(END_MESSAGE));
+        assertThat(nextConsoleInput(), is(END_MESSAGE));
     }
 
     public void hasShownCards(String cards) {
-        assertThat(nextUserInput(), is(cards)); // (♥️1) (♠️A) "(♦️2) (♣️8)"
+        assertThat(nextConsoleInput(), is(cards)); // (♥️1) (♠️A) "(♦️2) (♣️8)"
     }
 
     public void hasReceivedPlayerStayInput() {
-        assertThat(nextUserInput(), is(StandardInputOutputUI.COMMAND_STAY));
+        assertThat(nextConsoleInput(), is(StandardInputOutputUI.COMMAND_STAY));
     }
 
     public void hasShownPlayerScore(int score) {
-        assertThat(nextUserInput(), is(String.valueOf(score)));
-    }
-
-    private String nextUserInput() {
-        return userInput.nextLine();
+        assertThat(nextConsoleInput(), is(String.valueOf(score)));
     }
 
     public void hasReceivedPlayerHitInput() {
-        assertThat(nextUserInput(), is(StandardInputOutputUI.COMMAND_HIT));
+        assertThat(nextConsoleInput(), is(StandardInputOutputUI.COMMAND_HIT));
+    }
+
+
+    private String nextConsoleInput() {
+        return userInput.nextLine();
     }
 }
