@@ -13,7 +13,8 @@ class PlayerInputTranslatorTest extends BaseTest {
 
     @BeforeEach
     void setUp() {
-        translator = new PlayerInputTranslator(listener);
+        translator = new PlayerInputTranslator();
+        translator.addListener(listener);
     }
 
     @Test

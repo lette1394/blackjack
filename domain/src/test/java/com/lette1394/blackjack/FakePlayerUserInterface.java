@@ -3,10 +3,12 @@ package com.lette1394.blackjack;
 import java.io.OutputStream;
 import java.io.PrintStream;
 
-public class StandardInputOutputUI {
+import com.lette1394.blackjack.ui.UserInterface;
+
+public class FakePlayerUserInterface implements UserInterface {
     private final PrintStream out;
 
-    public StandardInputOutputUI(final OutputStream out) {
+    public FakePlayerUserInterface(final OutputStream out) {
         this.out = new PrintStream(out, true);
     }
 
@@ -22,7 +24,13 @@ public class StandardInputOutputUI {
         send(ConsoleGameLauncher.COMMAND_STAY);
     }
 
-    private void send(String input) {
-        out.println(input);
+    @Override
+    public void runLoop() {
+        // no-op
+    }
+
+    @Override
+    public void send(final Object output) {
+        out.println(output);
     }
 }

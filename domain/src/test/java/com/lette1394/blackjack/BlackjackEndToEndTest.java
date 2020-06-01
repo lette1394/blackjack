@@ -10,22 +10,33 @@ import org.junit.jupiter.api.Timeout;
 import lombok.SneakyThrows;
 import org.assertj.core.util.Lists;
 
+import com.lette1394.blackjack.ui.ConsoleUserInterface;
+
 public class BlackjackEndToEndTest {
-    private ConsoleGameLauncher runner;
-    private StandardInputOutputUI player;
+    private ConsoleGameRunner runner;
+    private ConsoleGameLauncher launcher;
+    private FakePlayerUserInterface player;
     private ConsoleGameRunnerAssertion assertion;
 
     @BeforeEach
     @SneakyThrows
     void setUp() {
-        PipedInputStream playerInput = new PipedInputStream();
-        PipedOutputStream playerOutput = new PipedOutputStream(playerInput);
+        PipedInputStream fakeInput = new PipedInputStream();
+        PipedOutputStream fakeOutput = new PipedOutputStream(fakeInput);
 
         PipedInputStream runnerInput = new PipedInputStream();
         PipedOutputStream runnerOutput = new PipedOutputStream(runnerInput);
 
-        player = new StandardInputOutputUI(playerOutput);
-        runner = new ConsoleGameLauncher(playerInput, runnerOutput);
+        PlayerInputTranslator playerInputTranslator = new PlayerInputTranslator();
+
+        player = new FakePlayerUserInterface(fakeOutput);
+        ConsoleUserInterface consoleUserInterface = new ConsoleUserInterface(fakeInput,
+                                                                             runnerOutput,
+                                                                             playerInputTranslator);
+        runner = new ConsoleGameRunner(consoleUserInterface);
+        playerInputTranslator.addListener(new PlayerInputEventAdapter(runner));
+
+        launcher = new ConsoleGameLauncher(consoleUserInterface); // TODO: remove
 
         assertion = new ConsoleGameRunnerAssertion(runnerInput);
     }
@@ -35,7 +46,7 @@ public class BlackjackEndToEndTest {
     void APlayerLoseAfterStay() {
         runner.setCardProvider(cardProvider(new Trump("♦️", "2"), new Trump("♣️", "8"),
                                             new Trump("♥️", "3"), new Trump("♠️", "9")));
-        runner.run();
+        launcher.run();
         assertion.hasShownWaitForPlayer();
 
         player.join();
@@ -59,7 +70,7 @@ public class BlackjackEndToEndTest {
     void APlayerWinAfterStay() {
         runner.setCardProvider(cardProvider(new Trump("♦️", "5"), new Trump("♣️", "5"),
                                             new Trump("♥️", "3"), new Trump("♠️", "1")));
-        runner.run();
+        launcher.run();
         assertion.hasShownWaitForPlayer();
 
         player.join();
@@ -84,7 +95,7 @@ public class BlackjackEndToEndTest {
         runner.setCardProvider(cardProvider(new Trump("♦️", "5"), new Trump("♣️", "5"),
                                             new Trump("♥️", "10"), new Trump("♠️", "10"),
                                             new Trump("♣️", "8")));
-        runner.run();
+        launcher.run();
         assertion.hasShownWaitForPlayer();
 
         player.join();

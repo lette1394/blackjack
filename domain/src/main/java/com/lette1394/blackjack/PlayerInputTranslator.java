@@ -1,26 +1,36 @@
 package com.lette1394.blackjack;
 
-import lombok.RequiredArgsConstructor;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.function.Consumer;
 
-@RequiredArgsConstructor
 public class PlayerInputTranslator {
     private static final String COMMAND_JOIN = "join";
     private static final String COMMAND_STAY = "stay";
     private static final String COMMAND_HIT = "hit";
 
-    private final PlayerInputEventListener listener;
+    // TODO: refactoring: 일급 컬렉션
+    private final List<PlayerInputEventListener> listeners = new ArrayList<>();
 
     public void translate(final String playerInput) {
         if (playerInput.equals(COMMAND_JOIN)) {
-            listener.join();
+            notify(PlayerInputEventListener::join);
         } else if (playerInput.equals(COMMAND_STAY)) {
-            listener.stay();
+            notify(PlayerInputEventListener::stay);
         } else if (playerInput.equals(COMMAND_HIT)) {
-            listener.hit();
+            notify(PlayerInputEventListener::hit);
         } else {
-            listener.cannotHandle(playerInput);
+            notify(listener -> listener.cannotHandle(playerInput));
+        }
+    }
+
+    public void addListener(final PlayerInputEventListener listener) {
+        this.listeners.add(listener);
+    }
+
+    private void notify(final Consumer<PlayerInputEventListener> listenerConsumer) {
+        for (PlayerInputEventListener listener : listeners) {
+            listenerConsumer.accept(listener);
         }
     }
 }
-
-
