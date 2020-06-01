@@ -11,15 +11,15 @@ public class StandardInputOutputUI {
     }
 
     public void join() {
-        send(ConsoleGameRunner.COMMAND_JOIN);
+        send(ConsoleGameLauncher.COMMAND_JOIN);
     }
 
     public void hit() {
-        send(ConsoleGameRunner.COMMAND_HIT);
+        send(ConsoleGameLauncher.COMMAND_HIT);
     }
 
     public void stay() {
-        send(ConsoleGameRunner.COMMAND_STAY);
+        send(ConsoleGameLauncher.COMMAND_STAY);
     }
 
     private void send(String input) {

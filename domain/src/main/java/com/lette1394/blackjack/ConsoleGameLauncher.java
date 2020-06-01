@@ -10,14 +10,13 @@ import java.util.stream.Collectors;
 
 import com.google.common.collect.Lists;
 import lombok.Setter;
-import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 
 import com.lette1394.blackjack.ui.ConsoleUserInterface;
 import com.lette1394.blackjack.ui.UserInterface;
 
 @Slf4j
-public class ConsoleGameRunner implements PlayerInputEventListener {
+public class ConsoleGameLauncher implements PlayerInputEventListener {
     public static final String WAIT_MESSAGE = "wait for player...";
     public static final String START_MESSAGE = "new blackjack game start";
     public static final String END_MESSAGE = "game ended";
@@ -46,12 +45,12 @@ public class ConsoleGameRunner implements PlayerInputEventListener {
 
     private UserInterface userInterface;
 
-    public ConsoleGameRunner(InputStream in, OutputStream out) {
+    public ConsoleGameLauncher(InputStream in, OutputStream out) {
         userInterface = new ConsoleUserInterface(in, out, this);
     }
 
     public static void main(String[] args) {
-        final ConsoleGameRunner runner = new ConsoleGameRunner(System.in, System.out);
+        final ConsoleGameLauncher runner = new ConsoleGameLauncher(System.in, System.out);
         // TODO: 랜덤 생성기로
         runner.setCardProvider(new ArrayDeque<>(Lists.newArrayList(new Trump("♦️", "5"), new Trump("♣️", "5"),
                                                                    new Trump("♥️", "3"), new Trump("♠️", "1")))::poll);

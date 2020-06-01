@@ -8,7 +8,7 @@ import java.util.Scanner;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 
-import com.lette1394.blackjack.ConsoleGameRunner;
+import com.lette1394.blackjack.ConsoleGameLauncher;
 import com.lette1394.blackjack.PlayerInputTranslator;
 
 @Slf4j
@@ -19,7 +19,7 @@ public class ConsoleUserInterface implements UserInterface {
     private final Scanner in;
     private final PrintStream out;
 
-    public ConsoleUserInterface(InputStream in, OutputStream out, ConsoleGameRunner gameRunner) {
+    public ConsoleUserInterface(InputStream in, OutputStream out, ConsoleGameLauncher gameRunner) {
         this.in = new Scanner(in);
         this.out = new PrintStream(out, true);
 

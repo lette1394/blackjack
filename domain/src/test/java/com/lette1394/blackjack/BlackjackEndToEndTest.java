@@ -11,7 +11,7 @@ import lombok.SneakyThrows;
 import org.assertj.core.util.Lists;
 
 public class BlackjackEndToEndTest {
-    private ConsoleGameRunner runner;
+    private ConsoleGameLauncher runner;
     private StandardInputOutputUI player;
     private ConsoleGameRunnerAssertion assertion;
 
@@ -25,7 +25,7 @@ public class BlackjackEndToEndTest {
         PipedOutputStream runnerOutput = new PipedOutputStream(runnerInput);
 
         player = new StandardInputOutputUI(playerOutput);
-        runner = new ConsoleGameRunner(playerInput, runnerOutput);
+        runner = new ConsoleGameLauncher(playerInput, runnerOutput);
 
         assertion = new ConsoleGameRunnerAssertion(runnerInput);
     }

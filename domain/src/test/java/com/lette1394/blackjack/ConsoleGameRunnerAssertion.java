@@ -3,12 +3,12 @@ package com.lette1394.blackjack;
 import java.io.InputStream;
 import java.util.Scanner;
 
-import static com.lette1394.blackjack.ConsoleGameRunner.COMMAND_HIT;
-import static com.lette1394.blackjack.ConsoleGameRunner.COMMAND_JOIN;
-import static com.lette1394.blackjack.ConsoleGameRunner.COMMAND_STAY;
-import static com.lette1394.blackjack.ConsoleGameRunner.END_MESSAGE;
-import static com.lette1394.blackjack.ConsoleGameRunner.START_MESSAGE;
-import static com.lette1394.blackjack.ConsoleGameRunner.WAIT_MESSAGE;
+import static com.lette1394.blackjack.ConsoleGameLauncher.COMMAND_HIT;
+import static com.lette1394.blackjack.ConsoleGameLauncher.COMMAND_JOIN;
+import static com.lette1394.blackjack.ConsoleGameLauncher.COMMAND_STAY;
+import static com.lette1394.blackjack.ConsoleGameLauncher.END_MESSAGE;
+import static com.lette1394.blackjack.ConsoleGameLauncher.START_MESSAGE;
+import static com.lette1394.blackjack.ConsoleGameLauncher.WAIT_MESSAGE;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.containsString;
 import static org.hamcrest.Matchers.is;
