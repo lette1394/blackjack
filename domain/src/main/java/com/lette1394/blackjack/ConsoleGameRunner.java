@@ -15,6 +15,8 @@ import lombok.Setter;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 
+import com.lette1394.blackjack.ui.ConsoleUserInterface;
+
 @Slf4j
 public class ConsoleGameRunner implements PlayerInputEventListener {
     public static final String WAIT_MESSAGE = "wait for player...";
@@ -25,11 +27,6 @@ public class ConsoleGameRunner implements PlayerInputEventListener {
     public static final String COMMAND_HIT = "hit";
     public static final String COMMAND_STAY = "stay";
 
-    // TODO: 이거 input output이 너무 구체적인 거 같다.
-    //  뭔가 의미있는 입력으로 바꿔야함.
-
-    public final Scanner in;
-    public final PrintStream out;
 
     // TODO: 이거 좀 없앨 수 없나? 흠...
     //  생성자 의존성으로 빼야하는데 그렇게하면 테스트 만들기가 어렵네. 부분 빌더 패턴?
@@ -47,19 +44,15 @@ public class ConsoleGameRunner implements PlayerInputEventListener {
     int playerScore = 0;
     int dealerScore = 0;
 
-    private final PlayerInputTranslator playerInputTranslator = new PlayerInputTranslator(this);
+
+    private ConsoleUserInterface consoleUserInterface;
 
     public ConsoleGameRunner(InputStream in, OutputStream out) {
-        this.in = new Scanner(in);
-        this.out = new PrintStream(out, true);
-    }
-
-    public ConsoleGameRunner() {
-        this(System.in, System.out);
+        consoleUserInterface = new ConsoleUserInterface(in, out, this);
     }
 
     public static void main(String[] args) {
-        final ConsoleGameRunner runner = new ConsoleGameRunner();
+        final ConsoleGameRunner runner = new ConsoleGameRunner(System.in, System.out);
         // TODO: 랜덤 생성기로
         runner.setCardProvider(new ArrayDeque<>(Lists.newArrayList(new Trump("♦️", "5"), new Trump("♣️", "5"),
                                                                    new Trump("♥️", "3"), new Trump("♠️", "1")))::poll);
@@ -75,21 +68,7 @@ public class ConsoleGameRunner implements PlayerInputEventListener {
 
     @SneakyThrows
     public void runCommand() {
-        // TODO: 무한 루프 괜찮나? -> 나중에 웹으로 게임을 제공하면 어떻게 되나?
-        //  runner가 여러개 있어야할듯.
-        while (true) {
-            try {
-                // TODO: blocking 되는 코드 괜찮나? notify 형식으로 해야하는거 아닌가...
-                final String userInput = in.nextLine();
-                System.out.println("\f");
-                playerInputTranslator.translate(userInput);
-                Thread.sleep(50);
-            } catch (Exception e) {
-                log.error("unexpected error : " + e);
-                e.printStackTrace();
-                System.exit(99);
-            }
-        }
+        consoleUserInterface.runCommand();
     }
 
     @Override
@@ -170,7 +149,7 @@ public class ConsoleGameRunner implements PlayerInputEventListener {
     }
 
     private void send(final Object output) {
-        out.println(output);
+        consoleUserInterface.send(output);
     }
 
 
