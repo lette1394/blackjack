@@ -15,6 +15,8 @@ public class PlayerInputTranslator {
             listener.join();
         } else if (playerInput.equals(COMMAND_STAY)) {
             listener.stay();
+        } else if (playerInput.equals(COMMAND_HIT)) {
+            listener.hit();
         } else {
             listener.cannotHandle(playerInput);
         }

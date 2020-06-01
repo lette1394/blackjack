@@ -26,6 +26,15 @@ class PlayerInputTranslatorTest extends BaseTest {
     }
 
     @Test
+    void notifyHitWhenAPlayerInputsStay() {
+        context.checking(new Expectations() {{
+            oneOf(listener).hit();
+        }});
+
+        translator.translate("hit");
+    }
+
+    @Test
     void notifyStayWhenAPlayerInputsStay() {
         context.checking(new Expectations() {{
             oneOf(listener).stay();
@@ -33,6 +42,7 @@ class PlayerInputTranslatorTest extends BaseTest {
 
         translator.translate("stay");
     }
+
 
     @Test
     void notifyCannotHandleWhenAPlayerInputAnInvalidCommand() {

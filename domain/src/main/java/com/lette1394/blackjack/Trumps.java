@@ -25,4 +25,8 @@ public class Trumps {
     public List<Trump> raw() {
         return trumps;
     }
+
+    public void add(final Trump trump) {
+        trumps.add(trump);
+    }
 }

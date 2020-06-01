@@ -81,18 +81,19 @@ public class BlackjackEndToEndTest {
     @Test
     @Timeout(1)
     void APlayerLosesAfterHit() {
-        runner.setCardProvider(cardProvider(new Trump("♦️", "5"), new Trump("♣️", "5"), new Trump("♣️", "8"),
-                                            new Trump("♥️", "10"), new Trump("♠️", "10")));
+        runner.setCardProvider(cardProvider(new Trump("♦️", "5"), new Trump("♣️", "5"),
+                                            new Trump("♥️", "10"), new Trump("♠️", "10"),
+                                            new Trump("♣️", "8")));
         runner.run();
         assertion.hasShownWaitForPlayer();
 
         player.join();
         assertion.hasShownGameIsStarted();
         assertion.hasShownDrawCardToPlayer("(♦️5) (♣️5)");
-        assertion.hasShownDealerGotCards("(♥️3) (??)");
+        assertion.hasShownDealerGotCards("(♥️10) (??)");
 
         player.hit();
-        assertion.hasShownDrawCardToPlayer("(♦️5) (♣️5) (♣️5)");
+        assertion.hasShownDrawCardToPlayer("(♦️5) (♣️5) (♣️8)");
 
         player.stay();
         assertion.hasShownPlayerScore(18);
@@ -100,7 +101,7 @@ public class BlackjackEndToEndTest {
         assertion.hasShownDealerGotCards("(♥️10) (♠️10)");
         assertion.hasShownDealerScore(20);
 
-        assertion.hasShownPlayerWin();
+        assertion.hasShownPlayerLose();
 
         assertion.hasShownGameIsEnded();
     }
