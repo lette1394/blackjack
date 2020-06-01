@@ -3,7 +3,6 @@ package com.lette1394.blackjack;
 import java.io.PipedInputStream;
 import java.io.PipedOutputStream;
 import java.util.ArrayDeque;
-import java.util.Deque;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -73,6 +72,33 @@ public class BlackjackEndToEndTest {
 
         assertion.hasShownDealerGotCards("(♥️3) (♠️1)");
         assertion.hasShownDealerScore(4);
+
+        assertion.hasShownPlayerWin();
+
+        assertion.hasShownGameIsEnded();
+    }
+
+    @Test
+    @Timeout(1)
+    void APlayerLosesAfterHit() {
+        runner.setCardProvider(cardProvider(new Trump("♦️", "5"), new Trump("♣️", "5"), new Trump("♣️", "8"),
+                                            new Trump("♥️", "10"), new Trump("♠️", "10")));
+        runner.run();
+        assertion.hasShownWaitForPlayer();
+
+        player.join();
+        assertion.hasShownGameIsStarted();
+        assertion.hasShownDrawCardToPlayer("(♦️5) (♣️5)");
+        assertion.hasShownDealerGotCards("(♥️3) (??)");
+
+        player.hit();
+        assertion.hasShownDrawCardToPlayer("(♦️5) (♣️5) (♣️5)");
+
+        player.stay();
+        assertion.hasShownPlayerScore(18);
+
+        assertion.hasShownDealerGotCards("(♥️10) (♠️10)");
+        assertion.hasShownDealerScore(20);
 
         assertion.hasShownPlayerWin();
 

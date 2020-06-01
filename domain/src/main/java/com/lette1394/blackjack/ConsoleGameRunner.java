@@ -22,8 +22,8 @@ public class ConsoleGameRunner implements PlayerInputEventListener {
     public static final String END_MESSAGE = "game ended";
 
     public static final String COMMAND_JOIN = "join";
-    public static final String COMMAND_STAY = "stay";
     public static final String COMMAND_HIT = "hit";
+    public static final String COMMAND_STAY = "stay";
 
     // TODO: 이거 input output이 너무 구체적인 거 같다.
     //  뭔가 의미있는 입력으로 바꿔야함.

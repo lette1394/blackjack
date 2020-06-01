@@ -14,6 +14,10 @@ public class StandardInputOutputUI {
         send(ConsoleGameRunner.COMMAND_JOIN);
     }
 
+    public void hit() {
+        send(ConsoleGameRunner.COMMAND_HIT);
+    }
+
     public void stay() {
         send(ConsoleGameRunner.COMMAND_STAY);
     }
