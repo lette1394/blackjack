@@ -16,7 +16,7 @@ import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
-public class ConsoleGameRunner {
+public class ConsoleGameRunner implements PlayerInputEventListener {
     public static final String WAIT_MESSAGE = "wait for player...";
     public static final String START_MESSAGE = "new blackjack game start";
     public static final String END_MESSAGE = "game ended";
@@ -45,6 +45,8 @@ public class ConsoleGameRunner {
     //  아마도 1:1이 아니라 1:N으로 게임할때, 그러니까 딜러는 한명이고 여러 다른 사람들이 게임할때 테스트를 추가하면 더 잘 드러날듯.
     int playerScore = 0;
     int dealerScore = 0;
+
+    private final PlayerInputTranslator playerInputTranslator = new PlayerInputTranslator(this);
 
     public ConsoleGameRunner(InputStream in, OutputStream out) {
         this.in = new Scanner(in);
@@ -76,41 +78,43 @@ public class ConsoleGameRunner {
         //  runner가 여러개 있어야할듯.
         while (true) {
             try {
-
                 // TODO: blocking 되는 코드 괜찮나? notify 형식으로 해야하는거 아닌가...
                 final String userInput = in.nextLine();
                 System.out.println("\f");
-
-                // TODO: state machine?
-                //  command translator?
-                if (userInput.equals(COMMAND_JOIN)) {
-                    start();
-                    drawToPlayer();
-
-                    // TODO: 카드를 보여준다/안보여준다는 도메인 개념으로 빼야할 것 같다.
-                    drawToDealer(1);
-                } else if (userInput.equals(COMMAND_STAY)) {
-                    showPlayerScore();
-
-                    drawToDealer(2);
-                    showDealerScore();
-
-                    showWinner();
-                    end();
-                    break;
-                } else {
-                    // TODO: 에러처리 필요. 이거 메인 클래스로 전파가 안된다. 다른 러너에서는 괜찮나?
-                    log.error("cannot process user command: " + userInput);
-                    System.exit(1);
-                }
-
-
+                playerInputTranslator.translate(userInput);
                 Thread.sleep(50);
             } catch (Exception e) {
                 log.error("unexpected error : " + e);
                 System.exit(99);
             }
         }
+    }
+
+    @Override
+    public void join() {
+        start();
+        drawToPlayer();
+
+        // TODO: 카드를 보여준다/안보여준다는 도메인 개념으로 빼야할 것 같다.
+        drawToDealer(1);
+    }
+
+    @Override
+    public void stay() {
+        showPlayerScore();
+
+        drawToDealer(2);
+        showDealerScore();
+
+        showWinner();
+        end();
+    }
+
+    @Override
+    public void cannotHandle(final String rawInput) {
+        // TODO: 에러처리 필요. 이거 메인 클래스로 전파가 안된다. 다른 러너에서는 괜찮나?
+        log.error("cannot process user command: " + rawInput);
+        System.exit(1);
     }
 
     public void waitForPlayer() {
