@@ -2,10 +2,8 @@ package com.lette1394.blackjack;
 
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.io.PrintStream;
 import java.util.ArrayDeque;
 import java.util.Objects;
-import java.util.Scanner;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.stream.Collectors;
@@ -16,6 +14,7 @@ import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 
 import com.lette1394.blackjack.ui.ConsoleUserInterface;
+import com.lette1394.blackjack.ui.UserInterface;
 
 @Slf4j
 public class ConsoleGameRunner implements PlayerInputEventListener {
@@ -45,10 +44,10 @@ public class ConsoleGameRunner implements PlayerInputEventListener {
     int dealerScore = 0;
 
 
-    private ConsoleUserInterface consoleUserInterface;
+    private UserInterface userInterface;
 
     public ConsoleGameRunner(InputStream in, OutputStream out) {
-        consoleUserInterface = new ConsoleUserInterface(in, out, this);
+        userInterface = new ConsoleUserInterface(in, out, this);
     }
 
     public static void main(String[] args) {
@@ -63,12 +62,7 @@ public class ConsoleGameRunner implements PlayerInputEventListener {
         waitForPlayer();
 
         executorService = Executors.newSingleThreadExecutor();
-        executorService.submit(() -> runCommand());
-    }
-
-    @SneakyThrows
-    public void runCommand() {
-        consoleUserInterface.runCommand();
+        executorService.submit(() -> userInterface.runLoop());
     }
 
     @Override
@@ -149,7 +143,7 @@ public class ConsoleGameRunner implements PlayerInputEventListener {
     }
 
     private void send(final Object output) {
-        consoleUserInterface.send(output);
+        userInterface.send(output);
     }
 
 

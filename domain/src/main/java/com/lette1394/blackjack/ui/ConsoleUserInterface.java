@@ -12,12 +12,12 @@ import com.lette1394.blackjack.ConsoleGameRunner;
 import com.lette1394.blackjack.PlayerInputTranslator;
 
 @Slf4j
-public class ConsoleUserInterface {
+public class ConsoleUserInterface implements UserInterface {
 
-    private PlayerInputTranslator playerInputTranslator;
+    private final PlayerInputTranslator playerInputTranslator;
 
-    private Scanner in;
-    private PrintStream out;
+    private final Scanner in;
+    private final PrintStream out;
 
     public ConsoleUserInterface(InputStream in, OutputStream out, ConsoleGameRunner gameRunner) {
         this.in = new Scanner(in);
@@ -26,8 +26,9 @@ public class ConsoleUserInterface {
         this.playerInputTranslator = new PlayerInputTranslator(gameRunner);
     }
 
+    @Override
     @SneakyThrows
-    public void runCommand() {
+    public void runLoop() {
         // TODO: 무한 루프 괜찮나? -> 나중에 웹으로 게임을 제공하면 어떻게 되나?
         //  runner가 여러개 있어야할듯.
 
@@ -46,6 +47,7 @@ public class ConsoleUserInterface {
         }
     }
 
+    @Override
     public void send(final Object output) {
         out.println(output);
     }
