@@ -1,6 +1,8 @@
 package com.lette1394.blackjack;
 
 import java.util.Objects;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 import java.util.stream.Collectors;
 
 import lombok.RequiredArgsConstructor;
@@ -11,7 +13,7 @@ import com.lette1394.blackjack.ui.UserInterface;
 
 @Slf4j
 @RequiredArgsConstructor
-public class ConsoleGameRunner implements GameEventListener {
+public class ConsoleGameRunner implements GameEventListener, GameRunner {
     private static final String WAIT_MESSAGE = "wait for player...";
     private static final String START_MESSAGE = "new blackjack game start";
     private static final String END_MESSAGE = "game ended";
@@ -32,6 +34,17 @@ public class ConsoleGameRunner implements GameEventListener {
 
     private final UserInterface userInterface;
 
+    private final ExecutorService executorService = Executors.newSingleThreadExecutor();
+
+    @Override
+    public void run() {
+        waitForPlayer();
+        executorService.submit(() -> userInterface.runLoop());
+    }
+
+    private void waitForPlayer() {
+        send(WAIT_MESSAGE);
+    }
 
     @Override
     public void join() {
@@ -56,10 +69,6 @@ public class ConsoleGameRunner implements GameEventListener {
 
         showWinner();
         end();
-    }
-
-    public void waitForPlayer() {
-        send(WAIT_MESSAGE);
     }
 
     public void start() {

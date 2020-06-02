@@ -11,10 +11,10 @@ import lombok.SneakyThrows;
 import org.assertj.core.util.Lists;
 
 import com.lette1394.blackjack.ui.ConsoleUserInterface;
+import com.lette1394.blackjack.ui.UserInterface;
 
 public class BlackjackEndToEndTest {
     private ConsoleGameRunner runner;
-    private ConsoleGameLauncher launcher;
     private FakePlayerUserInterface player;
     private ConsoleGameRunnerAssertion assertion;
 
@@ -30,13 +30,9 @@ public class BlackjackEndToEndTest {
         PlayerInputTranslator playerInputTranslator = new PlayerInputTranslator();
 
         player = new FakePlayerUserInterface(fakeOutput);
-        ConsoleUserInterface consoleUserInterface = new ConsoleUserInterface(fakeInput,
-                                                                             runnerOutput,
-                                                                             playerInputTranslator);
-        runner = new ConsoleGameRunner(consoleUserInterface);
+        UserInterface userInterface = new ConsoleUserInterface(fakeInput, runnerOutput, playerInputTranslator);
+        runner = new ConsoleGameRunner(userInterface);
         playerInputTranslator.addListener(new PlayerInputEventAdapter(runner));
-
-        launcher = new ConsoleGameLauncher(consoleUserInterface); // TODO: remove
 
         assertion = new ConsoleGameRunnerAssertion(runnerInput);
     }
@@ -46,7 +42,7 @@ public class BlackjackEndToEndTest {
     void APlayerLoseAfterStay() {
         runner.setCardProvider(cardProvider(new Trump("♦️", "2"), new Trump("♣️", "8"),
                                             new Trump("♥️", "3"), new Trump("♠️", "9")));
-        launcher.run();
+        runner.run();
         assertion.hasShownWaitForPlayer();
 
         player.join();
@@ -70,7 +66,7 @@ public class BlackjackEndToEndTest {
     void APlayerWinAfterStay() {
         runner.setCardProvider(cardProvider(new Trump("♦️", "5"), new Trump("♣️", "5"),
                                             new Trump("♥️", "3"), new Trump("♠️", "1")));
-        launcher.run();
+        runner.run();
         assertion.hasShownWaitForPlayer();
 
         player.join();
@@ -95,7 +91,7 @@ public class BlackjackEndToEndTest {
         runner.setCardProvider(cardProvider(new Trump("♦️", "5"), new Trump("♣️", "5"),
                                             new Trump("♥️", "10"), new Trump("♠️", "10"),
                                             new Trump("♣️", "8")));
-        launcher.run();
+        runner.run();
         assertion.hasShownWaitForPlayer();
 
         player.join();

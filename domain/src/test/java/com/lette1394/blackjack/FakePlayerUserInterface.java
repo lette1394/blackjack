@@ -13,15 +13,15 @@ public class FakePlayerUserInterface implements UserInterface {
     }
 
     public void join() {
-        send(ConsoleGameLauncher.COMMAND_JOIN);
+        send("join");
     }
 
     public void hit() {
-        send(ConsoleGameLauncher.COMMAND_HIT);
+        send("hit");
     }
 
     public void stay() {
-        send(ConsoleGameLauncher.COMMAND_STAY);
+        send("stay");
     }
 
     @Override

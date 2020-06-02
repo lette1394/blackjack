@@ -3,12 +3,6 @@ package com.lette1394.blackjack;
 import java.io.InputStream;
 import java.util.Scanner;
 
-import static com.lette1394.blackjack.ConsoleGameLauncher.COMMAND_HIT;
-import static com.lette1394.blackjack.ConsoleGameLauncher.COMMAND_JOIN;
-import static com.lette1394.blackjack.ConsoleGameLauncher.COMMAND_STAY;
-import static com.lette1394.blackjack.ConsoleGameLauncher.END_MESSAGE;
-import static com.lette1394.blackjack.ConsoleGameLauncher.START_MESSAGE;
-import static com.lette1394.blackjack.ConsoleGameLauncher.WAIT_MESSAGE;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.containsString;
 import static org.hamcrest.Matchers.is;
@@ -21,35 +15,18 @@ public class ConsoleGameRunnerAssertion {
     }
 
     public void hasShownWaitForPlayer() {
-        assertThat(nextConsoleInput(), is(WAIT_MESSAGE));
-    }
-
-    public void hasReceivedPlayerJoinInput() {
-        assertThat(nextConsoleInput(), is(COMMAND_JOIN));
+        assertThat(nextConsoleInput(), is("wait for player..."));
     }
 
     public void hasShownGameIsStarted() {
-        assertThat(nextConsoleInput(), is(START_MESSAGE));
+        assertThat(nextConsoleInput(), is("new blackjack game start"));
     }
 
     public void hasShownGameIsEnded() {
-        assertThat(nextConsoleInput(), is(END_MESSAGE));
+        assertThat(nextConsoleInput(), is("game ended"));
     }
 
-    public void hasShownCards(String cards) {
-        assertThat(nextConsoleInput(), is(cards)); // (♥️1) (♠️A) "(♦️2) (♣️8)"
-    }
-
-    public void hasReceivedPlayerStayInput() {
-        assertThat(nextConsoleInput(), is(COMMAND_STAY));
-    }
-
-    public void hasReceivedPlayerHitInput() {
-        assertThat(nextConsoleInput(), is(COMMAND_HIT));
-    }
-
-
-    public void hasShownDrawCardToPlayer(String cards) {
+    public void hasShownDrawCardToPlayer(final String cards) {
         assertThat(nextConsoleInput(), is("Your Cards: " + cards));
     }
 
