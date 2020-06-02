@@ -29,7 +29,7 @@ public class ConsoleGameRunner implements GameRunner {
     }
 
     private void runLoop() {
-        playerInputTranslator.addListener(new PlayerInputEventAdapter(new BlackjackGame(cardProvider, playerInputGameOutput)));
+        playerInputTranslator.addListener(new BlackjackGame(cardProvider, playerInputGameOutput));
 
         while (true) {
             try {
