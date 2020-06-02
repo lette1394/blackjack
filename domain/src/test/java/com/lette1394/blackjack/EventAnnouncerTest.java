@@ -25,7 +25,7 @@ class EventAnnouncerTest extends BaseTest {
             oneOf(sampleListener1).call();
         }});
 
-        dispatcher.add(sampleListener1);
+        dispatcher.addListener(sampleListener1);
         dispatcher.announce().call();
     }
 
@@ -38,8 +38,8 @@ class EventAnnouncerTest extends BaseTest {
             oneOf(sampleListener2).call();
         }});
 
-        dispatcher.add(sampleListener1);
-        dispatcher.add(sampleListener2);
+        dispatcher.addListener(sampleListener1);
+        dispatcher.addListener(sampleListener2);
         dispatcher.announce().call();
     }
 

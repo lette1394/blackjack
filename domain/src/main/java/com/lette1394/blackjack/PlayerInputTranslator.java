@@ -1,41 +1,30 @@
 package com.lette1394.blackjack;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.function.Consumer;
-
 public class PlayerInputTranslator {
     private static final String COMMAND_JOIN = "join";
     private static final String COMMAND_STAY = "stay";
     private static final String COMMAND_HIT = "hit";
 
-    // TODO: refactoring: 일급 컬렉션
-    private final List<PlayerInputEventListener> listeners = new ArrayList<>();
+    private final EventAnnouncer<PlayerInputEventListener> announcer = new EventAnnouncer<>(PlayerInputEventListener.class);
 
     public void translate(final String playerInput) {
         switch (playerInput) {
             case COMMAND_JOIN:
-                notify(PlayerInputEventListener::join);
+                announcer.announce().join();
                 break;
             case COMMAND_STAY:
-                notify(PlayerInputEventListener::stay);
+                announcer.announce().stay();
                 break;
             case COMMAND_HIT:
-                notify(PlayerInputEventListener::hit);
+                announcer.announce().hit();
                 break;
             default:
-                notify(listener -> listener.cannotHandle(playerInput));
+                announcer.announce().cannotHandle(playerInput);
                 break;
         }
     }
 
     public void addListener(final PlayerInputEventListener listener) {
-        this.listeners.add(listener);
-    }
-
-    private void notify(final Consumer<PlayerInputEventListener> listenerConsumer) {
-        for (PlayerInputEventListener listener : listeners) {
-            listenerConsumer.accept(listener);
-        }
+        announcer.addListener(listener);
     }
 }

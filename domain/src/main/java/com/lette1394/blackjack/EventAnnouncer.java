@@ -28,7 +28,7 @@ public class EventAnnouncer<T extends EventListener> {
                         }));
     }
 
-    public void add(final T listener) {
+    public void addListener(final T listener) {
         listeners.add(listener);
     }
 

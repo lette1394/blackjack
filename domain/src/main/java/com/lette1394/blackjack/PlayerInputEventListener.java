@@ -9,5 +9,5 @@ public interface PlayerInputEventListener extends EventListener {
 
     void stay();
 
-    void cannotHandle(final String rawInput);
+    void cannotHandle(final String playerInput);
 }
