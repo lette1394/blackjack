@@ -12,13 +12,9 @@ import com.lette1394.blackjack.ui.UserInterface;
 @Slf4j
 @RequiredArgsConstructor
 public class ConsoleGameRunner implements GameEventListener {
-    public static final String WAIT_MESSAGE = "wait for player...";
-    public static final String START_MESSAGE = "new blackjack game start";
-    public static final String END_MESSAGE = "game ended";
-
-    public static final String COMMAND_JOIN = "join";
-    public static final String COMMAND_HIT = "hit";
-    public static final String COMMAND_STAY = "stay";
+    private static final String WAIT_MESSAGE = "wait for player...";
+    private static final String START_MESSAGE = "new blackjack game start";
+    private static final String END_MESSAGE = "game ended";
 
     // TODO: 딜러가 뽑은 카드만 특별하게 체크해야하나? 이건 player가 hit하는 테스트를 추가하고나서 더 생각해보자.
     private Trumps trumpsForDealer;
