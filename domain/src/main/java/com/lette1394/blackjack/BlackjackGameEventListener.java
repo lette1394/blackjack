@@ -3,9 +3,15 @@ package com.lette1394.blackjack;
 import java.util.EventListener;
 
 public interface BlackjackGameEventListener extends EventListener {
-    void join();
+    void start();
 
-    void hit();
+    void drawToPlayer(final int numberOfCards);
 
-    void stay();
+    void drawToDealer(final int numberOfCards);
+
+    void showDealerScore();
+
+    void showWinner();
+
+    void end();
 }
