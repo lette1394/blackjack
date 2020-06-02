@@ -8,7 +8,7 @@ import lombok.RequiredArgsConstructor;
 import com.lette1394.blackjack.ui.GameOutput;
 
 @RequiredArgsConstructor
-public class BlackjackGame implements PlayerInputEventListener {
+public class BlackjackGame implements PlayerInputEventListener, BlackjackGameEventListener {
 
     private static final String START_MESSAGE = "new blackjack game start";
     private static final String END_MESSAGE = "game ended";
@@ -58,14 +58,17 @@ public class BlackjackGame implements PlayerInputEventListener {
         throw new UnsupportedOperationException();
     }
 
+    @Override
     public void start() {
         send(START_MESSAGE);
     }
 
+    @Override
     public void end() {
         send(END_MESSAGE);
     }
 
+    @Override
     public void drawToPlayer(int howMany) {
         for (int i = 0; i < howMany; i++) {
             trumpsForPlayer.add(cardProvider.provide());
@@ -74,10 +77,12 @@ public class BlackjackGame implements PlayerInputEventListener {
         send("Your Cards: " + formatTrump(trumpsForPlayer));
     }
 
+    @Override
     public void showPlayerScore() {
         send("Your Score: " + playerScore);
     }
 
+    @Override
     public void drawToDealer(int showCards) {
         if (Objects.isNull(trumpsForDealer)) {
             trumpsForDealer = new Trumps(cardProvider.provide(), cardProvider.provide());
@@ -86,10 +91,12 @@ public class BlackjackGame implements PlayerInputEventListener {
         send("Dealer's Cards: " + formatTrump(trumpsForDealer, showCards));
     }
 
+    @Override
     public void showDealerScore() {
         send("Dealer's Score: " + dealerScore);
     }
 
+    @Override
     public void showWinner() {
         if (playerScore > dealerScore) {
             send("You WIN");
