@@ -11,7 +11,7 @@ class EventDispatcherTest extends BaseTest {
         void call();
     }
 
-    private final EventDispatcher<SampleListener> dispatcher = new EventDispatcher<>();
+    private final EventDispatcher<SampleListener> dispatcher = new EventDispatcher<>(null);
     @Mock
     private SampleListener sampleListener;
 
@@ -22,6 +22,6 @@ class EventDispatcherTest extends BaseTest {
         }});
 
         dispatcher.add(sampleListener);
-        dispatcher.dispatch();
+        dispatcher.call();
     }
 }
