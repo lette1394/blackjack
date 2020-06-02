@@ -3,8 +3,12 @@ package com.lette1394.blackjack;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
+import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 
+import com.lette1394.blackjack.ui.GameOutput;
+
+@RequiredArgsConstructor
 public class BlackjackGame implements BlackjackGameEventListener {
 
     private static final String START_MESSAGE = "new blackjack game start";
@@ -23,6 +27,8 @@ public class BlackjackGame implements BlackjackGameEventListener {
     //  생성자 의존성으로 빼야하는데 그렇게하면 테스트 만들기가 어렵네. 부분 빌더 패턴?
     @Setter
     private CardProvider cardProvider;
+
+    private final GameOutput gameOutput;
 
     @Override
     public void join() {
@@ -90,7 +96,7 @@ public class BlackjackGame implements BlackjackGameEventListener {
     }
 
     private void send(final Object output) {
-//        userInterface.send(output);
+        gameOutput.send(output);
     }
 
 
