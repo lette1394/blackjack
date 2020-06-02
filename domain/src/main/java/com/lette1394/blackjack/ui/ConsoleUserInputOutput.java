@@ -8,12 +8,12 @@ import java.util.Scanner;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
-public class ConsoleUserInterface implements UserInterface {
+public class ConsoleUserInputOutput implements UserInputOutput {
 
     private final Scanner in;
     private final PrintStream out;
 
-    public ConsoleUserInterface(InputStream in, OutputStream out) {
+    public ConsoleUserInputOutput(InputStream in, OutputStream out) {
         this.in = new Scanner(in);
         this.out = new PrintStream(out, true);
     }
@@ -24,7 +24,7 @@ public class ConsoleUserInterface implements UserInterface {
     }
 
     @Override
-    public void send(final Object output) {
+    public void sendNextOutput(final Object output) {
         out.println(output);
     }
 }

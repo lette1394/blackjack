@@ -3,25 +3,25 @@ package com.lette1394.blackjack;
 import java.io.OutputStream;
 import java.io.PrintStream;
 
-import com.lette1394.blackjack.ui.UserInterface;
+import com.lette1394.blackjack.ui.UserInputOutput;
 
-public class FakePlayerUserInterface implements UserInterface {
+public class FakePlayerUserInputOutput implements UserInputOutput {
     private final PrintStream out;
 
-    public FakePlayerUserInterface(final OutputStream out) {
+    public FakePlayerUserInputOutput(final OutputStream out) {
         this.out = new PrintStream(out, true);
     }
 
     public void join() {
-        send("join");
+        sendNextOutput("join");
     }
 
     public void hit() {
-        send("hit");
+        sendNextOutput("hit");
     }
 
     public void stay() {
-        send("stay");
+        sendNextOutput("stay");
     }
 
     @Override
@@ -30,7 +30,7 @@ public class FakePlayerUserInterface implements UserInterface {
     }
 
     @Override
-    public void send(final Object output) {
+    public void sendNextOutput(final Object output) {
         out.println(output);
     }
 }

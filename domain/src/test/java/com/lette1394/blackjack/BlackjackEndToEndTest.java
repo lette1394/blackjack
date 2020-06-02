@@ -10,12 +10,12 @@ import org.junit.jupiter.api.Timeout;
 import lombok.SneakyThrows;
 import org.assertj.core.util.Lists;
 
-import com.lette1394.blackjack.ui.ConsoleUserInterface;
-import com.lette1394.blackjack.ui.UserInterface;
+import com.lette1394.blackjack.ui.ConsoleUserInputOutput;
+import com.lette1394.blackjack.ui.UserInputOutput;
 
 public class BlackjackEndToEndTest {
     private ConsoleGameRunner runner;
-    private FakePlayerUserInterface player;
+    private FakePlayerUserInputOutput player;
     private ConsoleGameRunnerAssertion assertion;
 
     @BeforeEach
@@ -28,10 +28,10 @@ public class BlackjackEndToEndTest {
         PipedOutputStream runnerOutput = new PipedOutputStream(runnerInput);
 
         PlayerInputTranslator playerInputTranslator = new PlayerInputTranslator();
-        UserInterface userInterface = new ConsoleUserInterface(fakeInput, runnerOutput);
+        UserInputOutput userInputOutput = new ConsoleUserInputOutput(fakeInput, runnerOutput);
 
-        player = new FakePlayerUserInterface(fakeOutput);
-        runner = new ConsoleGameRunner(userInterface, playerInputTranslator);
+        player = new FakePlayerUserInputOutput(fakeOutput);
+        runner = new ConsoleGameRunner(userInputOutput, playerInputTranslator);
 
         assertion = new ConsoleGameRunnerAssertion(runnerInput);
     }

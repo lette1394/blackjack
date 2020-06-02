@@ -2,15 +2,15 @@ package com.lette1394.blackjack;
 
 import lombok.extern.slf4j.Slf4j;
 
-import com.lette1394.blackjack.ui.ConsoleUserInterface;
-import com.lette1394.blackjack.ui.UserInterface;
+import com.lette1394.blackjack.ui.ConsoleUserInputOutput;
+import com.lette1394.blackjack.ui.UserInputOutput;
 
 @Slf4j
 public class ConsoleGameLauncher {
     public static void main(String[] args) {
         final PlayerInputTranslator playerInputTranslator = new PlayerInputTranslator();
-        final UserInterface userInterface = new ConsoleUserInterface(System.in, System.out);
-        final ConsoleGameRunner runner = new ConsoleGameRunner(userInterface, playerInputTranslator);
+        final UserInputOutput userInputOutput = new ConsoleUserInputOutput(System.in, System.out);
+        final ConsoleGameRunner runner = new ConsoleGameRunner(userInputOutput, playerInputTranslator);
         playerInputTranslator.addListener(new PlayerInputEventAdapter(runner));
 
         runner.run();
