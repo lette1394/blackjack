@@ -25,8 +25,8 @@ public class FakePlayerUserInterface implements UserInterface {
     }
 
     @Override
-    public void runLoop() {
-        // no-op
+    public String getNextInput() {
+        throw new UnsupportedOperationException();
     }
 
     @Override

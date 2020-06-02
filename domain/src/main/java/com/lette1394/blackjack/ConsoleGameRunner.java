@@ -13,7 +13,7 @@ import com.lette1394.blackjack.ui.UserInterface;
 
 @Slf4j
 @RequiredArgsConstructor
-public class ConsoleGameRunner implements GameEventListener, GameRunner {
+public class ConsoleGameRunner implements BlackjackGameEventListener, GameRunner {
     private static final String WAIT_MESSAGE = "wait for player...";
     private static final String START_MESSAGE = "new blackjack game start";
     private static final String END_MESSAGE = "game ended";
@@ -33,13 +33,35 @@ public class ConsoleGameRunner implements GameEventListener, GameRunner {
     private CardProvider cardProvider;
 
     private final UserInterface userInterface;
+    private final PlayerInputTranslator playerInputTranslator;
 
     private final ExecutorService executorService = Executors.newSingleThreadExecutor();
 
     @Override
     public void run() {
         waitForPlayer();
-        executorService.submit(() -> userInterface.runLoop());
+        executorService.submit(() -> runLoop());
+    }
+
+    private void runLoop() {
+        // TODO: 무한 루프 괜찮나? -> 나중에 웹으로 게임을 제공하면 어떻게 되나?
+        //  runner가 여러개 있어야할듯.
+
+        playerInputTranslator.addListener(new PlayerInputEventAdapter(this));
+
+        while (true) {
+            try {
+                // TODO: blocking 되는 코드 괜찮나? notify 형식으로 해야하는거 아닌가...
+                String userInput = userInterface.getNextInput();
+                System.out.println("\f");
+                playerInputTranslator.translate(userInput);
+                Thread.sleep(50);
+            } catch (Exception e) {
+                log.error("unexpected error : " + e);
+                e.printStackTrace();
+                System.exit(99);
+            }
+        }
     }
 
     private void waitForPlayer() {

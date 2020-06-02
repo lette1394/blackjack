@@ -9,10 +9,8 @@ import com.lette1394.blackjack.ui.UserInterface;
 public class ConsoleGameLauncher {
     public static void main(String[] args) {
         final PlayerInputTranslator playerInputTranslator = new PlayerInputTranslator();
-        final UserInterface userInterface = new ConsoleUserInterface(System.in,
-                                                                     System.out,
-                                                                     playerInputTranslator);
-        final ConsoleGameRunner runner = new ConsoleGameRunner(userInterface);
+        final UserInterface userInterface = new ConsoleUserInterface(System.in, System.out);
+        final ConsoleGameRunner runner = new ConsoleGameRunner(userInterface, playerInputTranslator);
         playerInputTranslator.addListener(new PlayerInputEventAdapter(runner));
 
         runner.run();

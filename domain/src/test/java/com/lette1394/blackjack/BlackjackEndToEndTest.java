@@ -28,11 +28,10 @@ public class BlackjackEndToEndTest {
         PipedOutputStream runnerOutput = new PipedOutputStream(runnerInput);
 
         PlayerInputTranslator playerInputTranslator = new PlayerInputTranslator();
+        UserInterface userInterface = new ConsoleUserInterface(fakeInput, runnerOutput);
 
         player = new FakePlayerUserInterface(fakeOutput);
-        UserInterface userInterface = new ConsoleUserInterface(fakeInput, runnerOutput, playerInputTranslator);
-        runner = new ConsoleGameRunner(userInterface);
-        playerInputTranslator.addListener(new PlayerInputEventAdapter(runner));
+        runner = new ConsoleGameRunner(userInterface, playerInputTranslator);
 
         assertion = new ConsoleGameRunnerAssertion(runnerInput);
     }

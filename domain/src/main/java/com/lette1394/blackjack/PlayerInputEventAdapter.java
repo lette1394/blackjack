@@ -4,7 +4,7 @@ import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
 public class PlayerInputEventAdapter implements PlayerInputEventListener {
-    private final GameEventListener listener;
+    private final BlackjackGameEventListener listener;
 
     @Override
     public void join() {
