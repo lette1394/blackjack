@@ -8,12 +8,12 @@ import java.util.Scanner;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
-public class ConsoleUserInputOutput implements UserInputOutput {
+public class ConsolePlayerInputGameOutput implements PlayerInputGameOutput {
 
     private final Scanner in;
     private final PrintStream out;
 
-    public ConsoleUserInputOutput(InputStream in, OutputStream out) {
+    public ConsolePlayerInputGameOutput(InputStream in, OutputStream out) {
         this.in = new Scanner(in);
         this.out = new PrintStream(out, true);
     }
@@ -24,7 +24,7 @@ public class ConsoleUserInputOutput implements UserInputOutput {
     }
 
     @Override
-    public void sendNextOutput(final Object output) {
+    public void sendOutput(final Object output) {
         out.println(output);
     }
 }

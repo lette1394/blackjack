@@ -9,7 +9,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 
-import com.lette1394.blackjack.ui.UserInputOutput;
+import com.lette1394.blackjack.ui.PlayerInputGameOutput;
 
 @Slf4j
 @RequiredArgsConstructor
@@ -32,7 +32,7 @@ public class ConsoleGameRunner implements BlackjackGameEventListener, GameRunner
     @Setter
     private CardProvider cardProvider;
 
-    private final UserInputOutput userInputOutput;
+    private final PlayerInputGameOutput playerInputGameOutput;
     private final PlayerInputTranslator playerInputTranslator;
 
     private final ExecutorService executorService = Executors.newSingleThreadExecutor();
@@ -52,7 +52,7 @@ public class ConsoleGameRunner implements BlackjackGameEventListener, GameRunner
         while (true) {
             try {
                 // TODO: blocking 되는 코드 괜찮나? notify 형식으로 해야하는거 아닌가...
-                String userInput = userInputOutput.getNextInput();
+                String userInput = playerInputGameOutput.getNextInput();
                 System.out.println("\f");
                 playerInputTranslator.translate(userInput);
                 Thread.sleep(50);
@@ -134,7 +134,7 @@ public class ConsoleGameRunner implements BlackjackGameEventListener, GameRunner
     }
 
     private void send(final Object output) {
-        userInputOutput.sendNextOutput(output);
+        playerInputGameOutput.sendOutput(output);
     }
 
 
