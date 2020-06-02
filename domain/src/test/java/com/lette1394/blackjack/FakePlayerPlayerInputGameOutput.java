@@ -13,24 +13,24 @@ public class FakePlayerPlayerInputGameOutput implements PlayerInputGameOutput {
     }
 
     public void join() {
-        sendOutput("join");
+        send("join");
     }
 
     public void hit() {
-        sendOutput("hit");
+        send("hit");
     }
 
     public void stay() {
-        sendOutput("stay");
+        send("stay");
     }
 
     @Override
-    public String getNextInput() {
+    public String get() {
         throw new UnsupportedOperationException();
     }
 
     @Override
-    public void sendOutput(final Object output) {
+    public void send(final Object output) {
         out.println(output);
     }
 }

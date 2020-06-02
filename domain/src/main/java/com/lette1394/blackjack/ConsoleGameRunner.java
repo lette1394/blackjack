@@ -52,7 +52,7 @@ public class ConsoleGameRunner implements BlackjackGameEventListener, GameRunner
         while (true) {
             try {
                 // TODO: blocking 되는 코드 괜찮나? notify 형식으로 해야하는거 아닌가...
-                String userInput = playerInputGameOutput.getNextInput();
+                String userInput = playerInputGameOutput.get();
                 System.out.println("\f");
                 playerInputTranslator.translate(userInput);
                 Thread.sleep(50);
@@ -134,7 +134,7 @@ public class ConsoleGameRunner implements BlackjackGameEventListener, GameRunner
     }
 
     private void send(final Object output) {
-        playerInputGameOutput.sendOutput(output);
+        playerInputGameOutput.send(output);
     }
 
 

@@ -19,12 +19,12 @@ public class ConsolePlayerInputGameOutput implements PlayerInputGameOutput {
     }
 
     @Override
-    public String getNextInput() {
+    public String get() {
         return in.nextLine();
     }
 
     @Override
-    public void sendOutput(final Object output) {
+    public void send(final Object output) {
         out.println(output);
     }
 }
