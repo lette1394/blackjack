@@ -16,12 +16,12 @@ public class ConsoleBlackjackGame implements BlackjackGameEventListener {
     }
 
     @Override
-    public void drawToPlayer(final int numberOfCards, final Trumps trumps) {
+    public void playerHandsChanged(final int numberOfCards, final Trumps trumps) {
         send("Your Cards: " + formatTrump(trumps));
     }
 
     @Override
-    public void drawToDealer(final int numberOfCards, final Trumps trumps) {
+    public void dealerHandsChanged(final int numberOfCards, final Trumps trumps) {
         send("Dealer's Cards: " + formatTrump(trumps, numberOfCards));
     }
 

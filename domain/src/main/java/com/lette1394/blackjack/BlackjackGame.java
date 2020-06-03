@@ -61,7 +61,7 @@ public class BlackjackGame implements BlackjackPlayerCommandListener {
         }
         playerScore = trumpsForPlayer.getScore();
 
-        game.announce().drawToPlayer(2, trumpsForPlayer);
+        game.announce().playerHandsChanged(2, trumpsForPlayer);
     }
 
     public void showPlayerScore() {
@@ -74,7 +74,7 @@ public class BlackjackGame implements BlackjackPlayerCommandListener {
         }
         dealerScore = trumpsForDealer.getScore();
 
-        game.announce().drawToDealer(showCards, trumpsForDealer);
+        game.announce().dealerHandsChanged(showCards, trumpsForDealer);
     }
 
     public void showDealerScore() {
