@@ -14,10 +14,10 @@ import com.lette1394.blackjack.ui.ConsolePlayerInputGameOutput;
 import com.lette1394.blackjack.ui.PlayerInputGameOutput;
 
 public class BlackjackEndToEndTest {
-    private ConsoleGameRunner runner;
+    private BlackjackGameRunner runner;
     private FakePlayerPlayerInputGameOutput player;
     private ConsoleGameRunnerAssertion assertion;
-    private PlayerInputTranslator playerInputTranslator;
+    private BlackjackPlayerInputTranslator blackjackPlayerInputTranslator;
     private PlayerInputGameOutput playerInputGameOutput;
 
     @BeforeEach
@@ -29,9 +29,9 @@ public class BlackjackEndToEndTest {
         PipedOutputStream runnerOutput = new PipedOutputStream(runnerInput);
 
         playerInputGameOutput = new ConsolePlayerInputGameOutput(fakeInput, runnerOutput);
-        playerInputTranslator = new PlayerInputTranslator();
+        blackjackPlayerInputTranslator = new BlackjackPlayerInputTranslator();
         player = new FakePlayerPlayerInputGameOutput(fakeOutput);
-        runner = new ConsoleGameRunner(playerInputGameOutput, playerInputTranslator);
+        runner = new BlackjackGameRunner(playerInputGameOutput, blackjackPlayerInputTranslator);
 
         assertion = new ConsoleGameRunnerAssertion(runnerInput);
     }
@@ -41,7 +41,7 @@ public class BlackjackEndToEndTest {
     void APlayerLoseAfterStay() {
         final CardProvider cardProvider = cardProvider(new Trump("♦️", "2"), new Trump("♣️", "8"),
                                                        new Trump("♥️", "3"), new Trump("♠️", "9"));
-        playerInputTranslator.addListener(new BlackjackGame(cardProvider, playerInputGameOutput));
+        blackjackPlayerInputTranslator.addListener(new BlackjackGame(cardProvider, playerInputGameOutput));
 
         runner.run();
         assertion.hasShownWaitForPlayer();
@@ -67,7 +67,7 @@ public class BlackjackEndToEndTest {
     void APlayerWinAfterStay() {
         final CardProvider cardProvider = cardProvider(new Trump("♦️", "5"), new Trump("♣️", "5"),
                                                        new Trump("♥️", "3"), new Trump("♠️", "1"));
-        playerInputTranslator.addListener(new BlackjackGame(cardProvider, playerInputGameOutput));
+        blackjackPlayerInputTranslator.addListener(new BlackjackGame(cardProvider, playerInputGameOutput));
 
         runner.run();
         assertion.hasShownWaitForPlayer();
@@ -94,7 +94,7 @@ public class BlackjackEndToEndTest {
         final CardProvider cardProvider = cardProvider(new Trump("♦️", "5"), new Trump("♣️", "5"),
                                                        new Trump("♥️", "10"), new Trump("♠️", "10"),
                                                        new Trump("♣️", "8"));
-        playerInputTranslator.addListener(new BlackjackGame(cardProvider, playerInputGameOutput));
+        blackjackPlayerInputTranslator.addListener(new BlackjackGame(cardProvider, playerInputGameOutput));
 
         runner.run();
         assertion.hasShownWaitForPlayer();

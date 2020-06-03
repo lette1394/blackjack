@@ -1,6 +1,6 @@
 package com.lette1394.blackjack;
 
-public class PlayerInputTranslator {
+public class BlackjackPlayerInputTranslator {
     private static final String COMMAND_JOIN = "join";
     private static final String COMMAND_STAY = "stay";
     private static final String COMMAND_HIT = "hit";

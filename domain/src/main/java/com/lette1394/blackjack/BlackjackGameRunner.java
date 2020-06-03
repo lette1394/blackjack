@@ -7,9 +7,9 @@ import com.lette1394.blackjack.ui.PlayerInputGameOutput;
 
 @Slf4j
 @RequiredArgsConstructor
-public class ConsoleGameRunner implements GameRunner {
+public class BlackjackGameRunner implements GameRunner {
     private final PlayerInputGameOutput playerInputGameOutput;
-    private final PlayerInputTranslator playerInputTranslator;
+    private final BlackjackPlayerInputTranslator blackjackPlayerInputTranslator;
 
     @Override
     public void run() {
@@ -18,7 +18,7 @@ public class ConsoleGameRunner implements GameRunner {
         new SingleThreadGameRunner(new InfiniteLoopGameRunner(() -> {
             try {
                 String userInput = playerInputGameOutput.get();
-                playerInputTranslator.translate(userInput);
+                blackjackPlayerInputTranslator.translate(userInput);
                 Thread.sleep(50);
             } catch (Exception e) {
                 log.error("unexpected error : " + e);
