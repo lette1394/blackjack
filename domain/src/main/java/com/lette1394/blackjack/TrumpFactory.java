@@ -5,23 +5,26 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class TrumpFactory {
-    private final List<MapperTo<Trump.Suit>> suitMappers = new ArrayList<>();
-    private final List<MapperTo<Trump.Value>> valueMappers = new ArrayList<>();
+    private static final List<MapperTo<Trump.Suit>> suitMappers = new ArrayList<>();
+    private static final List<MapperTo<Trump.Value>> valueMappers = new ArrayList<>();
 
-    public TrumpFactory() {
+    static {
         suitMappers.add(new EmojiSuitMapper());
         valueMappers.add(new IgnoreCaseStringValueMapper());
     }
 
-    public Trump trump(final String rawSuit, final String rawValue) {
+    public static Trump trump(final String rawSuit, final String rawValue) {
         return new Trump(parse(rawSuit, suitMappers, String.format("%s is not a emoji suit. Choose one of ♥️/♠️/♦️/♣️", rawSuit)),
                          parse(rawValue, valueMappers, String.format("%s is not a trump value. Choose one of Ace, 2~10, Jack, Queen, King", rawValue)));
     }
 
-    private <T, MAPPER extends List<MapperTo<T>>> T parse(final String rawString,
+    private static <T, MAPPER extends List<MapperTo<T>>> T parse(final String rawString,
                                                           final MAPPER mapper,
                                                           final String exceptionMessage) {
         return mapper.stream()
