@@ -13,6 +13,8 @@ import lombok.SneakyThrows;
 import com.lette1394.blackjack.ui.ConsolePlayerInputGameOutput;
 import com.lette1394.blackjack.ui.PlayerInputGameOutput;
 
+import static com.lette1394.blackjack.TrumpFactory.trump;
+
 public class BlackjackEndToEndTest {
     private BlackjackGameRunner runner;
     private FakePlayerPlayerInputGameOutput player;
@@ -39,8 +41,8 @@ public class BlackjackEndToEndTest {
     @Test
     @Timeout(1)
     void APlayerLoseAfterStay() {
-        final CardProvider cardProvider = cardProvider(new Trump("♦️", "2"), new Trump("♣️", "8"),
-                                                       new Trump("♥️", "3"), new Trump("♠️", "9"));
+        final CardProvider cardProvider = cardProvider(trump("♦️", "2"), trump("♣️", "8"),
+                                                       trump("♥️", "3"), trump("♠️", "9"));
         final BlackjackGame blackjackGame = new BlackjackGame(cardProvider);
         blackjackGame.addListener(new ConsoleBlackjackGame(playerInputGameOutput));
         blackjackPlayerInputTranslator.addListener(blackjackGame);
@@ -67,8 +69,8 @@ public class BlackjackEndToEndTest {
     @Test
     @Timeout(1)
     void APlayerWinAfterStay() {
-        final CardProvider cardProvider = cardProvider(new Trump("♦️", "5"), new Trump("♣️", "5"),
-                                                       new Trump("♥️", "3"), new Trump("♠️", "1"));
+        final CardProvider cardProvider = cardProvider(trump("♦️", "5"), trump("♣️", "5"),
+                                                       trump("♥️", "3"), trump("♠️", "2"));
         final BlackjackGame blackjackGame = new BlackjackGame(cardProvider);
         blackjackGame.addListener(new ConsoleBlackjackGame(playerInputGameOutput));
         blackjackPlayerInputTranslator.addListener(blackjackGame);
@@ -84,8 +86,8 @@ public class BlackjackEndToEndTest {
         player.stay();
         assertion.hasShownPlayerScore(10);
 
-        assertion.hasShownDealerGotCards("(♥️3) (♠️1)");
-        assertion.hasShownDealerScore(4);
+        assertion.hasShownDealerGotCards("(♥️3) (♠️2)");
+        assertion.hasShownDealerScore(5);
 
         assertion.hasShownPlayerWin();
 
@@ -95,9 +97,9 @@ public class BlackjackEndToEndTest {
     @Test
     @Timeout(1)
     void APlayerLosesAfterHit() {
-        final CardProvider cardProvider = cardProvider(new Trump("♦️", "5"), new Trump("♣️", "5"),
-                                                       new Trump("♥️", "10"), new Trump("♠️", "10"),
-                                                       new Trump("♣️", "8"));
+        final CardProvider cardProvider = cardProvider(trump("♦️", "5"), trump("♣️", "5"),
+                                                       trump("♥️", "10"), trump("♠️", "10"),
+                                                       trump("♣️", "8"));
         final BlackjackGame blackjackGame = new BlackjackGame(cardProvider);
         blackjackGame.addListener(new ConsoleBlackjackGame(playerInputGameOutput));
         blackjackPlayerInputTranslator.addListener(blackjackGame);

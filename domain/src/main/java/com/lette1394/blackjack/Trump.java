@@ -1,23 +1,14 @@
 package com.lette1394.blackjack;
 
 import lombok.EqualsAndHashCode;
+import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
 @EqualsAndHashCode
 @RequiredArgsConstructor
 public class Trump {
-    public final String suit;
-    public final String value;
-
-    private Suit suitt;
-    private Value valuee;
-
-    public Trump(final Suit heart, final Value two) {
-        suitt = heart;
-        valuee = two;
-        suit = "";
-        value = "";
-    }
+    public final Suit suit;
+    public final Value value;
 
     public enum Suit {
         HEART,
@@ -26,9 +17,17 @@ public class Trump {
         CLUB
     }
 
+    @RequiredArgsConstructor
     public enum Value {
-        ACE,
-        TWO, THREE, FOUR, FIVE, SIX, SEVEN, EIGHT, NINE, TEN,
-        JACK, QUEEN, KING
+        ACE(1),
+        TWO(2), THREE(3), FOUR(4), FIVE(5), SIX(6), SEVEN(7), EIGHT(8), NINE(9), TEN(10),
+        JACK(10), QUEEN(10), KING(10);
+
+        @Getter
+        private final int score;
+    }
+
+    public int getScore() {
+        return value.getScore();
     }
 }

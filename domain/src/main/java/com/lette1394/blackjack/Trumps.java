@@ -17,8 +17,7 @@ public class Trumps {
 
     public int getScore() {
         return trumps.stream()
-                     .map(trump -> trump.value)
-                     .map(Integer::valueOf)
+                     .map(Trump::getScore)
                      .reduce(0, Integer::sum);
     }
 

@@ -1,5 +1,7 @@
 package com.lette1394.blackjack;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 import lombok.RequiredArgsConstructor;
@@ -56,7 +58,7 @@ public class ConsoleBlackjackGame implements BlackjackGameEventListener {
     // TODO: formatter?
     private String formatTrump(Trumps trumps) {
         return trumps.raw().stream()
-                     .map(trump -> String.format("(%s%s)", trump.suit, trump.value))
+                     .map(TrumpToStringFormatter::format)
                      .collect(Collectors.joining(" "));
     }
 
@@ -66,7 +68,7 @@ public class ConsoleBlackjackGame implements BlackjackGameEventListener {
 
         for (Trump trump : trumps.raw()) {
             if (i < howManyShowingCards) {
-                sb.append(String.format("(%s%s)", trump.suit, trump.value));
+                sb.append(TrumpToStringFormatter.format(trump));
             } else {
                 sb.append("(??)");
             }
@@ -74,5 +76,34 @@ public class ConsoleBlackjackGame implements BlackjackGameEventListener {
             i++;
         }
         return sb.toString().substring(0, sb.toString().length() - 1);
+    }
+
+    private static class TrumpToStringFormatter {
+        private static final Map<Trump.Suit, String> suitMap = new HashMap<>() {{
+            put(Trump.Suit.HEART, "♥️");
+            put(Trump.Suit.SPADE, "♠️");
+            put(Trump.Suit.DIAMOND, "♦️");
+            put(Trump.Suit.CLUB, "♣️");
+        }};
+
+        private static final Map<Trump.Value, String> valueMap = new HashMap<>() {{
+            put(Trump.Value.ACE, "A");
+            put(Trump.Value.TWO, "2");
+            put(Trump.Value.THREE, "3");
+            put(Trump.Value.FOUR, "4");
+            put(Trump.Value.FIVE, "5");
+            put(Trump.Value.SIX, "6");
+            put(Trump.Value.SEVEN, "7");
+            put(Trump.Value.EIGHT, "8");
+            put(Trump.Value.NINE, "9");
+            put(Trump.Value.TEN, "10");
+            put(Trump.Value.JACK, "J");
+            put(Trump.Value.QUEEN, "Q");
+            put(Trump.Value.KING, "K");
+        }};
+
+        public static String format(final Trump trump) {
+            return String.format("(%s%s)", suitMap.get(trump.suit), valueMap.get(trump.value));
+        }
     }
 }
