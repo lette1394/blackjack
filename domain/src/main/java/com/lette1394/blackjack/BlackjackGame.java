@@ -27,11 +27,7 @@ public class BlackjackGame implements BlackjackPlayerCommandListener {
     @Override
     public void join() {
         start();
-
         drawToPlayer(2);
-
-
-        // TODO: 카드를 보여준다/안보여준다는 도메인 개념으로 빼야할 것 같다.
         drawToDealer(1);
     }
 
@@ -43,11 +39,8 @@ public class BlackjackGame implements BlackjackPlayerCommandListener {
     @Override
     public void stay() {
         showPlayerScore();
-
         drawToDealer(2);
-
         showDealerScore();
-
         showWinner();
 
         end();
