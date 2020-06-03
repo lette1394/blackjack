@@ -14,14 +14,14 @@ public class BlackjackGame implements BlackjackPlayerCommandListener {
     int dealerScore = 0;
 
     private final CardProvider cardProvider;
-    private final EventAnnouncer<BlackjackGameEventListener> gameEvents = new EventAnnouncer<>(BlackjackGameEventListener.class);
+    private final EventAnnouncer<BlackjackGameEventListener> game = new EventAnnouncer<>(BlackjackGameEventListener.class);
 
     public BlackjackGame(final CardProvider cardProvider) {
         this.cardProvider = cardProvider;
     }
 
     public void addListener(final BlackjackGameEventListener listener) {
-        gameEvents.addListener(listener);
+        game.addListener(listener);
     }
 
     @Override
@@ -52,7 +52,7 @@ public class BlackjackGame implements BlackjackPlayerCommandListener {
     }
 
     public void start() {
-        gameEvents.announce().start();
+        game.announce().start();
     }
 
     public void drawToPlayer(int howMany) {
@@ -61,11 +61,11 @@ public class BlackjackGame implements BlackjackPlayerCommandListener {
         }
         playerScore = trumpsForPlayer.getScore();
 
-        gameEvents.announce().drawToPlayer(2, trumpsForPlayer);
+        game.announce().drawToPlayer(2, trumpsForPlayer);
     }
 
     public void showPlayerScore() {
-        gameEvents.announce().showPlayerScore(playerScore);
+        game.announce().showPlayerScore(playerScore);
     }
 
     public void drawToDealer(int showCards) {
@@ -74,18 +74,18 @@ public class BlackjackGame implements BlackjackPlayerCommandListener {
         }
         dealerScore = trumpsForDealer.getScore();
 
-        gameEvents.announce().drawToDealer(showCards, trumpsForDealer);
+        game.announce().drawToDealer(showCards, trumpsForDealer);
     }
 
     public void showDealerScore() {
-        gameEvents.announce().showDealerScore(dealerScore);
+        game.announce().showDealerScore(dealerScore);
     }
 
     public void showWinner() {
-        gameEvents.announce().showWinner(playerScore, dealerScore);
+        game.announce().showWinner(playerScore, dealerScore);
     }
 
     public void end() {
-        gameEvents.announce().end();
+        game.announce().end();
     }
 }
