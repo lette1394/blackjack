@@ -26,18 +26,18 @@ public class ConsoleBlackjackGame implements BlackjackGameEventListener {
     }
 
     @Override
-    public void dealerTurnEnds(final int score) {
-        send("Dealer's Score: " + score);
+    public void dealerTurnEnds(final Trumps trumps) {
+        send("Dealer's Score: " + trumps.getScore());
     }
 
     @Override
-    public void playerTurnEnds(final int finalScore) {
-        send("Your Score: " + finalScore);
+    public void playerTurnEnds(final Trumps trumps) {
+        send("Your Score: " + trumps.getScore());
     }
 
     @Override
-    public void showWinner(final int playerScore, final int dealerScore) {
-        if (playerScore > dealerScore) {
+    public void showWinner(final Trumps playerTrumps, final Trumps dealerTrumps) {
+        if (playerTrumps.getScore() > dealerTrumps.getScore()) {
             send("You WIN");
         } else {
             send("You LOSE");

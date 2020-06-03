@@ -9,11 +9,11 @@ public interface BlackjackGameEventListener extends EventListener {
 
     void dealerHandsChanged(final int numberOfCards, final Trumps trumps);
 
-    void playerTurnEnds(final int finalScore);
+    void playerTurnEnds(final Trumps trumps);
 
-    void dealerTurnEnds(final int score);
+    void dealerTurnEnds(final Trumps trumps);
 
-    void showWinner(final int playerScore, final int dealerScore);
+    void showWinner(final Trumps playerTrumps, final Trumps dealerTrumps);
 
     void end();
 }
