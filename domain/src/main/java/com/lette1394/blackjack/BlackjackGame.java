@@ -1,7 +1,5 @@
 package com.lette1394.blackjack;
 
-import java.util.Objects;
-
 public class BlackjackGame implements BlackjackPlayerCommandListener {
 
     // TODO: 딜러가 뽑은 카드만 특별하게 체크해야하나? 이건 player가 hit하는 테스트를 추가하고나서 더 생각해보자.
@@ -41,7 +39,7 @@ public class BlackjackGame implements BlackjackPlayerCommandListener {
         playerTurnEnds();
 
         showDealerCards(2);
-        showDealerScore();
+        dealerTurnEnds();
 
         showWinner();
         end();
@@ -80,8 +78,8 @@ public class BlackjackGame implements BlackjackPlayerCommandListener {
         game.announce().dealerHandsChanged(showCards, trumpsForDealer);
     }
 
-    public void showDealerScore() {
-        game.announce().showDealerScore(dealerScore);
+    public void dealerTurnEnds() {
+        game.announce().dealerTurnEnds(dealerScore);
     }
 
     public void showWinner() {

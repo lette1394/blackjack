@@ -26,12 +26,7 @@ public class ConsoleBlackjackGame implements BlackjackGameEventListener {
     }
 
     @Override
-    public void showPlayerScore(final int score) {
-        send("Your Score: " + score);
-    }
-
-    @Override
-    public void showDealerScore(final int score) {
+    public void dealerTurnEnds(final int score) {
         send("Dealer's Score: " + score);
     }
 

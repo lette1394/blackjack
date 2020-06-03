@@ -11,7 +11,7 @@ public interface BlackjackGameEventListener extends EventListener {
 
     void playerTurnEnds(final int finalScore);
 
-    void showDealerScore(final int score);
+    void dealerTurnEnds(final int score);
 
     void showWinner(final int playerScore, final int dealerScore);
 
