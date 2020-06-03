@@ -38,11 +38,12 @@ public class BlackjackGame implements BlackjackPlayerCommandListener {
 
     @Override
     public void stay() {
-        showPlayerScore();
-        drawToDealer(2);
-        showDealerScore();
-        showWinner();
+        playerTurnEnds();
 
+        showDealerCards(2);
+        showDealerScore();
+
+        showWinner();
         end();
     }
 
@@ -64,16 +65,18 @@ public class BlackjackGame implements BlackjackPlayerCommandListener {
         game.announce().playerHandsChanged(2, trumpsForPlayer);
     }
 
-    public void showPlayerScore() {
-        game.announce().showPlayerScore(playerScore);
+    public void playerTurnEnds() {
+        game.announce().playerTurnEnds(playerScore);
     }
 
     public void drawToDealer(int showCards) {
-        if (Objects.isNull(trumpsForDealer)) {
-            trumpsForDealer = new Trumps(cardProvider.provide(), cardProvider.provide());
-        }
+        trumpsForDealer = new Trumps(cardProvider.provide(), cardProvider.provide());
         dealerScore = trumpsForDealer.getScore();
 
+        game.announce().dealerHandsChanged(showCards, trumpsForDealer);
+    }
+
+    public void showDealerCards(int showCards) {
         game.announce().dealerHandsChanged(showCards, trumpsForDealer);
     }
 

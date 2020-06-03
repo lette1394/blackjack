@@ -36,6 +36,11 @@ public class ConsoleBlackjackGame implements BlackjackGameEventListener {
     }
 
     @Override
+    public void playerTurnEnds(final int finalScore) {
+        send("Your Score: " + finalScore);
+    }
+
+    @Override
     public void showWinner(final int playerScore, final int dealerScore) {
         if (playerScore > dealerScore) {
             send("You WIN");
