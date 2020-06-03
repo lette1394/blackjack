@@ -5,7 +5,8 @@ public class BlackjackPlayerInputTranslator {
     private static final String COMMAND_STAY = "stay";
     private static final String COMMAND_HIT = "hit";
 
-    private final EventAnnouncer<PlayerCommandListener> announcer = new EventAnnouncer<>(PlayerCommandListener.class);
+    private final EventAnnouncer<BlackjackPlayerCommandListener> announcer = new EventAnnouncer<>(
+            BlackjackPlayerCommandListener.class);
 
     public void translate(final String playerInput) {
         switch (playerInput) {
@@ -24,7 +25,7 @@ public class BlackjackPlayerInputTranslator {
         }
     }
 
-    public void addListener(final PlayerCommandListener listener) {
+    public void addListener(final BlackjackPlayerCommandListener listener) {
         announcer.addListener(listener);
     }
 }

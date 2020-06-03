@@ -2,7 +2,7 @@ package com.lette1394.blackjack;
 
 import java.util.EventListener;
 
-public interface PlayerCommandListener extends EventListener {
+public interface BlackjackPlayerCommandListener extends EventListener {
     void join();
 
     void hit();

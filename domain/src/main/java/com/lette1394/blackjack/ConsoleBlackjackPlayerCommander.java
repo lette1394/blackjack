@@ -3,7 +3,7 @@ package com.lette1394.blackjack;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
-public class ConsolePlayerCommander implements PlayerCommandListener {
+public class ConsoleBlackjackPlayerCommander implements BlackjackPlayerCommandListener {
 
     @Override
     public void join() {

@@ -8,7 +8,7 @@ import lombok.RequiredArgsConstructor;
 import com.lette1394.blackjack.ui.GameOutput;
 
 @RequiredArgsConstructor
-public class BlackjackGame implements PlayerCommandListener, BlackjackGameEventListener {
+public class BlackjackGame implements BlackjackPlayerCommandListener, BlackjackGameEventListener {
 
     private static final String START_MESSAGE = "new blackjack game start";
     private static final String END_MESSAGE = "game ended";

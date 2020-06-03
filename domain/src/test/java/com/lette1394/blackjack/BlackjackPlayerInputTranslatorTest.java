@@ -8,7 +8,7 @@ import org.jmock.auto.Mock;
 import com.lette1394.blackjack.util.BaseTest;
 
 class BlackjackPlayerInputTranslatorTest extends BaseTest {
-    @Mock PlayerCommandListener listener;
+    @Mock BlackjackPlayerCommandListener listener;
     private BlackjackPlayerInputTranslator translator;
 
     @BeforeEach
