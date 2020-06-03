@@ -5,7 +5,7 @@ public class PlayerInputTranslator {
     private static final String COMMAND_STAY = "stay";
     private static final String COMMAND_HIT = "hit";
 
-    private final EventAnnouncer<PlayerInputEventListener> announcer = new EventAnnouncer<>(PlayerInputEventListener.class);
+    private final EventAnnouncer<PlayerCommandListener> announcer = new EventAnnouncer<>(PlayerCommandListener.class);
 
     public void translate(final String playerInput) {
         switch (playerInput) {
@@ -24,7 +24,7 @@ public class PlayerInputTranslator {
         }
     }
 
-    public void addListener(final PlayerInputEventListener listener) {
+    public void addListener(final PlayerCommandListener listener) {
         announcer.addListener(listener);
     }
 }
