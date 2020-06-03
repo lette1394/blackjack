@@ -7,8 +7,7 @@ import lombok.RequiredArgsConstructor;
 
 import com.lette1394.blackjack.ui.GameOutput;
 
-@RequiredArgsConstructor
-public class BlackjackGame implements BlackjackPlayerCommandListener, BlackjackGameEventListener {
+public class BlackjackGame implements BlackjackPlayerCommandListener {
 
     private static final String START_MESSAGE = "new blackjack game start";
     private static final String END_MESSAGE = "game ended";
@@ -25,29 +24,51 @@ public class BlackjackGame implements BlackjackPlayerCommandListener, BlackjackG
     private final CardProvider cardProvider;
     private final GameOutput gameOutput;
 
+    private final EventAnnouncer<BlackjackGameEventListener> announcer = new EventAnnouncer<>(BlackjackGameEventListener.class);
+
+    public BlackjackGame(final CardProvider cardProvider, final GameOutput gameOutput) {
+        this.cardProvider = cardProvider;
+        this.gameOutput = gameOutput;
+
+        announcer.addListener(new ConsoleBlackjackGame(gameOutput));
+    }
+
     @Override
     public void join() {
         start();
+        announcer.announce().start();
+
         drawToPlayer(2);
+        announcer.announce().drawToPlayer(2, trumpsForPlayer);
+
 
         // TODO: 카드를 보여준다/안보여준다는 도메인 개념으로 빼야할 것 같다.
         drawToDealer(1);
+        announcer.announce().drawToDealer(1, trumpsForDealer);
     }
 
     @Override
     public void hit() {
         drawToPlayer(1);
+        announcer.announce().drawToPlayer(1, trumpsForPlayer);
     }
 
     @Override
     public void stay() {
         showPlayerScore();
+        announcer.announce().showPlayerScore(playerScore);
 
         drawToDealer(2);
+        announcer.announce().drawToDealer(2, trumpsForDealer);
+
         showDealerScore();
+        announcer.announce().showDealerScore(dealerScore);
 
         showWinner();
+        announcer.announce().showWinner(playerScore, dealerScore);
+
         end();
+        announcer.announce().end();
     }
 
     @Override
@@ -55,17 +76,14 @@ public class BlackjackGame implements BlackjackPlayerCommandListener, BlackjackG
         throw new UnsupportedOperationException();
     }
 
-    @Override
     public void start() {
         send(START_MESSAGE);
     }
 
-    @Override
     public void end() {
         send(END_MESSAGE);
     }
 
-    @Override
     public void drawToPlayer(int howMany) {
         for (int i = 0; i < howMany; i++) {
             trumpsForPlayer.add(cardProvider.provide());
@@ -74,12 +92,10 @@ public class BlackjackGame implements BlackjackPlayerCommandListener, BlackjackG
         send("Your Cards: " + formatTrump(trumpsForPlayer));
     }
 
-    @Override
     public void showPlayerScore() {
         send("Your Score: " + playerScore);
     }
 
-    @Override
     public void drawToDealer(int showCards) {
         if (Objects.isNull(trumpsForDealer)) {
             trumpsForDealer = new Trumps(cardProvider.provide(), cardProvider.provide());
@@ -88,12 +104,10 @@ public class BlackjackGame implements BlackjackPlayerCommandListener, BlackjackG
         send("Dealer's Cards: " + formatTrump(trumpsForDealer, showCards));
     }
 
-    @Override
     public void showDealerScore() {
         send("Dealer's Score: " + dealerScore);
     }
 
-    @Override
     public void showWinner() {
         if (playerScore > dealerScore) {
             send("You WIN");
@@ -103,7 +117,7 @@ public class BlackjackGame implements BlackjackPlayerCommandListener, BlackjackG
     }
 
     private void send(final Object output) {
-        gameOutput.send(output);
+//        gameOutput.send(output);
     }
 
 
