@@ -7,8 +7,8 @@ import java.util.ArrayDeque;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.Timeout;
+import com.google.common.collect.Lists;
 import lombok.SneakyThrows;
-import org.assertj.core.util.Lists;
 
 import com.lette1394.blackjack.ui.ConsolePlayerInputGameOutput;
 import com.lette1394.blackjack.ui.PlayerInputGameOutput;
@@ -125,6 +125,6 @@ public class BlackjackEndToEndTest {
     }
 
     private CardProvider cardProvider(Trump... trumps) {
-        return new ArrayDeque<>(Lists.list(trumps))::poll;
+        return new ArrayDeque<>(Lists.newArrayList(trumps))::poll;
     }
 }
