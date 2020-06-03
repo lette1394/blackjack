@@ -10,7 +10,6 @@ import com.lette1394.blackjack.ui.GameOutput;
 public class ConsoleBlackjackGame implements BlackjackGameEventListener {
     private final GameOutput gameOutput;
 
-
     @Override
     public void start() {
         send("new blackjack game start");
