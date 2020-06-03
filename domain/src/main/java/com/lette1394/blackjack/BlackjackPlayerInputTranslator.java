@@ -5,27 +5,26 @@ public class BlackjackPlayerInputTranslator {
     private static final String COMMAND_STAY = "stay";
     private static final String COMMAND_HIT = "hit";
 
-    private final EventAnnouncer<BlackjackPlayerCommandListener> announcer = new EventAnnouncer<>(
-            BlackjackPlayerCommandListener.class);
+    private final EventAnnouncer<BlackjackPlayerCommandListener> blackjackPlayer = new EventAnnouncer<>(BlackjackPlayerCommandListener.class);
 
     public void translate(final String playerInput) {
         switch (playerInput) {
             case COMMAND_JOIN:
-                announcer.announce().join();
+                blackjackPlayer.announce().join();
                 break;
             case COMMAND_STAY:
-                announcer.announce().stay();
+                blackjackPlayer.announce().stay();
                 break;
             case COMMAND_HIT:
-                announcer.announce().hit();
+                blackjackPlayer.announce().hit();
                 break;
             default:
-                announcer.announce().cannotHandle(playerInput);
+                blackjackPlayer.announce().cannotHandle(playerInput);
                 break;
         }
     }
 
     public void addListener(final BlackjackPlayerCommandListener listener) {
-        announcer.addListener(listener);
+        blackjackPlayer.addListener(listener);
     }
 }
