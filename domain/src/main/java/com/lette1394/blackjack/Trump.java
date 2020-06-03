@@ -9,8 +9,14 @@ public class Trump {
     public final String suit;
     public final String value;
 
+    private Suit suitt;
+    private Value valuee;
+
     public Trump(final Suit heart, final Value two) {
-        throw new UnsupportedOperationException();
+        suitt = heart;
+        valuee = two;
+        suit = "";
+        value = "";
     }
 
     public enum Suit {
@@ -24,9 +30,5 @@ public class Trump {
         ACE,
         TWO, THREE, FOUR, FIVE, SIX, SEVEN, EIGHT, NINE, TEN,
         JACK, QUEEN, KING
-    }
-
-    public int getScore() {
-        throw new UnsupportedOperationException();
     }
 }

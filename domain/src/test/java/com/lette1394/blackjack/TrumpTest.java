@@ -8,9 +8,10 @@ import static org.hamcrest.Matchers.is;
 class TrumpTest {
 
     @Test
-    public void numericTrumpScoreIsNumber() {
-        final Trump trump = new Trump(Trump.Suit.HEART, Trump.Value.TWO);
+    public void trumpEquality() {
+        final Trump trump1 = new Trump(Trump.Suit.HEART, Trump.Value.TWO);
+        final Trump trump2 = new Trump(Trump.Suit.HEART, Trump.Value.TWO);
 
-        assertThat(trump.getScore(), is(2));
+        assertThat(trump1, is(trump2));
     }
 }
