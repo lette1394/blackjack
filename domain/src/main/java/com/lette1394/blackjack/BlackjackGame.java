@@ -54,7 +54,7 @@ public class BlackjackGame implements BlackjackPlayerCommandListener {
             trumpsForPlayer.add(cardProvider.provide());
         }
 
-        game.announce().playerHandsChanged(2, trumpsForPlayer);
+        game.announce().playerHandChanged(2, trumpsForPlayer);
     }
 
     public void playerTurnEnds() {
@@ -64,11 +64,11 @@ public class BlackjackGame implements BlackjackPlayerCommandListener {
     public void drawToDealer(int showCards) {
         trumpsForDealer = new Trumps(cardProvider.provide(), cardProvider.provide());
 
-        game.announce().dealerHandsChanged(showCards, trumpsForDealer);
+        game.announce().dealerHandChanged(showCards, trumpsForDealer);
     }
 
     public void showDealerCards(int showCards) {
-        game.announce().dealerHandsChanged(showCards, trumpsForDealer);
+        game.announce().dealerHandChanged(showCards, trumpsForDealer);
     }
 
     public void dealerTurnEnds() {
