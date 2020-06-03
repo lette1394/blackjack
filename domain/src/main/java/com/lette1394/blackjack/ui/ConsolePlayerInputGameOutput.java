@@ -9,7 +9,6 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 public class ConsolePlayerInputGameOutput implements PlayerInputGameOutput {
-
     private final Scanner in;
     private final PrintStream out;
 
