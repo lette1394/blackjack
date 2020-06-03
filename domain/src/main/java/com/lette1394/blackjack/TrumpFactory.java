@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
-public class TrumpFactory {
+public final class TrumpFactory {
     private static final List<MapperTo<Trump.Suit>> suitMappers = new ArrayList<>();
     private static final List<MapperTo<Trump.Value>> valueMappers = new ArrayList<>();
 
