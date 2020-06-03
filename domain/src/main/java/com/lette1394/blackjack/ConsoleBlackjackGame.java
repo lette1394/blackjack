@@ -8,8 +8,6 @@ import com.lette1394.blackjack.ui.GameOutput;
 
 @RequiredArgsConstructor
 public class ConsoleBlackjackGame implements BlackjackGameEventListener {
-    private static final String END_MESSAGE = "game ended";
-
     private final GameOutput gameOutput;
 
 
