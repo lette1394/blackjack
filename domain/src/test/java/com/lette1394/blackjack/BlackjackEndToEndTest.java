@@ -41,7 +41,9 @@ public class BlackjackEndToEndTest {
     void APlayerLoseAfterStay() {
         final CardProvider cardProvider = cardProvider(new Trump("♦️", "2"), new Trump("♣️", "8"),
                                                        new Trump("♥️", "3"), new Trump("♠️", "9"));
-        blackjackPlayerInputTranslator.addListener(new BlackjackGame(cardProvider, playerInputGameOutput));
+        final BlackjackGame blackjackGame = new BlackjackGame(cardProvider);
+        blackjackGame.addListener(new ConsoleBlackjackGame(playerInputGameOutput));
+        blackjackPlayerInputTranslator.addListener(blackjackGame);
 
         runner.run();
         assertion.hasShownWaitForPlayer();
@@ -67,7 +69,9 @@ public class BlackjackEndToEndTest {
     void APlayerWinAfterStay() {
         final CardProvider cardProvider = cardProvider(new Trump("♦️", "5"), new Trump("♣️", "5"),
                                                        new Trump("♥️", "3"), new Trump("♠️", "1"));
-        blackjackPlayerInputTranslator.addListener(new BlackjackGame(cardProvider, playerInputGameOutput));
+        final BlackjackGame blackjackGame = new BlackjackGame(cardProvider);
+        blackjackGame.addListener(new ConsoleBlackjackGame(playerInputGameOutput));
+        blackjackPlayerInputTranslator.addListener(blackjackGame);
 
         runner.run();
         assertion.hasShownWaitForPlayer();
@@ -94,7 +98,9 @@ public class BlackjackEndToEndTest {
         final CardProvider cardProvider = cardProvider(new Trump("♦️", "5"), new Trump("♣️", "5"),
                                                        new Trump("♥️", "10"), new Trump("♠️", "10"),
                                                        new Trump("♣️", "8"));
-        blackjackPlayerInputTranslator.addListener(new BlackjackGame(cardProvider, playerInputGameOutput));
+        final BlackjackGame blackjackGame = new BlackjackGame(cardProvider);
+        blackjackGame.addListener(new ConsoleBlackjackGame(playerInputGameOutput));
+        blackjackPlayerInputTranslator.addListener(blackjackGame);
 
         runner.run();
         assertion.hasShownWaitForPlayer();

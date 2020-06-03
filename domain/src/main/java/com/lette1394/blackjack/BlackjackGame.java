@@ -1,16 +1,8 @@
 package com.lette1394.blackjack;
 
 import java.util.Objects;
-import java.util.stream.Collectors;
-
-import lombok.RequiredArgsConstructor;
-
-import com.lette1394.blackjack.ui.GameOutput;
 
 public class BlackjackGame implements BlackjackPlayerCommandListener {
-
-    private static final String START_MESSAGE = "new blackjack game start";
-    private static final String END_MESSAGE = "game ended";
 
     // TODO: 딜러가 뽑은 카드만 특별하게 체크해야하나? 이건 player가 hit하는 테스트를 추가하고나서 더 생각해보자.
     private Trumps trumpsForDealer;
@@ -22,15 +14,14 @@ public class BlackjackGame implements BlackjackPlayerCommandListener {
     int dealerScore = 0;
 
     private final CardProvider cardProvider;
-    private final GameOutput gameOutput;
-
     private final EventAnnouncer<BlackjackGameEventListener> announcer = new EventAnnouncer<>(BlackjackGameEventListener.class);
 
-    public BlackjackGame(final CardProvider cardProvider, final GameOutput gameOutput) {
+    public BlackjackGame(final CardProvider cardProvider) {
         this.cardProvider = cardProvider;
-        this.gameOutput = gameOutput;
+    }
 
-        announcer.addListener(new ConsoleBlackjackGame(gameOutput));
+    public void addListener(final BlackjackGameEventListener listener) {
+        announcer.addListener(listener);
     }
 
     @Override
