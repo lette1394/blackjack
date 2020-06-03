@@ -22,10 +22,7 @@ public class BlackjackGame implements BlackjackPlayerCommandListener, BlackjackG
     int playerScore = 0;
     int dealerScore = 0;
 
-    // TODO: 이거 좀 없앨 수 없나? 흠...
-    //  생성자 의존성으로 빼야하는데 그렇게하면 테스트 만들기가 어렵네. 부분 빌더 패턴?
     private final CardProvider cardProvider;
-
     private final GameOutput gameOutput;
 
     @Override
