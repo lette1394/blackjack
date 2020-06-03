@@ -36,39 +36,30 @@ public class BlackjackGame implements BlackjackPlayerCommandListener {
     @Override
     public void join() {
         start();
-        announcer.announce().start();
 
         drawToPlayer(2);
-        announcer.announce().drawToPlayer(2, trumpsForPlayer);
 
 
         // TODO: 카드를 보여준다/안보여준다는 도메인 개념으로 빼야할 것 같다.
         drawToDealer(1);
-        announcer.announce().drawToDealer(1, trumpsForDealer);
     }
 
     @Override
     public void hit() {
         drawToPlayer(1);
-        announcer.announce().drawToPlayer(1, trumpsForPlayer);
     }
 
     @Override
     public void stay() {
         showPlayerScore();
-        announcer.announce().showPlayerScore(playerScore);
 
         drawToDealer(2);
-        announcer.announce().drawToDealer(2, trumpsForDealer);
 
         showDealerScore();
-        announcer.announce().showDealerScore(dealerScore);
 
         showWinner();
-        announcer.announce().showWinner(playerScore, dealerScore);
 
         end();
-        announcer.announce().end();
     }
 
     @Override
@@ -77,11 +68,7 @@ public class BlackjackGame implements BlackjackPlayerCommandListener {
     }
 
     public void start() {
-        send(START_MESSAGE);
-    }
-
-    public void end() {
-        send(END_MESSAGE);
+        announcer.announce().start();
     }
 
     public void drawToPlayer(int howMany) {
@@ -89,11 +76,12 @@ public class BlackjackGame implements BlackjackPlayerCommandListener {
             trumpsForPlayer.add(cardProvider.provide());
         }
         playerScore = trumpsForPlayer.getScore();
-        send("Your Cards: " + formatTrump(trumpsForPlayer));
+
+        announcer.announce().drawToPlayer(2, trumpsForPlayer);
     }
 
     public void showPlayerScore() {
-        send("Your Score: " + playerScore);
+        announcer.announce().showPlayerScore(playerScore);
     }
 
     public void drawToDealer(int showCards) {
@@ -101,46 +89,19 @@ public class BlackjackGame implements BlackjackPlayerCommandListener {
             trumpsForDealer = new Trumps(cardProvider.provide(), cardProvider.provide());
         }
         dealerScore = trumpsForDealer.getScore();
-        send("Dealer's Cards: " + formatTrump(trumpsForDealer, showCards));
+
+        announcer.announce().drawToDealer(showCards, trumpsForDealer);
     }
 
     public void showDealerScore() {
-        send("Dealer's Score: " + dealerScore);
+        announcer.announce().showDealerScore(dealerScore);
     }
 
     public void showWinner() {
-        if (playerScore > dealerScore) {
-            send("You WIN");
-        } else {
-            send("You LOSE");
-        }
+        announcer.announce().showWinner(playerScore, dealerScore);
     }
 
-    private void send(final Object output) {
-//        gameOutput.send(output);
-    }
-
-
-    // TODO: formatter?
-    private String formatTrump(Trumps trumps) {
-        return trumps.raw().stream()
-                     .map(trump -> String.format("(%s%s)", trump.suit, trump.value))
-                     .collect(Collectors.joining(" "));
-    }
-
-    private String formatTrump(Trumps trumps, int howManyShowingCards) {
-        StringBuilder sb = new StringBuilder();
-        int i = 0;
-
-        for (Trump trump : trumps.raw()) {
-            if (i < howManyShowingCards) {
-                sb.append(String.format("(%s%s)", trump.suit, trump.value));
-            } else {
-                sb.append("(??)");
-            }
-            sb.append(" ");
-            i++;
-        }
-        return sb.toString().substring(0, sb.toString().length() - 1);
+    public void end() {
+        announcer.announce().end();
     }
 }
