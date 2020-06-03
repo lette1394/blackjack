@@ -24,14 +24,14 @@ public final class TrumpFactory {
                          parse(rawValue, valueMappers, String.format("%s is not a trump value. Choose one of Ace, 2~10, Jack, Queen, King", rawValue)));
     }
 
-    private static <T, MAPPER extends List<MapperTo<T>>> T parse(final String rawString,
-                                                          final MAPPER mapper,
-                                                          final String exceptionMessage) {
-        return mapper.stream()
-                     .filter(suitMapper -> suitMapper.matches(rawString))
-                     .map(suitMapper -> suitMapper.map(rawString))
-                     .findFirst()
-                     .orElseThrow(() -> new IllegalArgumentException(exceptionMessage));
+    private static <T, MAPPERS extends List<MapperTo<T>>> T parse(final String rawString,
+                                                                  final MAPPERS mappers,
+                                                                  final String exceptionMessage) {
+        return mappers.stream()
+                      .filter(suitMapper -> suitMapper.matches(rawString))
+                      .map(suitMapper -> suitMapper.map(rawString))
+                      .findFirst()
+                      .orElseThrow(() -> new IllegalArgumentException(exceptionMessage));
     }
 
     private interface MapperTo<T> {
