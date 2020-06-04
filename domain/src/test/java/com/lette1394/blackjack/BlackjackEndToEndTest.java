@@ -149,6 +149,6 @@ public class BlackjackEndToEndTest {
     }
 
     private CardProvider nextTrumps(Trump... trumps) {
-        return new ArrayDeque<>(Lists.newArrayList(trumps))::poll;
+        return new ArrayDeque<>(Lists.newArrayList(trumps))::remove;
     }
 }
