@@ -4,7 +4,7 @@ public class BlackjackGame implements BlackjackPlayerCommandListener {
 
     // TODO: 딜러가 뽑은 카드만 특별하게 체크해야하나? 이건 player가 hit하는 테스트를 추가하고나서 더 생각해보자.
     private Trumps trumpsForDealer;
-    private Trumps trumpsForPlayer = new Trumps();
+    private Trumps trumpsForPlayer = new BlackjackTrumps();
 
     private final CardProvider cardProvider;
     private final EventAnnouncer<BlackjackGameEventListener> game = new EventAnnouncer<>(BlackjackGameEventListener.class);
@@ -62,7 +62,7 @@ public class BlackjackGame implements BlackjackPlayerCommandListener {
     }
 
     public void drawToDealer(int showCards) {
-        trumpsForDealer = new Trumps(cardProvider.provide(), cardProvider.provide());
+        trumpsForDealer = new BlackjackTrumps(cardProvider.provide(), cardProvider.provide());
 
         game.announce().dealerHandChanged(showCards, trumpsForDealer);
     }
