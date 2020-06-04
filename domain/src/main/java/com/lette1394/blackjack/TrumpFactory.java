@@ -1,6 +1,7 @@
 package com.lette1394.blackjack;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import lombok.AccessLevel;
@@ -29,6 +30,10 @@ public final class TrumpFactory {
     }
 
     public static Trumps trumps(final Trump... trumps) {
+        return trumps(Arrays.asList(trumps));
+    }
+
+    public static Trumps trumps(final List<Trump> trumps) {
         return new Trumps(trumps);
     }
 
