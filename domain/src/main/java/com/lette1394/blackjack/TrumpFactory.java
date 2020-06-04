@@ -16,6 +16,8 @@ public final class TrumpFactory {
 
     static {
         suitMappers.add(new EmojiSuitMapper());
+        suitMappers.add(new IgnoreCaseStringSuitMapper());
+
         valueMappers.add(new IgnoreCaseStringValueMapper());
     }
 
@@ -56,6 +58,29 @@ public final class TrumpFactory {
 
         public Trump.Suit map(final String rawString) {
             return map.get(rawString);
+        }
+    }
+
+    @RequiredArgsConstructor
+    private static class IgnoreCaseStringSuitMapper implements MapperTo<Trump.Suit> {
+        private final Map<String, Trump.Suit> map = new HashMap<>() {{
+            put("HEART", Trump.Suit.HEART);
+            put("SPADE", Trump.Suit.SPADE);
+            put("DIAMOND", Trump.Suit.DIAMOND);
+            put("CLUB", Trump.Suit.CLUB);
+        }};
+
+        @Override
+        public boolean matches(final String rawString) {
+            return map.containsKey(toUpperCase(rawString));
+        }
+
+        public Trump.Suit map(final String rawString) {
+            return map.get(toUpperCase(rawString));
+        }
+
+        private String toUpperCase(final String rawString) {
+            return rawString.toUpperCase();
         }
     }
 
