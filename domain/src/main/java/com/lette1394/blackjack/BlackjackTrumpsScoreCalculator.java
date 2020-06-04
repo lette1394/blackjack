@@ -55,8 +55,25 @@ public class BlackjackTrumpsScoreCalculator implements TrumpsTranslator {
                                      .count());
     }
 
-    private int computeScoreClosestTo21(final int defaultValue, final int numberOfAce) {
+    private int computeScoreClosestTo21(final int initialValue, final int numberOfAce) {
+        if (initialValue == 21) {
+            return 21;
+        }
 
-        return 0;
+        int ret = initialValue;
+        int value = initialValue;
+        int prevDiff = 21 - initialValue;
+        for (int i = 0; i < numberOfAce; i++) {
+            // Ace는 11점 혹은 1점으로 계산될 수 있다.
+            // 기본 값이 1점으로 이미 계산 되었으므로, (11-1)점씩 더해본다.
+            value += 10;
+            int currentDiff = Math.abs(21 - value);
+
+            if (prevDiff > currentDiff && value <= 21) {
+                ret = value;
+            }
+        }
+
+        return ret;
     }
 }
