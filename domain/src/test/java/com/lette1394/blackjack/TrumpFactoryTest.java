@@ -13,35 +13,35 @@ class TrumpFactoryTest {
     @DisplayName("emoji suit with")
     class EmojiSuit {
         @Test
-        @DisplayName("numeric value")
+        @DisplayName("Five")
         void numericValue() {
             final Trump trump = TrumpFactory.trump("♦️", "5");
             assertThat(trump, is(new Trump(Trump.Suit.DIAMOND, Trump.Value.FIVE)));
         }
 
         @Test
-        @DisplayName("Ace value")
+        @DisplayName("Ace")
         void aceValue() {
             final Trump trump = TrumpFactory.trump("♦️", "Ace");
             assertThat(trump, is(new Trump(Trump.Suit.DIAMOND, Trump.Value.ACE)));
         }
 
         @Test
-        @DisplayName("Jack value")
+        @DisplayName("Jack")
         void jackValue() {
             final Trump trump = TrumpFactory.trump("♦️", "Jack");
             assertThat(trump, is(new Trump(Trump.Suit.DIAMOND, Trump.Value.JACK)));
         }
 
         @Test
-        @DisplayName("Queen value")
+        @DisplayName("Queen")
         void queenValue() {
             final Trump trump = TrumpFactory.trump("♦️", "Queen");
             assertThat(trump, is(new Trump(Trump.Suit.DIAMOND, Trump.Value.QUEEN)));
         }
 
         @Test
-        @DisplayName("King value")
+        @DisplayName("King")
         void kingValue() {
             final Trump trump = TrumpFactory.trump("♦️", "King");
             assertThat(trump, is(new Trump(Trump.Suit.DIAMOND, Trump.Value.KING)));
@@ -52,35 +52,35 @@ class TrumpFactoryTest {
     @DisplayName("string suit with")
     class StringSuit {
         @Test
-        @DisplayName("numeric value")
+        @DisplayName("Five")
         void numericValue() {
             final Trump trump = TrumpFactory.trump("Diamond", "5");
             assertThat(trump, is(new Trump(Trump.Suit.DIAMOND, Trump.Value.FIVE)));
         }
 
         @Test
-        @DisplayName("Ace value")
+        @DisplayName("Ace")
         void aceValue() {
             final Trump trump = TrumpFactory.trump("Spade", "Ace");
             assertThat(trump, is(new Trump(Trump.Suit.SPADE, Trump.Value.ACE)));
         }
 
         @Test
-        @DisplayName("Jack value")
+        @DisplayName("Jack")
         void jackValue() {
             final Trump trump = TrumpFactory.trump("Club", "Jack");
             assertThat(trump, is(new Trump(Trump.Suit.CLUB, Trump.Value.JACK)));
         }
 
         @Test
-        @DisplayName("Queen value")
+        @DisplayName("Queen")
         void queenValue() {
             final Trump trump = TrumpFactory.trump("Heart", "Queen");
             assertThat(trump, is(new Trump(Trump.Suit.HEART, Trump.Value.QUEEN)));
         }
 
         @Test
-        @DisplayName("King value")
+        @DisplayName("King")
         void kingValue() {
             final Trump trump = TrumpFactory.trump("Diamond", "King");
             assertThat(trump, is(new Trump(Trump.Suit.DIAMOND, Trump.Value.KING)));
