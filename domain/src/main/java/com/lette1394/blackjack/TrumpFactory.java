@@ -1,92 +1,64 @@
 package com.lette1394.blackjack;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
-import lombok.RequiredArgsConstructor;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public final class TrumpFactory {
-    private static final List<MapperTo<Trump.Suit>> suitMappers = new ArrayList<>();
-    private static final List<MapperTo<Trump.Value>> valueMappers = new ArrayList<>();
+    private static final List<Mapper<String, Trump.Suit>> suitMappers = new ArrayList<>();
+    private static final List<Mapper<String, Trump.Value>> valueMappers = new ArrayList<>();
 
     static {
-        suitMappers.add(new EmojiSuitMapper());
-        suitMappers.add(new IgnoreCaseStringSuitMapper());
+        suitMappers.add(emojiSuitMapper());
+        suitMappers.add(ignoreCaseStringSuitMapper());
 
-        valueMappers.add(new IgnoreCaseStringValueMapper());
+        valueMappers.add(ignoreCaseStringValueMapper());
     }
 
     public static Trump trump(final String rawSuit, final String rawValue) {
-        return new Trump(parse(rawSuit, suitMappers, String.format("%s is not a emoji suit. Choose one of ♥️/♠️/♦️/♣️", rawSuit)),
-                         parse(rawValue, valueMappers, String.format("%s is not a trump value. Choose one of Ace, 2~10, Jack, Queen, King", rawValue)));
+        return new Trump(parse(rawSuit,
+                               suitMappers,
+                               String.format("%s is not a emoji suit. Choose one of ♥️/♠️/♦️/♣️", rawSuit)),
+                         parse(rawValue,
+                               valueMappers,
+                               String.format("%s is not a trump value. Choose one of Ace, 2~10, Jack, Queen, King",
+                                             rawValue)));
     }
 
-    private static <T, MAPPERS extends List<MapperTo<T>>> T parse(final String rawString,
-                                                                  final MAPPERS mappers,
-                                                                  final String exceptionMessage) {
+    private static <From, To, MAPPERS extends List<Mapper<From, To>>> To parse(final From from,
+                                                                               final MAPPERS mappers,
+                                                                               final String exceptionMessage) {
         return mappers.stream()
-                      .filter(suitMapper -> suitMapper.matches(rawString))
-                      .map(suitMapper -> suitMapper.map(rawString))
+                      .filter(suitMapper -> suitMapper.matches(from))
+                      .map(suitMapper -> suitMapper.map(from))
                       .findFirst()
                       .orElseThrow(() -> new IllegalArgumentException(exceptionMessage));
     }
 
-    private interface MapperTo<T> {
-        boolean matches(final String rawString);
-
-        T map(final String rawString);
-    }
-
-    @RequiredArgsConstructor
-    private static class EmojiSuitMapper implements MapperTo<Trump.Suit> {
-        private final Map<String, Trump.Suit> map = new HashMap<>() {{
+    private static Mapper<String, Trump.Suit> emojiSuitMapper() {
+        return new HashMapBasedMapper<>() {{
             put("♥️", Trump.Suit.HEART);
             put("♠️", Trump.Suit.SPADE);
             put("♦️", Trump.Suit.DIAMOND);
             put("♣️", Trump.Suit.CLUB);
         }};
-
-        @Override
-        public boolean matches(final String rawString) {
-            return map.containsKey(rawString);
-        }
-
-        public Trump.Suit map(final String rawString) {
-            return map.get(rawString);
-        }
     }
 
-    @RequiredArgsConstructor
-    private static class IgnoreCaseStringSuitMapper implements MapperTo<Trump.Suit> {
-        private final Map<String, Trump.Suit> map = new HashMap<>() {{
+    private static Mapper<String, Trump.Suit> ignoreCaseStringSuitMapper() {
+        final HashMapBasedMapper<String, Trump.Suit> rawMapper = new HashMapBasedMapper<>() {{
             put("HEART", Trump.Suit.HEART);
             put("SPADE", Trump.Suit.SPADE);
             put("DIAMOND", Trump.Suit.DIAMOND);
             put("CLUB", Trump.Suit.CLUB);
         }};
-
-        @Override
-        public boolean matches(final String rawString) {
-            return map.containsKey(toUpperCase(rawString));
-        }
-
-        public Trump.Suit map(final String rawString) {
-            return map.get(toUpperCase(rawString));
-        }
-
-        private String toUpperCase(final String rawString) {
-            return rawString.toUpperCase();
-        }
+        return MapperFactory.convert(String::toUpperCase, rawMapper);
     }
 
-    @RequiredArgsConstructor
-    private static class IgnoreCaseStringValueMapper implements MapperTo<Trump.Value> {
-        private final Map<String, Trump.Value> map = new HashMap<>() {{
+    private static Mapper<String, Trump.Value> ignoreCaseStringValueMapper() {
+        final HashMapBasedMapper<String, Trump.Value> rawMapper = new HashMapBasedMapper<>() {{
             put("A", Trump.Value.ACE);
             put("ACE", Trump.Value.ACE);
             put("2", Trump.Value.TWO);
@@ -105,18 +77,6 @@ public final class TrumpFactory {
             put("K", Trump.Value.KING);
             put("KING", Trump.Value.KING);
         }};
-
-        @Override
-        public boolean matches(final String rawString) {
-            return map.containsKey(toUpperCase(rawString));
-        }
-
-        public Trump.Value map(final String rawString) {
-            return map.get(toUpperCase(rawString));
-        }
-
-        private String toUpperCase(final String rawString) {
-            return rawString.toUpperCase();
-        }
+        return MapperFactory.convert(String::toUpperCase, rawMapper);
     }
 }
