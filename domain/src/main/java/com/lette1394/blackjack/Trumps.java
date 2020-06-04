@@ -4,7 +4,7 @@ import java.util.List;
 
 import com.google.common.collect.Lists;
 
-public abstract class Trumps {
+public class Trumps {
     protected final List<Trump> trumps;
 
     public Trumps(final List<Trump> trumps) {
@@ -15,7 +15,9 @@ public abstract class Trumps {
         this.trumps = Lists.newArrayList(trumps);
     }
 
-    public abstract int getScore();
+    public int getScore() {
+        return 0;
+    }
 
     public List<Trump> raw() {
         return trumps;

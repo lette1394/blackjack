@@ -28,6 +28,10 @@ public final class TrumpFactory {
                                              rawValue)));
     }
 
+    public static Trumps trumps(final Trump... trumps) {
+        return new Trumps(trumps);
+    }
+
     private static <From, To, MAPPERS extends List<Mapper<From, To>>> To parse(final From from,
                                                                                final MAPPERS mappers,
                                                                                final String exceptionMessage) {
