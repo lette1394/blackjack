@@ -117,6 +117,31 @@ public class BlackjackEndToEndTest {
         assertion.hasShownGameIsEnded();
     }
 
+    @Test
+    @Timeout(1)
+    void APlayerWinUsingAce() {
+        readyForNewGame(nextTrumps(trump("♦️", "Ace"), trump("♣️", "8"),
+                                   trump("♥️", "5"), trump("♠️", "6")));
+
+        runner.run();
+        assertion.hasShownWaitForPlayer();
+
+        player.join();
+        assertion.hasShownGameIsStarted();
+        assertion.hasShownDrawCardToPlayer("(♦️A) (♣️8)");
+        assertion.hasShownDealerGotCards("(♥️5) (??)");
+
+        player.stay();
+        assertion.hasShownPlayerScore(19);
+
+        assertion.hasShownDealerGotCards("(♥️5) (♠️6)");
+        assertion.hasShownDealerScore(11);
+
+        assertion.hasShownPlayerWin();
+
+        assertion.hasShownGameIsEnded();
+    }
+
     private void readyForNewGame(final CardProvider cardProvider) {
         final BlackjackGame blackjackGame = new BlackjackGame(cardProvider);
         blackjackGame.addListener(new ConsoleBlackjackGame(playerInputGameOutput));
