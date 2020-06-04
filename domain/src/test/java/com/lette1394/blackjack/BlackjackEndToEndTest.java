@@ -41,11 +41,8 @@ public class BlackjackEndToEndTest {
     @Test
     @Timeout(1)
     void APlayerLoseAfterStay() {
-        final CardProvider cardProvider = cardProvider(trump("♦️", "2"), trump("♣️", "8"),
-                                                       trump("♥️", "3"), trump("♠️", "9"));
-        final BlackjackGame blackjackGame = new BlackjackGame(cardProvider);
-        blackjackGame.addListener(new ConsoleBlackjackGame(playerInputGameOutput));
-        blackjackPlayerInputTranslator.addListener(blackjackGame);
+        readyForNewGame(nextTrumps(trump("♦️", "2"), trump("♣️", "8"),
+                                   trump("♥️", "3"), trump("♠️", "9")));
 
         runner.run();
         assertion.hasShownWaitForPlayer();
@@ -69,11 +66,8 @@ public class BlackjackEndToEndTest {
     @Test
     @Timeout(1)
     void APlayerWinAfterStay() {
-        final CardProvider cardProvider = cardProvider(trump("♦️", "5"), trump("♣️", "5"),
-                                                       trump("♥️", "3"), trump("♠️", "2"));
-        final BlackjackGame blackjackGame = new BlackjackGame(cardProvider);
-        blackjackGame.addListener(new ConsoleBlackjackGame(playerInputGameOutput));
-        blackjackPlayerInputTranslator.addListener(blackjackGame);
+        readyForNewGame(nextTrumps(trump("♦️", "5"), trump("♣️", "5"),
+                                   trump("♥️", "3"), trump("♠️", "2")));
 
         runner.run();
         assertion.hasShownWaitForPlayer();
@@ -97,12 +91,9 @@ public class BlackjackEndToEndTest {
     @Test
     @Timeout(1)
     void APlayerLosesAfterHit() {
-        final CardProvider cardProvider = cardProvider(trump("♦️", "5"), trump("♣️", "5"),
-                                                       trump("♥️", "10"), trump("♠️", "10"),
-                                                       trump("♣️", "8"));
-        final BlackjackGame blackjackGame = new BlackjackGame(cardProvider);
-        blackjackGame.addListener(new ConsoleBlackjackGame(playerInputGameOutput));
-        blackjackPlayerInputTranslator.addListener(blackjackGame);
+        readyForNewGame(nextTrumps(trump("♦️", "5"), trump("♣️", "5"),
+                                   trump("♥️", "10"), trump("♠️", "10"),
+                                   trump("♣️", "8")));
 
         runner.run();
         assertion.hasShownWaitForPlayer();
@@ -126,7 +117,13 @@ public class BlackjackEndToEndTest {
         assertion.hasShownGameIsEnded();
     }
 
-    private CardProvider cardProvider(Trump... trumps) {
+    private void readyForNewGame(final CardProvider cardProvider) {
+        final BlackjackGame blackjackGame = new BlackjackGame(cardProvider);
+        blackjackGame.addListener(new ConsoleBlackjackGame(playerInputGameOutput));
+        blackjackPlayerInputTranslator.addListener(blackjackGame);
+    }
+
+    private CardProvider nextTrumps(Trump... trumps) {
         return new ArrayDeque<>(Lists.newArrayList(trumps))::poll;
     }
 }
