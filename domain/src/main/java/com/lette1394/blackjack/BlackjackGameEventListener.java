@@ -5,9 +5,9 @@ import java.util.EventListener;
 public interface BlackjackGameEventListener extends EventListener {
     void start();
 
-    void playerHandChanged(final int numberOfCards, final Trumps trumps);
+    void playerHandChanged(final Trumps trumps);
 
-    void dealerHandChanged(final int numberOfCards, final Trumps trumps);
+    void dealerHandChanged(final int showCards, final Trumps trumps);
 
     void playerTurnEnds(final Trumps trumps);
 
