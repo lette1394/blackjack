@@ -11,16 +11,18 @@ class BlackjackPlayerInputTranslatorTest extends BaseTest {
     @Mock BlackjackPlayerCommandListener listener;
     private BlackjackPlayerInputTranslator translator;
 
+    private static final Player player = new Player();
+
     @BeforeEach
     void setUp() {
-        translator = new BlackjackPlayerInputTranslator();
+        translator = new BlackjackPlayerInputTranslator(new InMemoryPlayerRepository());
         translator.addListener(listener);
     }
 
     @Test
     void notifyJoinWhenAPlayerInputsJoin() {
         context.checking(new Expectations() {{
-            oneOf(listener).join("1234");
+            oneOf(listener).join(player);
         }});
 
         translator.translate("playerId=1234; command=join");
@@ -29,7 +31,7 @@ class BlackjackPlayerInputTranslatorTest extends BaseTest {
     @Test
     void notifyHitWhenAPlayerInputsStay() {
         context.checking(new Expectations() {{
-            oneOf(listener).hit("1234");
+            oneOf(listener).hit(player);
         }});
 
         translator.translate("playerId=1234; command=hit");
@@ -38,7 +40,7 @@ class BlackjackPlayerInputTranslatorTest extends BaseTest {
     @Test
     void notifyStayWhenAPlayerInputsStay() {
         context.checking(new Expectations() {{
-            oneOf(listener).stay("1234");
+            oneOf(listener).stay(player);
         }});
 
         translator.translate("playerId=1234; command=stay");

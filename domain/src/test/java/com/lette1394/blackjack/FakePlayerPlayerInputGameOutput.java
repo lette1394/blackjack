@@ -13,15 +13,15 @@ public class FakePlayerPlayerInputGameOutput implements PlayerInputGameOutput {
     }
 
     public void join() {
-        send("join");
+        send("playerId=1234; command=join");
     }
 
     public void hit() {
-        send("hit");
+        send("playerId=1234; command=hit");
     }
 
     public void stay() {
-        send("stay");
+        send("playerId=1234; command=stay");
     }
 
     @Override

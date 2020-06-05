@@ -18,19 +18,19 @@ public class BlackjackGame implements BlackjackPlayerCommandListener {
     }
 
     @Override
-    public void join(final String playerId) {
+    public void join(final Player player) {
         start();
         drawToPlayer(2);
         drawToDealer(1);
     }
 
     @Override
-    public void hit(final String playerId) {
+    public void hit(final Player player) {
         drawToPlayer(1);
     }
 
     @Override
-    public void stay(final String playerId) {
+    public void stay(final Player player) {
         playerTurnEnds();
 
         showDealerCards(2);

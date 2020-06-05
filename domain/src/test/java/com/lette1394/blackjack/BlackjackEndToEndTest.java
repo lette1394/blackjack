@@ -33,7 +33,7 @@ public class BlackjackEndToEndTest {
         PipedOutputStream runnerOutput = new PipedOutputStream(runnerInput);
 
         playerInputGameOutput = new ConsolePlayerInputGameOutput(fakeInput, runnerOutput);
-        blackjackPlayerInputTranslator = new BlackjackPlayerInputTranslator();
+        blackjackPlayerInputTranslator = new BlackjackPlayerInputTranslator(new InMemoryPlayerRepository());
         player = new FakePlayerPlayerInputGameOutput(fakeOutput);
         dealer = new FakePlayerPlayerInputGameOutput(fakeOutput);
         runner = new BlackjackGameRunner(playerInputGameOutput, blackjackPlayerInputTranslator);
