@@ -29,17 +29,17 @@ public class ConsoleBlackjackGame implements BlackjackGameEventListener {
 
     @Override
     public void dealerTurnEnds(final Trumps trumps) {
-        send("Dealer's Score: " + trumps.getScore());
+        send("Dealer's Score: " + trumps.computeScore());
     }
 
     @Override
     public void playerTurnEnds(final Trumps trumps) {
-        send("Your Score: " + trumps.getScore());
+        send("Your Score: " + trumps.computeScore());
     }
 
     @Override
     public void showWinner(final Trumps playerTrumps, final Trumps dealerTrumps) {
-        if (playerTrumps.getScore() > dealerTrumps.getScore()) {
+        if (playerTrumps.computeScore() > dealerTrumps.computeScore()) {
             send("You WIN");
         } else {
             send("You LOSE");

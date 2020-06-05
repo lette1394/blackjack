@@ -5,7 +5,7 @@ import java.util.List;
 import com.google.common.collect.Lists;
 
 public class Trumps {
-    protected final List<Trump> trumps;
+    final List<Trump> trumps;
 
     public Trumps(final List<Trump> trumps) {
         this.trumps = trumps;
@@ -15,8 +15,12 @@ public class Trumps {
         this.trumps = Lists.newArrayList(trumps);
     }
 
-    public int getScore() {
-        return 0;
+    public int computeScore() {
+        return compute(new BlackjackTrumpsScoreCalculator());
+    }
+
+    public <T> T compute(final TrumpsTranslator<T> translator) {
+        return translator.translate(this);
     }
 
     public List<Trump> raw() {

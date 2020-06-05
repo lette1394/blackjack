@@ -11,7 +11,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 
 class BlackjackTrumpsScoreCalculatorTest {
-    private final TrumpsTranslator calculator = new BlackjackTrumpsScoreCalculator();
+    private final TrumpsTranslator<Integer> calculator = new BlackjackTrumpsScoreCalculator();
 
     @Test
     void singleTrump() {

@@ -14,7 +14,7 @@ import static com.lette1394.blackjack.Trump.Value.TEN;
 import static com.lette1394.blackjack.Trump.Value.THREE;
 import static com.lette1394.blackjack.Trump.Value.TWO;
 
-public class BlackjackTrumpsScoreCalculator implements TrumpsTranslator {
+public class BlackjackTrumpsScoreCalculator implements TrumpsTranslator<Integer> {
     private static final Mapper<Trump.Value, Integer> mapper;
 
     static {
@@ -36,7 +36,7 @@ public class BlackjackTrumpsScoreCalculator implements TrumpsTranslator {
     }
 
     @Override
-    public int translate(final Trumps trumps) {
+    public Integer translate(final Trumps trumps) {
         final int defaultValue = computeDefaultValue(trumps);
         final int numberOfAce = computeNumberOfAce(trumps);
 
