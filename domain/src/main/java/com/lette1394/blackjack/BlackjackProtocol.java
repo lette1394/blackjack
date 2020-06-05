@@ -34,7 +34,7 @@ public class BlackjackProtocol {
             map.put(keyValue[0], keyValue[1]);
         }
 
-        if (map.containsKey("player")) {
+        if (map.containsKey("player") == false) {
             throw new CannotParseBlackjackProtocolException("Blackjack protocol must have the key: PLAYER");
         }
     }
