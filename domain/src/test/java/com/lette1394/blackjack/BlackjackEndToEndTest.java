@@ -15,9 +15,11 @@ import com.lette1394.blackjack.ui.PlayerInputGameOutput;
 
 import static com.lette1394.blackjack.TrumpFactory.trump;
 
+@Timeout(1)
 public class BlackjackEndToEndTest {
     private BlackjackGameRunner runner;
     private FakePlayerPlayerInputGameOutput player;
+    private FakePlayerPlayerInputGameOutput dealer;
     private ConsoleGameRunnerAssertion assertion;
     private BlackjackPlayerInputTranslator blackjackPlayerInputTranslator;
     private PlayerInputGameOutput playerInputGameOutput;
@@ -39,8 +41,7 @@ public class BlackjackEndToEndTest {
     }
 
     @Test
-    @Timeout(1)
-    void APlayerLoseAfterStay() {
+    void aPlayerLoseAfterStay() {
         readyForNewGame(nextTrumps(trump("♦️", "2"), trump("♣️", "8"),
                                    trump("♥️", "3"), trump("♠️", "9")));
 
@@ -64,8 +65,7 @@ public class BlackjackEndToEndTest {
     }
 
     @Test
-    @Timeout(1)
-    void APlayerWinAfterStay() {
+    void aPlayerWinAfterStay() {
         readyForNewGame(nextTrumps(trump("♦️", "5"), trump("♣️", "5"),
                                    trump("♥️", "3"), trump("♠️", "2")));
 
@@ -89,8 +89,7 @@ public class BlackjackEndToEndTest {
     }
 
     @Test
-    @Timeout(1)
-    void APlayerLosesAfterHit() {
+    void aPlayerLosesAfterHit() {
         readyForNewGame(nextTrumps(trump("♦️", "5"), trump("♣️", "5"),
                                    trump("♥️", "10"), trump("♠️", "10"),
                                    trump("♣️", "8")));
@@ -118,8 +117,7 @@ public class BlackjackEndToEndTest {
     }
 
     @Test
-    @Timeout(1)
-    void APlayerWinUsingAce() {
+    void aPlayerWinUsingAce() {
         readyForNewGame(nextTrumps(trump("♦️", "Ace"), trump("♣️", "8"),
                                    trump("♥️", "5"), trump("♠️", "6")));
 
@@ -143,8 +141,7 @@ public class BlackjackEndToEndTest {
     }
 
     @Test
-    @Timeout(1)
-    void APlayerHitTwiceThenWin() {
+    void aPlayerHitTwiceThenWin() {
         readyForNewGame(nextTrumps(trump("♦️", "Ace"), trump("♣️", "8"),
                                    trump("♥️", "5"), trump("♠️", "6"),
                                    trump("♣️", "9"), trump("♣️", "2")));
@@ -171,6 +168,36 @@ public class BlackjackEndToEndTest {
 
         assertion.hasShownPlayerWin();
 
+        assertion.hasShownGameIsEnded();
+    }
+
+    @Test
+    void dealerHitTwiceThenWin() {
+        readyForNewGame(nextTrumps(trump("♦️", "Ace"), trump("♣️", "8"),
+                                   trump("♥️", "5"), trump("♠️", "6")));
+
+        runner.run();
+        assertion.hasShownWaitForPlayer();
+
+        player.join();
+        assertion.hasShownGameIsStarted();
+        assertion.hasShownDrawCardToPlayer("(♦️A) (♣️8)");
+        assertion.hasShownDealerGotCards("(♥️5) (??)");
+
+        player.stay();
+        assertion.hasShownPlayerScore(19);
+
+        assertion.hasShownDealerGotCards("(♥️5) (♠️6)");
+        dealer.hit();
+        assertion.hasShownDealerGotCards("(♥️5) (♠️6) (♠️8)");
+
+        dealer.hit();
+        assertion.hasShownDealerGotCards("(♥️5) (♠️6) (♠️8) (♠️A)");
+
+        dealer.stay();
+        assertion.hasShownDealerScore(20);
+
+        assertion.hasShownPlayerLose();
         assertion.hasShownGameIsEnded();
     }
 
