@@ -1,6 +1,6 @@
 package com.lette1394.blackjack;
 
 @FunctionalInterface
-public interface CardProvider {
+public interface TrumpProvider {
     Trump provide();
 }

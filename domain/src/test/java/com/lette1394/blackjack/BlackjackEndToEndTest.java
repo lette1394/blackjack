@@ -142,13 +142,13 @@ public class BlackjackEndToEndTest {
         assertion.hasShownGameIsEnded();
     }
 
-    private void readyForNewGame(final CardProvider cardProvider) {
-        final BlackjackGame blackjackGame = new BlackjackGame(cardProvider);
+    private void readyForNewGame(final TrumpProvider trumpProvider) {
+        final BlackjackGame blackjackGame = new BlackjackGame(trumpProvider);
         blackjackGame.addListener(new ConsoleBlackjackGame(playerInputGameOutput));
         blackjackPlayerInputTranslator.addListener(blackjackGame);
     }
 
-    private CardProvider nextTrumps(Trump... trumps) {
+    private TrumpProvider nextTrumps(Trump... trumps) {
         return new ArrayDeque<>(Lists.newArrayList(trumps))::remove;
     }
 }

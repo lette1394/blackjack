@@ -6,11 +6,11 @@ public class BlackjackGame implements BlackjackPlayerCommandListener {
     private Trumps trumpsForDealer;
     private Trumps trumpsForPlayer = new BlackjackTrumps();
 
-    private final CardProvider cardProvider;
+    private final TrumpProvider trumpProvider;
     private final EventAnnouncer<BlackjackGameEventListener> game = new EventAnnouncer<>(BlackjackGameEventListener.class);
 
-    public BlackjackGame(final CardProvider cardProvider) {
-        this.cardProvider = cardProvider;
+    public BlackjackGame(final TrumpProvider trumpProvider) {
+        this.trumpProvider = trumpProvider;
     }
 
     public void addListener(final BlackjackGameEventListener listener) {
@@ -51,7 +51,7 @@ public class BlackjackGame implements BlackjackPlayerCommandListener {
 
     public void drawToPlayer(int howMany) {
         for (int i = 0; i < howMany; i++) {
-            trumpsForPlayer.add(cardProvider.provide());
+            trumpsForPlayer.add(trumpProvider.provide());
         }
 
         game.announce().playerHandChanged(2, trumpsForPlayer);
@@ -62,7 +62,7 @@ public class BlackjackGame implements BlackjackPlayerCommandListener {
     }
 
     public void drawToDealer(int showCards) {
-        trumpsForDealer = new BlackjackTrumps(cardProvider.provide(), cardProvider.provide());
+        trumpsForDealer = new BlackjackTrumps(trumpProvider.provide(), trumpProvider.provide());
 
         game.announce().dealerHandChanged(showCards, trumpsForDealer);
     }
