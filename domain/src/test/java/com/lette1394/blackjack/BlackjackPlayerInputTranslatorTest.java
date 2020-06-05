@@ -20,28 +20,28 @@ class BlackjackPlayerInputTranslatorTest extends BaseTest {
     @Test
     void notifyJoinWhenAPlayerInputsJoin() {
         context.checking(new Expectations() {{
-            oneOf(listener).join();
+            oneOf(listener).join("1234");
         }});
 
-        translator.translate("join");
+        translator.translate("playerId=1234; command=join");
     }
 
     @Test
     void notifyHitWhenAPlayerInputsStay() {
         context.checking(new Expectations() {{
-            oneOf(listener).hit();
+            oneOf(listener).hit("1234");
         }});
 
-        translator.translate("hit");
+        translator.translate("playerId=1234; command=hit");
     }
 
     @Test
     void notifyStayWhenAPlayerInputsStay() {
         context.checking(new Expectations() {{
-            oneOf(listener).stay();
+            oneOf(listener).stay("1234");
         }});
 
-        translator.translate("stay");
+        translator.translate("playerId=1234; command=stay");
     }
 
 

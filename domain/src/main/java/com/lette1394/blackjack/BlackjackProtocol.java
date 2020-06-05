@@ -15,7 +15,7 @@ public class BlackjackProtocol {
     private static final String PAIR_DELIMITER = ";";
     private static final String KEY_VALUE_DELIMITER = "=";
 
-    private static final String PLAYER = "player";
+    private static final String PLAYER = "playerId";
     private static final String COMMAND = "command";
 
     private static final Set<String> MANDATORY_KEYS = Sets.newHashSet(PLAYER, COMMAND);
@@ -83,11 +83,11 @@ public class BlackjackProtocol {
                      .toArray(String[]::new);
     }
 
-    public String getPlayer() {
-        return map.get("player");
+    public String getPlayerId() {
+        return map.get(PLAYER);
     }
 
     public String getCommand() {
-        return map.get("command");
+        return map.get(COMMAND);
     }
 }

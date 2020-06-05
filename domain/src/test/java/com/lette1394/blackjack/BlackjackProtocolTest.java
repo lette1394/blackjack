@@ -12,10 +12,10 @@ class BlackjackProtocolTest {
 
     @Test
     void protocolCanParseKeyAndValueContainingWhitespace() {
-        final String rawInput = "player=dealer; command=join";
+        final String rawInput = "playerId=dealer; command=join";
         final BlackjackProtocol protocol = new BlackjackProtocol(rawInput);
 
-        assertThat(protocol.getPlayer(), is("dealer"));
+        assertThat(protocol.getPlayerId(), is("dealer"));
         assertThat(protocol.getCommand(), is("join"));
     }
 

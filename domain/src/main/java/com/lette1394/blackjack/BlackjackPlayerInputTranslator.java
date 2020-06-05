@@ -5,26 +5,33 @@ public class BlackjackPlayerInputTranslator {
     private static final String COMMAND_STAY = "stay";
     private static final String COMMAND_HIT = "hit";
 
-    private final EventAnnouncer<BlackjackPlayerCommandListener> blackjackPlayer = new EventAnnouncer<>(BlackjackPlayerCommandListener.class);
+    private final EventAnnouncer<BlackjackPlayerCommandListener> players = new EventAnnouncer<>(
+            BlackjackPlayerCommandListener.class);
 
     public void translate(final String playerInput) {
-        switch (playerInput) {
-            case COMMAND_JOIN:
-                blackjackPlayer.announce().join();
-                break;
-            case COMMAND_STAY:
-                blackjackPlayer.announce().stay();
-                break;
-            case COMMAND_HIT:
-                blackjackPlayer.announce().hit();
-                break;
-            default:
-                blackjackPlayer.announce().cannotHandle(playerInput);
-                break;
+        try {
+            final BlackjackProtocol protocol = new BlackjackProtocol(playerInput);
+            final String playerId = protocol.getPlayerId();
+
+            switch (protocol.getCommand()) {
+                case COMMAND_JOIN:
+                    players.announce().join(playerId);
+                    break;
+                case COMMAND_STAY:
+                    players.announce().stay(playerId);
+                    break;
+                case COMMAND_HIT:
+                    players.announce().hit(playerId);
+                    break;
+                default:
+                    throw new UnsupportedOperationException();
+            }
+        } catch (CannotParseBlackjackProtocolException e) {
+            players.announce().cannotHandle(playerInput);
         }
     }
 
     public void addListener(final BlackjackPlayerCommandListener listener) {
-        blackjackPlayer.addListener(listener);
+        players.addListener(listener);
     }
 }
