@@ -35,6 +35,7 @@ public class BlackjackEndToEndTest {
         playerInputGameOutput = new ConsolePlayerInputGameOutput(fakeInput, runnerOutput);
         blackjackPlayerInputTranslator = new BlackjackPlayerInputTranslator();
         player = new FakePlayerPlayerInputGameOutput(fakeOutput);
+        dealer = new FakePlayerPlayerInputGameOutput(fakeOutput);
         runner = new BlackjackGameRunner(playerInputGameOutput, blackjackPlayerInputTranslator);
 
         assertion = new ConsoleGameRunnerAssertion(runnerInput);
