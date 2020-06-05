@@ -11,7 +11,7 @@ import com.google.common.collect.Sets;
 
 // blackjack protocol:
 // <key1>=<value1>; <key2>=<value2>
-public class BlackjackProtocol {
+public class CommandLineBlackjackProtocol {
     private static final String PAIR_DELIMITER = ";";
     private static final String KEY_VALUE_DELIMITER = "=";
 
@@ -22,7 +22,7 @@ public class BlackjackProtocol {
 
     private final Map<String, String> map = new HashMap<>();
 
-    public BlackjackProtocol(final String rawInput) {
+    public CommandLineBlackjackProtocol(final String rawInput) {
         parse(rawInput);
     }
 

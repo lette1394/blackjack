@@ -13,7 +13,7 @@ public class BlackjackPlayerInputTranslator {
 
     public void translate(final String playerInput) {
         try {
-            final BlackjackProtocol protocol = new BlackjackProtocol(playerInput);
+            final CommandLineBlackjackProtocol protocol = new CommandLineBlackjackProtocol(playerInput);
             final Player player = playerRepository.find(protocol.getPlayerId());
 
             switch (protocol.getCommand()) {
