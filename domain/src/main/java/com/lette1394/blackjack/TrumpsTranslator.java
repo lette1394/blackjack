@@ -2,5 +2,5 @@ package com.lette1394.blackjack;
 
 @FunctionalInterface
 public interface TrumpsTranslator<T> {
-    T translate(final Trumps trumps);
+    T translate(Trumps trumps);
 }
