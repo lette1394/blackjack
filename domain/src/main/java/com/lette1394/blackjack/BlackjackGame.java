@@ -3,7 +3,7 @@ package com.lette1394.blackjack;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
-public class BlackjackGame implements BlackjackPlayerCommandListener {
+public class BlackjackGame extends NoOpBlackjackPlayerCommandListener {
 
     private final int dealerStopScore;
     private final Trumps trumpsForDealer = new Trumps();
@@ -39,11 +39,6 @@ public class BlackjackGame implements BlackjackPlayerCommandListener {
 
         showWinner();
         end();
-    }
-
-    @Override
-    public void cannotHandle(final String rawInput) {
-        throw new UnsupportedOperationException();
     }
 
     public void start() {

@@ -213,6 +213,7 @@ public class BlackjackEndToEndTest {
         final BlackjackGame blackjackGame = new BlackjackGame(dealerStopScore, trumpProvider);
         blackjackGame.addListener(new ConsoleBlackjackGame(playerInputGameOutput));
         blackjackPlayerInputTranslator.addListener(blackjackGame);
+        blackjackPlayerInputTranslator.addListener(new ConsoleInvalidPlayerInputHandler(playerInputGameOutput));
     }
 
     private TrumpProvider nextTrumps(Trump... trumps) {
