@@ -2,7 +2,11 @@ package com.lette1394.blackjack;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
+import java.util.concurrent.ThreadLocalRandom;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
@@ -35,6 +39,32 @@ public final class TrumpFactory {
 
     public static Trumps trumps(final List<Trump> trumps) {
         return new Trumps(trumps);
+    }
+
+    public static Trumps decks(final int decks) {
+        return decks(decks, true);
+    }
+
+    public static Trumps decks(final int decks, final boolean shuffled) {
+        return IntStream.of(decks)
+                        .mapToObj(i -> deck(shuffled))
+                        .collect(Trumps::new, Trumps::add, Trumps::add);
+    }
+
+    public static Trumps deck() {
+        return deck(true);
+    }
+
+    public static Trumps deck(final boolean shuffled) {
+        final List<Trump> trumpList = Arrays.stream(Trump.Suit.values())
+                                            .flatMap(suit -> Arrays.stream(Trump.Value.values())
+                                                                   .map(value -> new Trump(suit, value)))
+                                            .collect(Collectors.toList());
+
+        if (shuffled) {
+            Collections.shuffle(trumpList, ThreadLocalRandom.current());
+        }
+        return new Trumps(trumpList);
     }
 
     private static <From, To, MAPPERS extends List<Mapper<From, To>>> To parse(final From from,

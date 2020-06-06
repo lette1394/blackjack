@@ -5,7 +5,7 @@ import lombok.RequiredArgsConstructor;
 import com.lette1394.blackjack.ui.GameOutput;
 
 @RequiredArgsConstructor
-public class ConsoleInvalidPlayerInputHandler extends NoOpBlackjackPlayerCommandListener {
+public class ConsoleInvalidPlayerInputHandler extends InvalidBlackjackPlayerCommandListener {
     private final GameOutput gameOutput;
 
     @Override

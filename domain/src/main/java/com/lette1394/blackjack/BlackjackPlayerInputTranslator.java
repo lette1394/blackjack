@@ -27,7 +27,7 @@ public class BlackjackPlayerInputTranslator {
                     players.announce().hit(player);
                     break;
                 default:
-                    throw new UnsupportedOperationException();
+                    throw new CannotParseBlackjackProtocolException(playerInput);
             }
         } catch (CannotParseBlackjackProtocolException e) {
             players.announce().cannotHandle(playerInput);

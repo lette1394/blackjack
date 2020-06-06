@@ -5,7 +5,7 @@ import java.util.List;
 import com.google.common.collect.Lists;
 
 public class Trumps {
-    final List<Trump> trumps;
+    protected final List<Trump> trumps;
 
     public Trumps(final List<Trump> trumps) {
         this.trumps = trumps;
@@ -31,7 +31,19 @@ public class Trumps {
         trumps.add(trump);
     }
 
+    public void add(final Trumps trumps) {
+        this.trumps.addAll(trumps.raw());
+    }
+
     public int size() {
         return trumps.size();
+    }
+
+    public Trump pop() {
+        return trumps.remove(0);
+    }
+
+    Trumps makeDrawReady() {
+        return new DrawReadyTrumps(trumps);
     }
 }

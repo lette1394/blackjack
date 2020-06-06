@@ -33,4 +33,9 @@ public class FakePlayer implements PlayerInputGameOutput {
     public void send(final Object output) {
         out.println(output);
     }
+
+    @Override
+    public void close() {
+
+    }
 }

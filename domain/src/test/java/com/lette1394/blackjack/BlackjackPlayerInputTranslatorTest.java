@@ -53,13 +53,23 @@ class BlackjackPlayerInputTranslatorTest extends BaseTest {
         translator.translate("playerId=1234; command=stay");
     }
 
-
     @Test
-    void notifyCannotHandleWhenAPlayerInputAnInvalidCommand() {
+    void notifyCannotHandleWhenAPlayerInputAnInvalidString() {
         context.checking(new Expectations() {{
             oneOf(listener).cannotHandle("invalid command");
         }});
 
         translator.translate("invalid command");
+    }
+
+    @Test
+    void notifyCannotHandleWhenAPlayerInputAnInvalidCommand() {
+        context.checking(new Expectations() {{
+            oneOf(repository).find("1234"); will(returnValue(player));
+
+            oneOf(listener).cannotHandle("playerId=1234; command=unknown-command");
+        }});
+
+        translator.translate("playerId=1234; command=unknown-command");
     }
 }

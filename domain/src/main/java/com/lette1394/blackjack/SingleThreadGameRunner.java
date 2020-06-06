@@ -14,4 +14,10 @@ public class SingleThreadGameRunner implements GameRunner {
     public void run() {
         executorService.submit(gameRunner::run);
     }
+
+    @Override
+    public void close() {
+        gameRunner.close();
+        executorService.shutdown();
+    }
 }

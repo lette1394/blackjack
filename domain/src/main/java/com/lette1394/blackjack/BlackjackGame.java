@@ -5,7 +5,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class BlackjackGame extends NoOpBlackjackPlayerCommandListener {
 
-    private final int dealerStopScore;
+    private final int dealerStopScoreInclusive;
     private final Trumps trumpsForDealer = new Trumps();
     private final Trumps trumpsForPlayer = new Trumps();
 
@@ -34,7 +34,7 @@ public class BlackjackGame extends NoOpBlackjackPlayerCommandListener {
         playerTurnEnds();
 
         showDealerCards(2);
-        drawToDealerAtLeast(dealerStopScore);
+        drawToDealerAtLeast(dealerStopScoreInclusive);
         dealerTurnEnds();
 
         showWinner();
