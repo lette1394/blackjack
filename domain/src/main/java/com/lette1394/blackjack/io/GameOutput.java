@@ -1,4 +1,4 @@
-package com.lette1394.blackjack.ui;
+package com.lette1394.blackjack.io;
 
 import java.io.Closeable;
 

@@ -1,8 +1,8 @@
 package com.lette1394.blackjack;
 
 import com.lette1394.blackjack.runner.BlackjackGameLauncher;
-import com.lette1394.blackjack.ui.ConsolePlayerInputGameOutput;
-import com.lette1394.blackjack.ui.StringFormatTemplateInputGameOutput;
+import com.lette1394.blackjack.io.ConsolePlayerInputGameOutput;
+import com.lette1394.blackjack.io.StringFormatTemplateInputGameOutput;
 
 public class Main {
     public static void main(String[] args) {

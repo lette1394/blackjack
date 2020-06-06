@@ -3,7 +3,7 @@ package com.lette1394.blackjack;
 import java.io.OutputStream;
 import java.io.PrintStream;
 
-import com.lette1394.blackjack.ui.PlayerInputGameOutput;
+import com.lette1394.blackjack.io.PlayerInputGameOutput;
 
 public class FakePlayer implements PlayerInputGameOutput {
     private final PrintStream out;

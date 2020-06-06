@@ -1,4 +1,4 @@
-package com.lette1394.blackjack.ui;
+package com.lette1394.blackjack.io;
 
 public class HelloMessageConsolePlayerInputGameOutput implements PlayerInputGameOutput {
     private final PlayerInputGameOutput playerInputGameOutput;

@@ -1,11 +1,8 @@
-package com.lette1394.blackjack;
+package com.lette1394.blackjack.domain;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
-
-import com.lette1394.blackjack.domain.Trump;
-import com.lette1394.blackjack.domain.TrumpFactory;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;

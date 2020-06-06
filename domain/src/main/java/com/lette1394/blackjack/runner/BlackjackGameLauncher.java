@@ -9,7 +9,7 @@ import com.lette1394.blackjack.InvalidBlackjackPlayerCommandListener;
 import com.lette1394.blackjack.PlayerRepository;
 import com.lette1394.blackjack.domain.RandomTrumpProvider;
 import com.lette1394.blackjack.ShutDownHook;
-import com.lette1394.blackjack.ui.PlayerInputGameOutput;
+import com.lette1394.blackjack.io.PlayerInputGameOutput;
 
 public class BlackjackGameLauncher {
     private final PlayerRepository playerRepository;

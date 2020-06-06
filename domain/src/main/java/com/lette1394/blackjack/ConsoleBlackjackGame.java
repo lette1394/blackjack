@@ -8,7 +8,7 @@ import lombok.RequiredArgsConstructor;
 
 import com.lette1394.blackjack.domain.Trump;
 import com.lette1394.blackjack.domain.Trumps;
-import com.lette1394.blackjack.ui.GameOutput;
+import com.lette1394.blackjack.io.GameOutput;
 
 @RequiredArgsConstructor
 public class ConsoleBlackjackGame implements BlackjackGameEventListener {

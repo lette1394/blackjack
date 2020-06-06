@@ -2,7 +2,7 @@ package com.lette1394.blackjack;
 
 import lombok.RequiredArgsConstructor;
 
-import com.lette1394.blackjack.ui.GameOutput;
+import com.lette1394.blackjack.io.GameOutput;
 
 @RequiredArgsConstructor
 public class ConsoleInvalidPlayerInputHandler extends InvalidBlackjackPlayerCommandListener {
