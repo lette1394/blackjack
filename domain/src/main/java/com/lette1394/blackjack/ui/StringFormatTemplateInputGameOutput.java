@@ -1,7 +1,6 @@
 package com.lette1394.blackjack.ui;
 
 import lombok.RequiredArgsConstructor;
-import lombok.SneakyThrows;
 
 @RequiredArgsConstructor
 public class StringFormatTemplateInputGameOutput implements PlayerInputGameOutput {
@@ -19,7 +18,6 @@ public class StringFormatTemplateInputGameOutput implements PlayerInputGameOutpu
     }
 
     @Override
-    @SneakyThrows
     public void close() {
         playerInputGameOutput.close();
     }

@@ -17,6 +17,7 @@ public class Main {
                        .invalidBlackjackPlayerCommandListener(new ConsoleInvalidPlayerInputHandler(consolePlayerInputGameOutput))
                        .playerInputGameOutput(new StringFormatTemplateInputGameOutput("playerId=0000; command=%s", consolePlayerInputGameOutput))
                        .playerRepository(new InMemoryPlayerRepository())
+                       .loopIntervalMillis(100)
                        .build();
     }
 }

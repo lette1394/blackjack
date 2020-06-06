@@ -6,17 +6,16 @@ import com.lette1394.blackjack.ui.PlayerInputGameOutput;
 
 @Slf4j
 public class BlackjackGameRunner implements GameRunner {
-    private final PlayerInputGameOutput playerInputGameOutput;
     private final GameRunner gameRunner;
 
     public BlackjackGameRunner(final PlayerInputGameOutput playerInputGameOutput,
-                               final BlackjackPlayerInputTranslator blackjackPlayerInputTranslator) {
-        this.playerInputGameOutput = playerInputGameOutput;
+                               final BlackjackPlayerInputTranslator blackjackPlayerInputTranslator,
+                               final long loopIntervalMillis) {
         this.gameRunner = new SingleThreadGameRunner(new InfiniteLoopGameRunner(() -> {
             try {
                 String userInput = playerInputGameOutput.get();
                 blackjackPlayerInputTranslator.translate(userInput);
-                Thread.sleep(50);
+                Thread.sleep(loopIntervalMillis);
             } catch (Exception e) {
                 log.error("unexpected error : " + e);
                 throw new RuntimeException(e);
@@ -26,7 +25,6 @@ public class BlackjackGameRunner implements GameRunner {
 
     @Override
     public void run() {
-        playerInputGameOutput.send("wait for player...");
         gameRunner.run();
     }
 

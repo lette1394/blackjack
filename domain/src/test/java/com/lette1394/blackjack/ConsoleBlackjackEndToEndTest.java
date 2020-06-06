@@ -11,12 +11,13 @@ import com.google.common.collect.Lists;
 import lombok.SneakyThrows;
 
 import com.lette1394.blackjack.ui.ConsolePlayerInputGameOutput;
+import com.lette1394.blackjack.ui.HelloMessageConsolePlayerInputGameOutput;
 import com.lette1394.blackjack.ui.PlayerInputGameOutput;
 
 import static com.lette1394.blackjack.TrumpFactory.trump;
 
 @Timeout(1)
-public class BlackjackEndToEndTest {
+public class ConsoleBlackjackEndToEndTest {
     private BlackjackGameRunner runner;
     private FakePlayer player;
     private ConsoleGameRunnerAssertion assertion;
@@ -31,10 +32,12 @@ public class BlackjackEndToEndTest {
         PipedInputStream runnerInput = new PipedInputStream();
         PipedOutputStream runnerOutput = new PipedOutputStream(runnerInput);
 
-        playerInputGameOutput = new ConsolePlayerInputGameOutput(fakeInput, runnerOutput);
+        playerInputGameOutput = new HelloMessageConsolePlayerInputGameOutput("wait for player...",
+                                                                             new ConsolePlayerInputGameOutput(fakeInput,
+                                                                                                              runnerOutput));
         blackjackPlayerInputTranslator = new BlackjackPlayerInputTranslator(new InMemoryPlayerRepository());
         player = new FakePlayer(fakeOutput);
-        runner = new BlackjackGameRunner(playerInputGameOutput, blackjackPlayerInputTranslator);
+        runner = new BlackjackGameRunner(playerInputGameOutput, blackjackPlayerInputTranslator, 0);
 
         assertion = new ConsoleGameRunnerAssertion(runnerInput);
     }

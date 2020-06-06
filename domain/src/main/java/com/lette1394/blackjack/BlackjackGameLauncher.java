@@ -9,21 +9,24 @@ public class BlackjackGameLauncher {
     private final PlayerInputGameOutput playerInputGameOutput;
     private final InvalidBlackjackPlayerCommandListener invalidBlackjackPlayerCommandListener;
     private final int dealerStopScoreInclusive;
+    private final int loopIntervalMillis;
 
     @Builder
     public BlackjackGameLauncher(final PlayerRepository playerRepository,
                                  final PlayerInputGameOutput playerInputGameOutput,
                                  final InvalidBlackjackPlayerCommandListener invalidBlackjackPlayerCommandListener,
-                                 final int dealerStopScoreInclusive) {
+                                 final int dealerStopScoreInclusive,
+                                 final int loopIntervalMillis) {
         this.playerRepository = playerRepository;
         this.playerInputGameOutput = playerInputGameOutput;
         this.invalidBlackjackPlayerCommandListener = invalidBlackjackPlayerCommandListener;
         this.dealerStopScoreInclusive = dealerStopScoreInclusive;
+        this.loopIntervalMillis = loopIntervalMillis;
     }
 
     public void launch() {
         final BlackjackPlayerInputTranslator blackjackPlayerInputTranslator = new BlackjackPlayerInputTranslator(playerRepository);
-        final BlackjackGameRunner runner = new BlackjackGameRunner(playerInputGameOutput, blackjackPlayerInputTranslator);
+        final BlackjackGameRunner runner = new BlackjackGameRunner(playerInputGameOutput, blackjackPlayerInputTranslator, loopIntervalMillis);
 
         BlackjackGame blackjackGame = new BlackjackGame(dealerStopScoreInclusive, new RandomTrumpProvider());
         blackjackGame.addListener(new ConsoleBlackjackGame(playerInputGameOutput));
