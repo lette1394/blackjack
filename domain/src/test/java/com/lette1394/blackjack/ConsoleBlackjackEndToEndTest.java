@@ -10,12 +10,14 @@ import org.junit.jupiter.api.Timeout;
 import com.google.common.collect.Lists;
 import lombok.SneakyThrows;
 
+import com.lette1394.blackjack.domain.Trump;
+import com.lette1394.blackjack.domain.TrumpProvider;
 import com.lette1394.blackjack.runner.BlackjackGameRunner;
 import com.lette1394.blackjack.ui.ConsolePlayerInputGameOutput;
 import com.lette1394.blackjack.ui.HelloMessageConsolePlayerInputGameOutput;
 import com.lette1394.blackjack.ui.PlayerInputGameOutput;
 
-import static com.lette1394.blackjack.TrumpFactory.trump;
+import static com.lette1394.blackjack.domain.TrumpFactory.trump;
 
 @Timeout(1)
 public class ConsoleBlackjackEndToEndTest {

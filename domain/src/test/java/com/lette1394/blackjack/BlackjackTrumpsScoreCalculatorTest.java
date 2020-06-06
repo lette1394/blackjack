@@ -5,8 +5,10 @@ import java.util.stream.Collectors;
 
 import org.junit.jupiter.api.Test;
 
-import static com.lette1394.blackjack.TrumpFactory.trump;
-import static com.lette1394.blackjack.TrumpFactory.trumps;
+import com.lette1394.blackjack.domain.TrumpsTranslator;
+
+import static com.lette1394.blackjack.domain.TrumpFactory.trump;
+import static com.lette1394.blackjack.domain.TrumpFactory.trumps;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 

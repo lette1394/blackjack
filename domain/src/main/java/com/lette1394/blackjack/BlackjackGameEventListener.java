@@ -2,6 +2,8 @@ package com.lette1394.blackjack;
 
 import java.util.EventListener;
 
+import com.lette1394.blackjack.domain.Trumps;
+
 public interface BlackjackGameEventListener extends EventListener {
     void start();
 

@@ -7,7 +7,7 @@ import com.lette1394.blackjack.BlackjackPlayerInputTranslator;
 import com.lette1394.blackjack.ConsoleBlackjackGame;
 import com.lette1394.blackjack.InvalidBlackjackPlayerCommandListener;
 import com.lette1394.blackjack.PlayerRepository;
-import com.lette1394.blackjack.RandomTrumpProvider;
+import com.lette1394.blackjack.domain.RandomTrumpProvider;
 import com.lette1394.blackjack.ShutDownHook;
 import com.lette1394.blackjack.ui.PlayerInputGameOutput;
 

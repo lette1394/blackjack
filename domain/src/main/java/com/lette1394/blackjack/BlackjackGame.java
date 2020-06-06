@@ -2,6 +2,9 @@ package com.lette1394.blackjack;
 
 import lombok.RequiredArgsConstructor;
 
+import com.lette1394.blackjack.domain.Player;
+import com.lette1394.blackjack.domain.TrumpProvider;
+import com.lette1394.blackjack.domain.Trumps;
 import com.lette1394.blackjack.util.EventAnnouncer;
 
 @RequiredArgsConstructor

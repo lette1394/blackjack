@@ -1,21 +1,24 @@
 package com.lette1394.blackjack;
 
+import com.lette1394.blackjack.domain.Trump;
+import com.lette1394.blackjack.domain.Trumps;
+import com.lette1394.blackjack.domain.TrumpsTranslator;
 import com.lette1394.blackjack.mapper.HashMapBasedMapper;
 import com.lette1394.blackjack.mapper.Mapper;
 
-import static com.lette1394.blackjack.Trump.Value.ACE;
-import static com.lette1394.blackjack.Trump.Value.EIGHT;
-import static com.lette1394.blackjack.Trump.Value.FIVE;
-import static com.lette1394.blackjack.Trump.Value.FOUR;
-import static com.lette1394.blackjack.Trump.Value.JACK;
-import static com.lette1394.blackjack.Trump.Value.KING;
-import static com.lette1394.blackjack.Trump.Value.NINE;
-import static com.lette1394.blackjack.Trump.Value.QUEEN;
-import static com.lette1394.blackjack.Trump.Value.SEVEN;
-import static com.lette1394.blackjack.Trump.Value.SIX;
-import static com.lette1394.blackjack.Trump.Value.TEN;
-import static com.lette1394.blackjack.Trump.Value.THREE;
-import static com.lette1394.blackjack.Trump.Value.TWO;
+import static com.lette1394.blackjack.domain.Trump.Value.ACE;
+import static com.lette1394.blackjack.domain.Trump.Value.EIGHT;
+import static com.lette1394.blackjack.domain.Trump.Value.FIVE;
+import static com.lette1394.blackjack.domain.Trump.Value.FOUR;
+import static com.lette1394.blackjack.domain.Trump.Value.JACK;
+import static com.lette1394.blackjack.domain.Trump.Value.KING;
+import static com.lette1394.blackjack.domain.Trump.Value.NINE;
+import static com.lette1394.blackjack.domain.Trump.Value.QUEEN;
+import static com.lette1394.blackjack.domain.Trump.Value.SEVEN;
+import static com.lette1394.blackjack.domain.Trump.Value.SIX;
+import static com.lette1394.blackjack.domain.Trump.Value.TEN;
+import static com.lette1394.blackjack.domain.Trump.Value.THREE;
+import static com.lette1394.blackjack.domain.Trump.Value.TWO;
 
 public class BlackjackTrumpsScoreCalculator implements TrumpsTranslator<Integer> {
     private static final Mapper<Trump.Value, Integer> mapper;

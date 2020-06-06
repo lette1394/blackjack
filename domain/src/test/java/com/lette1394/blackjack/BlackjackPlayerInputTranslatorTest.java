@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Test;
 import org.jmock.Expectations;
 import org.jmock.auto.Mock;
 
+import com.lette1394.blackjack.domain.Player;
 import com.lette1394.blackjack.util.BaseTest;
 
 class BlackjackPlayerInputTranslatorTest extends BaseTest {

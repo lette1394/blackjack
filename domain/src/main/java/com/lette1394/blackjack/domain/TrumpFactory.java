@@ -1,4 +1,4 @@
-package com.lette1394.blackjack;
+package com.lette1394.blackjack.domain;
 
 import java.util.ArrayList;
 import java.util.Arrays;

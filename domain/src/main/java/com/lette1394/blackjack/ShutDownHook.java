@@ -4,6 +4,8 @@ import java.io.Closeable;
 
 import lombok.SneakyThrows;
 
+import com.lette1394.blackjack.domain.Trumps;
+
 public class ShutDownHook implements BlackjackGameEventListener {
     private final Closeable[] closeables;
 

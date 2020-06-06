@@ -6,6 +6,8 @@ import java.util.stream.Collectors;
 
 import lombok.RequiredArgsConstructor;
 
+import com.lette1394.blackjack.domain.Trump;
+import com.lette1394.blackjack.domain.Trumps;
 import com.lette1394.blackjack.ui.GameOutput;
 
 @RequiredArgsConstructor
