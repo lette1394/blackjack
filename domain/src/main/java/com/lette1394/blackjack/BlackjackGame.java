@@ -1,8 +1,5 @@
 package com.lette1394.blackjack;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
@@ -11,8 +8,6 @@ public class BlackjackGame implements BlackjackPlayerCommandListener {
     private final int dealerStopScore;
     private Trumps trumpsForDealer;
     private Trumps trumpsForPlayer = new Trumps();
-
-    private Map<Player, Trumps> playerTrumps = new HashMap<>();
 
     private final TrumpProvider trumpProvider;
     private final EventAnnouncer<BlackjackGameEventListener> game = new EventAnnouncer<>(BlackjackGameEventListener.class);
@@ -23,7 +18,6 @@ public class BlackjackGame implements BlackjackPlayerCommandListener {
 
     @Override
     public void join(final Player player) {
-        playerTrumps.put(player, new Trumps());
         start();
         drawToPlayer(2);
         drawToDealer(1);
