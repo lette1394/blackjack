@@ -2,6 +2,9 @@ package com.lette1394.blackjack;
 
 import org.junit.jupiter.api.Test;
 
+import com.lette1394.blackjack.io.CannotParseBlackjackProtocolException;
+import com.lette1394.blackjack.io.CommandLineBlackjackProtocol;
+
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.containsString;
 import static org.hamcrest.Matchers.is;

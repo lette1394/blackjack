@@ -1,4 +1,4 @@
-package com.lette1394.blackjack;
+package com.lette1394.blackjack.io;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -6,9 +6,9 @@ import java.util.stream.Collectors;
 
 import lombok.RequiredArgsConstructor;
 
+import com.lette1394.blackjack.BlackjackGameEventListener;
 import com.lette1394.blackjack.domain.Trump;
 import com.lette1394.blackjack.domain.Trumps;
-import com.lette1394.blackjack.io.GameOutput;
 
 @RequiredArgsConstructor
 public class ConsoleBlackjackGame implements BlackjackGameEventListener {

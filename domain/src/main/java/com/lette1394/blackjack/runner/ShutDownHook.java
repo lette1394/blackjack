@@ -1,9 +1,10 @@
-package com.lette1394.blackjack;
+package com.lette1394.blackjack.runner;
 
 import java.io.Closeable;
 
 import lombok.SneakyThrows;
 
+import com.lette1394.blackjack.BlackjackGameEventListener;
 import com.lette1394.blackjack.domain.Trumps;
 
 public class ShutDownHook implements BlackjackGameEventListener {

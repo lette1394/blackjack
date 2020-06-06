@@ -12,10 +12,14 @@ import lombok.SneakyThrows;
 
 import com.lette1394.blackjack.domain.Trump;
 import com.lette1394.blackjack.domain.TrumpProvider;
+import com.lette1394.blackjack.io.BlackjackPlayerInputTranslator;
+import com.lette1394.blackjack.io.ConsoleBlackjackGame;
+import com.lette1394.blackjack.io.ConsoleInvalidPlayerInputHandler;
 import com.lette1394.blackjack.runner.BlackjackGameRunner;
 import com.lette1394.blackjack.io.ConsolePlayerInputGameOutput;
 import com.lette1394.blackjack.io.HelloMessageConsolePlayerInputGameOutput;
 import com.lette1394.blackjack.io.PlayerInputGameOutput;
+import com.lette1394.blackjack.testutil.FakePlayer;
 
 import static com.lette1394.blackjack.domain.TrumpFactory.trump;
 

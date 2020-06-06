@@ -1,8 +1,8 @@
-package com.lette1394.blackjack;
+package com.lette1394.blackjack.io;
 
 import lombok.RequiredArgsConstructor;
 
-import com.lette1394.blackjack.io.GameOutput;
+import com.lette1394.blackjack.InvalidBlackjackPlayerCommandListener;
 
 @RequiredArgsConstructor
 public class ConsoleInvalidPlayerInputHandler extends InvalidBlackjackPlayerCommandListener {

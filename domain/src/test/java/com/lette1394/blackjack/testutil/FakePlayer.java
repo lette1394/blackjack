@@ -1,4 +1,4 @@
-package com.lette1394.blackjack;
+package com.lette1394.blackjack.testutil;
 
 import java.io.OutputStream;
 import java.io.PrintStream;

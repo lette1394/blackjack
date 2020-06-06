@@ -1,4 +1,4 @@
-package com.lette1394.blackjack;
+package com.lette1394.blackjack.io;
 
 import java.util.Arrays;
 import java.util.HashMap;

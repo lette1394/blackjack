@@ -6,6 +6,7 @@ import org.jmock.Expectations;
 import org.jmock.auto.Mock;
 
 import com.lette1394.blackjack.domain.Player;
+import com.lette1394.blackjack.io.BlackjackPlayerInputTranslator;
 import com.lette1394.blackjack.testutil.BaseTest;
 
 class BlackjackPlayerInputTranslatorTest extends BaseTest {
