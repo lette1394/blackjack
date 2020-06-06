@@ -6,8 +6,8 @@ import lombok.RequiredArgsConstructor;
 public class BlackjackGame implements BlackjackPlayerCommandListener {
 
     private final int dealerStopScore;
-    private Trumps trumpsForDealer;
-    private Trumps trumpsForPlayer = new Trumps();
+    private final Trumps trumpsForDealer = new Trumps();
+    private final Trumps trumpsForPlayer = new Trumps();
 
     private final TrumpProvider trumpProvider;
     private final EventAnnouncer<BlackjackGameEventListener> game = new EventAnnouncer<>(BlackjackGameEventListener.class);
@@ -62,7 +62,8 @@ public class BlackjackGame implements BlackjackPlayerCommandListener {
     }
 
     public void drawToDealer(int showCards) {
-        trumpsForDealer = new Trumps(trumpProvider.provide(), trumpProvider.provide());
+        trumpsForDealer.add(trumpProvider.provide());
+        trumpsForDealer.add(trumpProvider.provide());
 
         game.announce().dealerHandChanged(showCards, trumpsForDealer);
     }
