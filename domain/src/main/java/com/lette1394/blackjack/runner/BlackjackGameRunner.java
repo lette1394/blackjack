@@ -1,7 +1,8 @@
-package com.lette1394.blackjack;
+package com.lette1394.blackjack.runner;
 
 import lombok.extern.slf4j.Slf4j;
 
+import com.lette1394.blackjack.BlackjackPlayerInputTranslator;
 import com.lette1394.blackjack.ui.PlayerInputGameOutput;
 
 @Slf4j

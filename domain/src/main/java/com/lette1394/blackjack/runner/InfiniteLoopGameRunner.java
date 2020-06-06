@@ -1,4 +1,4 @@
-package com.lette1394.blackjack;
+package com.lette1394.blackjack.runner;
 
 import lombok.RequiredArgsConstructor;
 

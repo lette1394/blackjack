@@ -1,4 +1,4 @@
-package com.lette1394.blackjack;
+package com.lette1394.blackjack.runner;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
