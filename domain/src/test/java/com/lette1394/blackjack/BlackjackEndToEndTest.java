@@ -196,6 +196,19 @@ public class BlackjackEndToEndTest {
         assertion.hasShownGameIsEnded();
     }
 
+    @Test
+    void aPlayerInputWrongCommand() {
+        readyForNewGame(20, nextTrumps(trump("♦️", "Ace"), trump("♣️", "8"),
+                                       trump("♥️", "5"), trump("♠️", "6"),
+                                       trump("♠️", "8"), trump("♠️", "Ace")));
+
+        runner.run();
+        assertion.hasShownWaitForPlayer();
+
+        player.send("some invalid command");
+        assertion.hasShownInputIsInvalidAndHelpMessages();
+    }
+
     private void readyForNewGame(final int dealerStopScore, final TrumpProvider trumpProvider) {
         final BlackjackGame blackjackGame = new BlackjackGame(dealerStopScore, trumpProvider);
         blackjackGame.addListener(new ConsoleBlackjackGame(playerInputGameOutput));
