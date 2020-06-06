@@ -1,4 +1,4 @@
-package com.lette1394.blackjack;
+package com.lette1394.blackjack.mapper;
 
 import java.util.HashMap;
 import java.util.List;

@@ -11,6 +11,10 @@ import java.util.stream.IntStream;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 
+import com.lette1394.blackjack.mapper.HashMapBasedMapper;
+import com.lette1394.blackjack.mapper.Mapper;
+import com.lette1394.blackjack.mapper.MapperFactory;
+
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public final class TrumpFactory {
     private static final List<Mapper<String, Trump.Suit>> suitMappers = new ArrayList<>();

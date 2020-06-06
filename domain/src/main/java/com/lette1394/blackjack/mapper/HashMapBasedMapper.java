@@ -1,4 +1,4 @@
-package com.lette1394.blackjack;
+package com.lette1394.blackjack.mapper;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -6,7 +6,7 @@ import java.util.Map;
 public class HashMapBasedMapper<From, To> implements Mapper<From, To> {
     private final Map<From, To> map = new HashMap<>();
 
-    void put(From key, To value) {
+    public void put(From key, To value) {
         if (map.containsKey(key)) {
             throw new IllegalArgumentException(String.format("key:[%s] is already in this mapper. key:[%s], value[%s]",
                                                              key, key, value));

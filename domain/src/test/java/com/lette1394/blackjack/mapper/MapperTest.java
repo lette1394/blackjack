@@ -1,6 +1,8 @@
-package com.lette1394.blackjack;
+package com.lette1394.blackjack.mapper;
 
 import org.junit.jupiter.api.Test;
+
+import com.lette1394.blackjack.Trump;
 
 import static java.util.Arrays.asList;
 import static org.hamcrest.MatcherAssert.assertThat;

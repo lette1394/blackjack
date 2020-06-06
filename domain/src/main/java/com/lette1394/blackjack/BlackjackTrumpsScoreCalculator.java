@@ -1,5 +1,8 @@
 package com.lette1394.blackjack;
 
+import com.lette1394.blackjack.mapper.HashMapBasedMapper;
+import com.lette1394.blackjack.mapper.Mapper;
+
 import static com.lette1394.blackjack.Trump.Value.ACE;
 import static com.lette1394.blackjack.Trump.Value.EIGHT;
 import static com.lette1394.blackjack.Trump.Value.FIVE;

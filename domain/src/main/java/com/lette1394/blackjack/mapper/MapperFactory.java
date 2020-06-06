@@ -1,4 +1,4 @@
-package com.lette1394.blackjack;
+package com.lette1394.blackjack.mapper;
 
 import java.util.List;
 import java.util.function.Function;
@@ -10,6 +10,6 @@ public final class MapperFactory {
 
     public static <From, Middle, To> Mapper<From, To> convert(final Function<From, Middle> converter,
                                                               final Mapper<Middle, To> mapper) {
-        return new ConvertibleMapper<From, Middle, To>(converter, mapper);
+        return new ConvertibleMapper<>(converter, mapper);
     }
 }
