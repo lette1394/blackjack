@@ -1,4 +1,4 @@
-package com.lette1394.blackjack;
+package com.lette1394.blackjack.util;
 
 import java.util.EventListener;
 
@@ -6,8 +6,7 @@ import org.junit.jupiter.api.Test;
 import org.jmock.Expectations;
 import org.jmock.auto.Mock;
 
-import com.lette1394.blackjack.util.BaseTest;
-import com.lette1394.blackjack.util.EventAnnouncer;
+import com.lette1394.blackjack.testutil.BaseTest;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 

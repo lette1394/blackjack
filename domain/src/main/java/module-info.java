@@ -4,6 +4,5 @@ module blackjack.domain {
     requires org.apache.logging.log4j;
     requires com.google.common;
 
-    exports com.lette1394.blackjack.ui;
     exports com.lette1394.blackjack;
 }
