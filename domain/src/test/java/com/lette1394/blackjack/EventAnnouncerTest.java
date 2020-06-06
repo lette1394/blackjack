@@ -7,6 +7,7 @@ import org.jmock.Expectations;
 import org.jmock.auto.Mock;
 
 import com.lette1394.blackjack.util.BaseTest;
+import com.lette1394.blackjack.util.EventAnnouncer;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 

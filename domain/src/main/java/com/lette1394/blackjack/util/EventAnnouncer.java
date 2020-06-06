@@ -1,4 +1,4 @@
-package com.lette1394.blackjack;
+package com.lette1394.blackjack.util;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
