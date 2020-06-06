@@ -5,10 +5,10 @@ import java.io.PrintStream;
 
 import com.lette1394.blackjack.ui.PlayerInputGameOutput;
 
-public class FakePlayerPlayerInputGameOutput implements PlayerInputGameOutput {
+public class FakePlayer implements PlayerInputGameOutput {
     private final PrintStream out;
 
-    public FakePlayerPlayerInputGameOutput(final OutputStream out) {
+    public FakePlayer(final OutputStream out) {
         this.out = new PrintStream(out, true);
     }
 

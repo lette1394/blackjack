@@ -1,17 +1,21 @@
 package com.lette1394.blackjack;
 
+import java.util.HashMap;
+import java.util.Map;
+
+import lombok.RequiredArgsConstructor;
+
+@RequiredArgsConstructor
 public class BlackjackGame implements BlackjackPlayerCommandListener {
 
-    // TODO: 딜러가 뽑은 카드만 특별하게 체크해야하나? 이건 player가 hit하는 테스트를 추가하고나서 더 생각해보자.
+    private final int dealerStopScore;
     private Trumps trumpsForDealer;
     private Trumps trumpsForPlayer = new Trumps();
 
+    private Map<Player, Trumps> playerTrumps = new HashMap<>();
+
     private final TrumpProvider trumpProvider;
     private final EventAnnouncer<BlackjackGameEventListener> game = new EventAnnouncer<>(BlackjackGameEventListener.class);
-
-    public BlackjackGame(final TrumpProvider trumpProvider) {
-        this.trumpProvider = trumpProvider;
-    }
 
     public void addListener(final BlackjackGameEventListener listener) {
         game.addListener(listener);
@@ -19,6 +23,7 @@ public class BlackjackGame implements BlackjackPlayerCommandListener {
 
     @Override
     public void join(final Player player) {
+        playerTrumps.put(player, new Trumps());
         start();
         drawToPlayer(2);
         drawToDealer(1);
@@ -34,6 +39,7 @@ public class BlackjackGame implements BlackjackPlayerCommandListener {
         playerTurnEnds();
 
         showDealerCards(2);
+        drawToDealerAtLeast(dealerStopScore);
         dealerTurnEnds();
 
         showWinner();
@@ -65,6 +71,13 @@ public class BlackjackGame implements BlackjackPlayerCommandListener {
         trumpsForDealer = new Trumps(trumpProvider.provide(), trumpProvider.provide());
 
         game.announce().dealerHandChanged(showCards, trumpsForDealer);
+    }
+
+    public void drawToDealerAtLeast(int score) {
+        while (trumpsForDealer.computeScore() < score) {
+            trumpsForDealer.add(trumpProvider.provide());
+            game.announce().dealerHandChanged(trumpsForDealer.size(), trumpsForDealer);
+        }
     }
 
     public void showDealerCards(int showCards) {

@@ -30,4 +30,8 @@ public class Trumps {
     public void add(final Trump trump) {
         trumps.add(trump);
     }
+
+    public int size() {
+        return trumps.size();
+    }
 }

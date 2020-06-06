@@ -23,7 +23,7 @@ public class BlackjackGameRunner implements GameRunner {
             } catch (Exception e) {
                 log.error("unexpected error : " + e);
                 e.printStackTrace();
-                System.exit(99);
+                throw new RuntimeException(e);
             }
         })).run();
     }

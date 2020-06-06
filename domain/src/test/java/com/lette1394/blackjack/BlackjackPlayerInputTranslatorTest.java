@@ -9,19 +9,22 @@ import com.lette1394.blackjack.util.BaseTest;
 
 class BlackjackPlayerInputTranslatorTest extends BaseTest {
     @Mock BlackjackPlayerCommandListener listener;
+    @Mock PlayerRepository repository;
     private BlackjackPlayerInputTranslator translator;
 
     private static final Player player = new Player();
 
     @BeforeEach
     void setUp() {
-        translator = new BlackjackPlayerInputTranslator(new InMemoryPlayerRepository());
+        translator = new BlackjackPlayerInputTranslator(repository);
         translator.addListener(listener);
     }
 
     @Test
     void notifyJoinWhenAPlayerInputsJoin() {
         context.checking(new Expectations() {{
+            oneOf(repository).find("1234"); will(returnValue(player));
+
             oneOf(listener).join(player);
         }});
 
@@ -31,6 +34,8 @@ class BlackjackPlayerInputTranslatorTest extends BaseTest {
     @Test
     void notifyHitWhenAPlayerInputsStay() {
         context.checking(new Expectations() {{
+            oneOf(repository).find("1234"); will(returnValue(player));
+
             oneOf(listener).hit(player);
         }});
 
@@ -40,6 +45,8 @@ class BlackjackPlayerInputTranslatorTest extends BaseTest {
     @Test
     void notifyStayWhenAPlayerInputsStay() {
         context.checking(new Expectations() {{
+            oneOf(repository).find("1234"); will(returnValue(player));
+
             oneOf(listener).stay(player);
         }});
 
