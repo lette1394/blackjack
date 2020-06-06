@@ -1,11 +1,9 @@
-package com.lette1394.blackjack;
+package com.lette1394.blackjack.domain;
 
 import java.util.Arrays;
 import java.util.stream.Collectors;
 
 import org.junit.jupiter.api.Test;
-
-import com.lette1394.blackjack.domain.TrumpsTranslator;
 
 import static com.lette1394.blackjack.domain.TrumpFactory.trump;
 import static com.lette1394.blackjack.domain.TrumpFactory.trumps;

@@ -4,8 +4,6 @@ import java.util.List;
 
 import com.google.common.collect.Lists;
 
-import com.lette1394.blackjack.BlackjackTrumpsScoreCalculator;
-
 public class Trumps {
     protected final List<Trump> trumps;
 

@@ -1,8 +1,5 @@
-package com.lette1394.blackjack;
+package com.lette1394.blackjack.domain;
 
-import com.lette1394.blackjack.domain.Trump;
-import com.lette1394.blackjack.domain.Trumps;
-import com.lette1394.blackjack.domain.TrumpsTranslator;
 import com.lette1394.blackjack.mapper.HashMapBasedMapper;
 import com.lette1394.blackjack.mapper.Mapper;
 
