@@ -6,9 +6,10 @@ import com.lette1394.blackjack.domain.CommandListener;
 import com.lette1394.blackjack.domain.player.PlayerRepository;
 import com.lette1394.blackjack.domain.player.Player;
 import com.lette1394.blackjack.event.EventAnnouncer;
+import com.lette1394.blackjack.event.ListenersAware;
 
 @RequiredArgsConstructor
-public class ConsoleInputProcessor implements InputProcessor {
+public class ConsoleInputProcessor implements InputProcessor, ListenersAware<CommandListener> {
     private static final String COMMAND_JOIN = "join";
     private static final String COMMAND_STAY = "stay";
     private static final String COMMAND_HIT = "hit";
@@ -40,6 +41,7 @@ public class ConsoleInputProcessor implements InputProcessor {
         }
     }
 
+    @Override
     public void addListener(final CommandListener listener) {
         players.addListener(listener);
     }

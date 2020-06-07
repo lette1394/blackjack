@@ -14,14 +14,14 @@ import com.lette1394.blackjack.testutil.BaseTest;
 class ConsoleInputProcessorTest extends BaseTest {
     @Mock CommandListener listener;
     @Mock PlayerRepository repository;
-    private ConsoleInputProcessor translator;
+    private ConsoleInputProcessor processor;
 
     private static final Player player = new Player();
 
     @BeforeEach
     void setUp() {
-        translator = new ConsoleInputProcessor(repository);
-        translator.addListener(listener);
+        processor = new ConsoleInputProcessor(repository);
+        processor.addListener(listener);
     }
 
     @Test
@@ -32,7 +32,7 @@ class ConsoleInputProcessorTest extends BaseTest {
             oneOf(listener).onJoin(player);
         }});
 
-        translator.process("playerId=1234; command=join");
+        processor.process("playerId=1234; command=join");
     }
 
     @Test
@@ -43,7 +43,7 @@ class ConsoleInputProcessorTest extends BaseTest {
             oneOf(listener).onHit(player);
         }});
 
-        translator.process("playerId=1234; command=hit");
+        processor.process("playerId=1234; command=hit");
     }
 
     @Test
@@ -54,7 +54,7 @@ class ConsoleInputProcessorTest extends BaseTest {
             oneOf(listener).onStay(player);
         }});
 
-        translator.process("playerId=1234; command=stay");
+        processor.process("playerId=1234; command=stay");
     }
 
     @Test
@@ -63,7 +63,7 @@ class ConsoleInputProcessorTest extends BaseTest {
             oneOf(listener).onInvalidCommand("invalid command");
         }});
 
-        translator.process("invalid command");
+        processor.process("invalid command");
     }
 
     @Test
@@ -74,6 +74,6 @@ class ConsoleInputProcessorTest extends BaseTest {
             oneOf(listener).onInvalidCommand("playerId=1234; command=unknown-command");
         }});
 
-        translator.process("playerId=1234; command=unknown-command");
+        processor.process("playerId=1234; command=unknown-command");
     }
 }

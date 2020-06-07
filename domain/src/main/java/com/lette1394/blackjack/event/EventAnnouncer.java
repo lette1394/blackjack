@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.EventListener;
 
-public class EventAnnouncer<T extends EventListener> {
+public class EventAnnouncer<T extends EventListener> implements ListenersAware<T> {
     private final T proxy;
     private final Collection<T> listeners;
 
@@ -28,12 +28,13 @@ public class EventAnnouncer<T extends EventListener> {
                         }));
     }
 
-    public void addListener(final T listener) {
-        listeners.add(listener);
-    }
-
     public T announce() {
         return proxy;
+    }
+
+    @Override
+    public void addListener(final T listener) {
+        listeners.add(listener);
     }
 
     private void ensureMethodReturnTypeIsNotVoid(final Class<T> listenerType) {
