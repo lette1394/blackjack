@@ -9,7 +9,7 @@ public class ConsoleInvalidCommandListener extends InvalidCommandListener {
     private final Output output;
 
     @Override
-    public void cannotHandle(final String invalidInput) {
-        output.send(String.format("wrong input: %s", invalidInput));
+    public void onInvalidCommand(final String rawInput) {
+        output.send(String.format("wrong input: %s", rawInput));
     }
 }

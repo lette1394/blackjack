@@ -29,7 +29,7 @@ class ConsoleInputProcessorTest extends BaseTest {
         context.checking(new Expectations() {{
             oneOf(repository).find("1234"); will(returnValue(player));
 
-            oneOf(listener).join(player);
+            oneOf(listener).onJoin(player);
         }});
 
         translator.process("playerId=1234; command=join");
@@ -40,7 +40,7 @@ class ConsoleInputProcessorTest extends BaseTest {
         context.checking(new Expectations() {{
             oneOf(repository).find("1234"); will(returnValue(player));
 
-            oneOf(listener).hit(player);
+            oneOf(listener).onHit(player);
         }});
 
         translator.process("playerId=1234; command=hit");
@@ -51,7 +51,7 @@ class ConsoleInputProcessorTest extends BaseTest {
         context.checking(new Expectations() {{
             oneOf(repository).find("1234"); will(returnValue(player));
 
-            oneOf(listener).stay(player);
+            oneOf(listener).onStay(player);
         }});
 
         translator.process("playerId=1234; command=stay");
@@ -60,7 +60,7 @@ class ConsoleInputProcessorTest extends BaseTest {
     @Test
     void notifyCannotHandleWhenAPlayerInputAnInvalidString() {
         context.checking(new Expectations() {{
-            oneOf(listener).cannotHandle("invalid command");
+            oneOf(listener).onInvalidCommand("invalid command");
         }});
 
         translator.process("invalid command");
@@ -71,7 +71,7 @@ class ConsoleInputProcessorTest extends BaseTest {
         context.checking(new Expectations() {{
             oneOf(repository).find("1234"); will(returnValue(player));
 
-            oneOf(listener).cannotHandle("playerId=1234; command=unknown-command");
+            oneOf(listener).onInvalidCommand("playerId=1234; command=unknown-command");
         }});
 
         translator.process("playerId=1234; command=unknown-command");

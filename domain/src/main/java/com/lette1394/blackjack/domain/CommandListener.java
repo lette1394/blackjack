@@ -5,11 +5,11 @@ import java.util.EventListener;
 import com.lette1394.blackjack.domain.player.Player;
 
 public interface CommandListener extends EventListener {
-    void join(Player player);
+    void onJoin(Player player);
 
-    void hit(Player player);
+    void onHit(Player player);
 
-    void stay(Player player);
+    void onStay(Player player);
 
-    void cannotHandle(String invalidInput);
+    void onInvalidCommand(String rawInput);
 }

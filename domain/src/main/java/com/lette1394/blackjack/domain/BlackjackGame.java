@@ -22,7 +22,7 @@ public class BlackjackGame extends NoOpCommandListener {
     }
 
     @Override
-    public void join(final Player player) {
+    public void onJoin(final Player player) {
         start();
 
         drawToPlayer(2);
@@ -30,12 +30,12 @@ public class BlackjackGame extends NoOpCommandListener {
     }
 
     @Override
-    public void hit(final Player player) {
+    public void onHit(final Player player) {
         drawToPlayer(1);
     }
 
     @Override
-    public void stay(final Player player) {
+    public void onStay(final Player player) {
         playerTurnEnds();
 
         showDealerCards(2);

@@ -24,19 +24,19 @@ public class ConsoleInputProcessor implements InputProcessor {
 
             switch (protocol.getCommand()) {
                 case COMMAND_JOIN:
-                    players.announce().join(player);
+                    players.announce().onJoin(player);
                     break;
                 case COMMAND_STAY:
-                    players.announce().stay(player);
+                    players.announce().onStay(player);
                     break;
                 case COMMAND_HIT:
-                    players.announce().hit(player);
+                    players.announce().onHit(player);
                     break;
                 default:
                     throw new CannotParseBlackjackProtocolException(playerInput);
             }
         } catch (CannotParseBlackjackProtocolException e) {
-            players.announce().cannotHandle(playerInput);
+            players.announce().onInvalidCommand(playerInput);
         }
     }
 

@@ -4,22 +4,22 @@ import com.lette1394.blackjack.domain.player.Player;
 
 public class NoOpCommandListener implements CommandListener {
     @Override
-    public void join(final Player player) {
+    public void onJoin(final Player player) {
         // no-op
     }
 
     @Override
-    public void hit(final Player player) {
+    public void onHit(final Player player) {
         // no-op
     }
 
     @Override
-    public void stay(final Player player) {
+    public void onStay(final Player player) {
         // no-op
     }
 
     @Override
-    public void cannotHandle(final String invalidInput) {
+    public void onInvalidCommand(final String rawInput) {
         // no-op
     }
 }
