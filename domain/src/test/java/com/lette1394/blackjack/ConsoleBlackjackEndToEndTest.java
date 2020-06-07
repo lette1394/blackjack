@@ -43,7 +43,7 @@ public class ConsoleBlackjackEndToEndTest {
 
         inputOutput = new ConsoleHelloMessageInputOutputAdapter("wait for player...",
                                                                 new ConsoleInputOutput(fakeInput,
-                                                                                runnerOutput));
+                                                                                       runnerOutput));
         consoleInputTranslator = new ConsoleInputProcessor(new InMemoryPlayerRepository());
         player = new ConsoleFakeInputOutput(fakeOutput);
         runner = new BlackjackGameRunner(inputOutput, consoleInputTranslator, 0);
@@ -219,6 +219,34 @@ public class ConsoleBlackjackEndToEndTest {
 
         player.send("some invalid command");
         assertion.hasShownInputIsInvalidAndHelpMessages();
+    }
+
+    @Test
+    void aPlayerLosesAfterBusts() {
+        readyForNewGame(20, nextTrumps(trump("♦️", "Ace"), trump("♣️", "8"),
+                                       trump("♥️", "5"), trump("♠️", "6"),
+                                       trump("♠️", "9"), trump("♠️", "2"), trump("♦️", "2")));
+
+        runner.run();
+        assertion.hasShownWaitForPlayer();
+
+        player.join();
+        assertion.hasShownGameIsStarted();
+        assertion.hasShownDrawCardToPlayer("(♦️A) (♣️8)");
+        assertion.hasShownDealerGotCards("(♥️5) (??)");
+
+        player.hit();
+        assertion.hasShownDrawCardToPlayer("(♦️A) (♣️8) (♣️9)");
+        player.hit();
+        assertion.hasShownDrawCardToPlayer("(♦️A) (♣️8) (♣️9) (♣️2)");
+        player.hit();
+        assertion.hasShownDrawCardToPlayer("(♦️A) (♣️8) (♣️9) (♣️2) (♦️2)");
+
+        assertion.hasShownPlayerGotBust(22);
+
+        assertion.hasShownPlayerLose();
+
+        assertion.hasShownGameIsEnded();
     }
 
     private void readyForNewGame(final int dealerStopScore, final TrumpProvider trumpProvider) {

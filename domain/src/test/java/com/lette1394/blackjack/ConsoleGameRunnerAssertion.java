@@ -54,6 +54,10 @@ public class ConsoleGameRunnerAssertion {
         assertThat(nextConsoleInput(), containsString("wrong input: "));
     }
 
+    public void hasShownPlayerGotBust(final int playerBustScore) {
+        assertThat(nextConsoleInput(), is("You got BUST. score: " + playerBustScore));
+    }
+
     private String nextConsoleInput() {
         return userInput.nextLine();
     }
