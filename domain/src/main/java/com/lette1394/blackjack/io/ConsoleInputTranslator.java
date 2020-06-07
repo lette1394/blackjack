@@ -8,7 +8,7 @@ import com.lette1394.blackjack.domain.player.Player;
 import com.lette1394.blackjack.util.EventAnnouncer;
 
 @RequiredArgsConstructor
-public class ConsoleInputTranslator {
+public class ConsoleInputTranslator implements InputTranslator {
     private static final String COMMAND_JOIN = "join";
     private static final String COMMAND_STAY = "stay";
     private static final String COMMAND_HIT = "hit";
@@ -16,6 +16,7 @@ public class ConsoleInputTranslator {
     private final EventAnnouncer<CommandListener> players = new EventAnnouncer<>(CommandListener.class);
     private final PlayerRepository playerRepository;
 
+    @Override
     public void translate(final String playerInput) {
         try {
             final ConsoleBlackjackProtocol protocol = new ConsoleBlackjackProtocol(playerInput);
