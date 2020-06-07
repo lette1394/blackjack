@@ -5,10 +5,10 @@ import lombok.RequiredArgsConstructor;
 import com.lette1394.blackjack.domain.CommandListener;
 import com.lette1394.blackjack.domain.player.PlayerRepository;
 import com.lette1394.blackjack.domain.player.Player;
-import com.lette1394.blackjack.util.EventAnnouncer;
+import com.lette1394.blackjack.event.EventAnnouncer;
 
 @RequiredArgsConstructor
-public class ConsoleInputTranslator implements InputTranslator {
+public class ConsoleInputProcessor implements InputProcessor {
     private static final String COMMAND_JOIN = "join";
     private static final String COMMAND_STAY = "stay";
     private static final String COMMAND_HIT = "hit";
@@ -17,7 +17,7 @@ public class ConsoleInputTranslator implements InputTranslator {
     private final PlayerRepository playerRepository;
 
     @Override
-    public void translate(final String playerInput) {
+    public void process(final String playerInput) {
         try {
             final ConsoleBlackjackProtocol protocol = new ConsoleBlackjackProtocol(playerInput);
             final Player player = playerRepository.find(protocol.getPlayerId());

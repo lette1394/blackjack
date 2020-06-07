@@ -1,4 +1,4 @@
-package com.lette1394.blackjack.util;
+package com.lette1394.blackjack.event;
 
 import java.util.EventListener;
 

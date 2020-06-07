@@ -14,7 +14,7 @@ import com.lette1394.blackjack.domain.BlackjackGame;
 import com.lette1394.blackjack.domain.player.InMemoryPlayerRepository;
 import com.lette1394.blackjack.domain.trump.Trump;
 import com.lette1394.blackjack.domain.trump.TrumpProvider;
-import com.lette1394.blackjack.io.ConsoleInputTranslator;
+import com.lette1394.blackjack.io.ConsoleInputProcessor;
 import com.lette1394.blackjack.io.ConsoleOutput;
 import com.lette1394.blackjack.io.ConsoleInvalidCommandListener;
 import com.lette1394.blackjack.runner.BlackjackGameRunner;
@@ -30,7 +30,7 @@ public class EndToEndTest {
     private BlackjackGameRunner runner;
     private ConsoleFakeInputOutput player;
     private ConsoleGameRunnerAssertion assertion;
-    private ConsoleInputTranslator consoleInputTranslator;
+    private ConsoleInputProcessor consoleInputTranslator;
     private InputOutput inputOutput;
 
     @BeforeEach
@@ -44,7 +44,7 @@ public class EndToEndTest {
         inputOutput = new ConsoleHelloMessageInputOutputAdapter("wait for player...",
                                                                 new ConsoleInputOutput(fakeInput,
                                                                                 runnerOutput));
-        consoleInputTranslator = new ConsoleInputTranslator(new InMemoryPlayerRepository());
+        consoleInputTranslator = new ConsoleInputProcessor(new InMemoryPlayerRepository());
         player = new ConsoleFakeInputOutput(fakeOutput);
         runner = new BlackjackGameRunner(inputOutput, consoleInputTranslator, 0);
 

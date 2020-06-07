@@ -5,7 +5,7 @@ import lombok.RequiredArgsConstructor;
 import com.lette1394.blackjack.domain.player.Player;
 import com.lette1394.blackjack.domain.trump.TrumpProvider;
 import com.lette1394.blackjack.domain.trump.Trumps;
-import com.lette1394.blackjack.util.EventAnnouncer;
+import com.lette1394.blackjack.event.EventAnnouncer;
 
 @RequiredArgsConstructor
 public class BlackjackGame extends NoOpCommandListener {

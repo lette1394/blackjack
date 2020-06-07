@@ -7,7 +7,7 @@ import com.lette1394.blackjack.io.ConsoleOutput;
 import com.lette1394.blackjack.domain.InvalidCommandListener;
 import com.lette1394.blackjack.domain.player.PlayerRepository;
 import com.lette1394.blackjack.domain.trump.RandomTrumpProvider;
-import com.lette1394.blackjack.io.ConsoleInputTranslator;
+import com.lette1394.blackjack.io.ConsoleInputProcessor;
 import com.lette1394.blackjack.io.InputOutput;
 
 public class BlackjackGameLauncher {
@@ -31,7 +31,7 @@ public class BlackjackGameLauncher {
     }
 
     public void launch() {
-        final ConsoleInputTranslator consoleInputTranslator = new ConsoleInputTranslator(playerRepository);
+        final ConsoleInputProcessor consoleInputTranslator = new ConsoleInputProcessor(playerRepository);
         final BlackjackGameRunner runner = new BlackjackGameRunner(inputOutput,
                                                                    consoleInputTranslator, loopIntervalMillis);
 

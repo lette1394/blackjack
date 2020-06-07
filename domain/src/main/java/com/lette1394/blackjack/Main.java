@@ -18,8 +18,8 @@ public class Main {
                        .builder()
                        .dealerStopScoreInclusive(17)
                        .invalidBlackjackPlayerCommandListener(new ConsoleInvalidCommandListener(consoleInputGameOutput))
-                       .playerInputGameOutput(new StringFormatTemplateInputOutputAdapter("playerId=0000; command=%s",
-                                                                                         consoleInputGameOutput))
+                       .inputOutput(new StringFormatTemplateInputOutputAdapter("playerId=0000; command=%s",
+                                                                               consoleInputGameOutput))
                        .playerRepository(new InMemoryPlayerRepository())
                        .loopIntervalMillis(100)
                        .build();

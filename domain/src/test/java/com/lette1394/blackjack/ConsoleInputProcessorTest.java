@@ -8,19 +8,19 @@ import org.jmock.auto.Mock;
 import com.lette1394.blackjack.domain.CommandListener;
 import com.lette1394.blackjack.domain.player.Player;
 import com.lette1394.blackjack.domain.player.PlayerRepository;
-import com.lette1394.blackjack.io.ConsoleInputTranslator;
+import com.lette1394.blackjack.io.ConsoleInputProcessor;
 import com.lette1394.blackjack.testutil.BaseTest;
 
-class ConsoleInputTranslatorTest extends BaseTest {
+class ConsoleInputProcessorTest extends BaseTest {
     @Mock CommandListener listener;
     @Mock PlayerRepository repository;
-    private ConsoleInputTranslator translator;
+    private ConsoleInputProcessor translator;
 
     private static final Player player = new Player();
 
     @BeforeEach
     void setUp() {
-        translator = new ConsoleInputTranslator(repository);
+        translator = new ConsoleInputProcessor(repository);
         translator.addListener(listener);
     }
 
@@ -32,7 +32,7 @@ class ConsoleInputTranslatorTest extends BaseTest {
             oneOf(listener).join(player);
         }});
 
-        translator.translate("playerId=1234; command=join");
+        translator.process("playerId=1234; command=join");
     }
 
     @Test
@@ -43,7 +43,7 @@ class ConsoleInputTranslatorTest extends BaseTest {
             oneOf(listener).hit(player);
         }});
 
-        translator.translate("playerId=1234; command=hit");
+        translator.process("playerId=1234; command=hit");
     }
 
     @Test
@@ -54,7 +54,7 @@ class ConsoleInputTranslatorTest extends BaseTest {
             oneOf(listener).stay(player);
         }});
 
-        translator.translate("playerId=1234; command=stay");
+        translator.process("playerId=1234; command=stay");
     }
 
     @Test
@@ -63,7 +63,7 @@ class ConsoleInputTranslatorTest extends BaseTest {
             oneOf(listener).cannotHandle("invalid command");
         }});
 
-        translator.translate("invalid command");
+        translator.process("invalid command");
     }
 
     @Test
@@ -74,6 +74,6 @@ class ConsoleInputTranslatorTest extends BaseTest {
             oneOf(listener).cannotHandle("playerId=1234; command=unknown-command");
         }});
 
-        translator.translate("playerId=1234; command=unknown-command");
+        translator.process("playerId=1234; command=unknown-command");
     }
 }
