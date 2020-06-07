@@ -26,7 +26,7 @@ import com.lette1394.blackjack.testutil.ConsoleFakeInputOutput;
 import static com.lette1394.blackjack.domain.trump.TrumpFactory.trump;
 
 @Timeout(1)
-public class EndToEndTest {
+public class ConsoleBlackjackEndToEndTest {
     private BlackjackGameRunner runner;
     private ConsoleFakeInputOutput player;
     private ConsoleGameRunnerAssertion assertion;
