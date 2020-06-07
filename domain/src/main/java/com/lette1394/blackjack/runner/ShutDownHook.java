@@ -15,38 +15,38 @@ public class ShutDownHook implements BlackjackEventListener {
     }
 
     @Override
-    public void start() {
+    public void onStart() {
 
     }
 
     @Override
-    public void playerHandChanged(final Trumps trumps) {
+    public void onPlayerHandChanged(final Trumps trumps) {
 
     }
 
     @Override
-    public void dealerHandChanged(final int showCards, final Trumps trumps) {
+    public void onDealerHandChanged(final int showCards, final Trumps trumps) {
 
     }
 
     @Override
-    public void playerTurnEnds(final Trumps trumps) {
+    public void onPlayerTurnEnds(final Trumps trumps) {
 
     }
 
     @Override
-    public void dealerTurnEnds(final Trumps trumps) {
+    public void onDealerTurnEnds(final Trumps trumps) {
 
     }
 
     @Override
-    public void showWinner(final Trumps playerTrumps, final Trumps dealerTrumps) {
+    public void onShowWinner(final Trumps playerTrumps, final Trumps dealerTrumps) {
 
     }
 
     @Override
     @SneakyThrows
-    public void end() {
+    public void onEnd() {
         for (final Closeable closeable : closeables) {
             closeable.close();
         }

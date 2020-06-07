@@ -5,17 +5,17 @@ import java.util.EventListener;
 import com.lette1394.blackjack.domain.trump.Trumps;
 
 public interface BlackjackEventListener extends EventListener {
-    void start();
+    void onStart();
 
-    void playerHandChanged(Trumps trumps);
+    void onPlayerHandChanged(Trumps trumps);
 
-    void dealerHandChanged(int showCards, Trumps trumps);
+    void onDealerHandChanged(int showCards, Trumps trumps);
 
-    void playerTurnEnds(Trumps trumps);
+    void onPlayerTurnEnds(Trumps trumps);
 
-    void dealerTurnEnds(Trumps trumps);
+    void onDealerTurnEnds(Trumps trumps);
 
-    void showWinner(Trumps playerTrumps, Trumps dealerTrumps);
+    void onShowWinner(Trumps playerTrumps, Trumps dealerTrumps);
 
-    void end();
+    void onEnd();
 }

@@ -15,32 +15,32 @@ public class ConsoleOutput implements BlackjackEventListener {
     private final Output output;
 
     @Override
-    public void start() {
+    public void onStart() {
         send("new blackjack game start");
     }
 
     @Override
-    public void playerHandChanged(final Trumps trumps) {
+    public void onPlayerHandChanged(final Trumps trumps) {
         send("Your Cards: " + formatTrump(trumps));
     }
 
     @Override
-    public void dealerHandChanged(final int numberOfCards, final Trumps trumps) {
+    public void onDealerHandChanged(final int numberOfCards, final Trumps trumps) {
         send("Dealer's Cards: " + formatTrump(trumps, numberOfCards));
     }
 
     @Override
-    public void dealerTurnEnds(final Trumps trumps) {
+    public void onDealerTurnEnds(final Trumps trumps) {
         send("Dealer's Score: " + trumps.computeScore());
     }
 
     @Override
-    public void playerTurnEnds(final Trumps trumps) {
+    public void onPlayerTurnEnds(final Trumps trumps) {
         send("Your Score: " + trumps.computeScore());
     }
 
     @Override
-    public void showWinner(final Trumps playerTrumps, final Trumps dealerTrumps) {
+    public void onShowWinner(final Trumps playerTrumps, final Trumps dealerTrumps) {
         if (playerTrumps.computeScore() > dealerTrumps.computeScore()) {
             send("You WIN");
         } else {
@@ -49,7 +49,7 @@ public class ConsoleOutput implements BlackjackEventListener {
     }
 
     @Override
-    public void end() {
+    public void onEnd() {
         send("game ended");
     }
 

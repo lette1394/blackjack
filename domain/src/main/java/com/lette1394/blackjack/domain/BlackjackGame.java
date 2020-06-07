@@ -47,7 +47,7 @@ public class BlackjackGame extends NoOpCommandListener {
     }
 
     public void start() {
-        game.announce().start();
+        game.announce().onStart();
     }
 
     public void drawToPlayer(int howMany) {
@@ -55,40 +55,40 @@ public class BlackjackGame extends NoOpCommandListener {
             trumpsForPlayer.add(trumpProvider.provide());
         }
 
-        game.announce().playerHandChanged(trumpsForPlayer);
+        game.announce().onPlayerHandChanged(trumpsForPlayer);
     }
 
     public void playerTurnEnds() {
-        game.announce().playerTurnEnds(trumpsForPlayer);
+        game.announce().onPlayerTurnEnds(trumpsForPlayer);
     }
 
     public void drawToDealer(int showCards) {
         trumpsForDealer.add(trumpProvider.provide());
         trumpsForDealer.add(trumpProvider.provide());
 
-        game.announce().dealerHandChanged(showCards, trumpsForDealer);
+        game.announce().onDealerHandChanged(showCards, trumpsForDealer);
     }
 
     public void drawToDealerAtLeast(int score) {
         while (trumpsForDealer.computeScore() < score) {
             trumpsForDealer.add(trumpProvider.provide());
-            game.announce().dealerHandChanged(trumpsForDealer.size(), trumpsForDealer);
+            game.announce().onDealerHandChanged(trumpsForDealer.size(), trumpsForDealer);
         }
     }
 
     public void showDealerCards(int showCards) {
-        game.announce().dealerHandChanged(showCards, trumpsForDealer);
+        game.announce().onDealerHandChanged(showCards, trumpsForDealer);
     }
 
     public void dealerTurnEnds() {
-        game.announce().dealerTurnEnds(trumpsForDealer);
+        game.announce().onDealerTurnEnds(trumpsForDealer);
     }
 
     public void showWinner() {
-        game.announce().showWinner(trumpsForPlayer, trumpsForDealer);
+        game.announce().onShowWinner(trumpsForPlayer, trumpsForDealer);
     }
 
     public void end() {
-        game.announce().end();
+        game.announce().onEnd();
     }
 }
