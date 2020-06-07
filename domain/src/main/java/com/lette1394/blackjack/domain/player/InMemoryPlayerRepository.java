@@ -1,6 +1,4 @@
-package com.lette1394.blackjack;
-
-import com.lette1394.blackjack.domain.Player;
+package com.lette1394.blackjack.domain.player;
 
 public class InMemoryPlayerRepository implements PlayerRepository {
     @Override

@@ -1,4 +1,4 @@
-package com.lette1394.blackjack.domain;
+package com.lette1394.blackjack.domain.trump;
 
 public class RandomTrumpProvider implements TrumpProvider {
     private final Trumps trumps;

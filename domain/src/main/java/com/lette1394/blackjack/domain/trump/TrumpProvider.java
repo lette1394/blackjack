@@ -1,4 +1,4 @@
-package com.lette1394.blackjack.domain;
+package com.lette1394.blackjack.domain.trump;
 
 @FunctionalInterface
 public interface TrumpProvider {

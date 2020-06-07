@@ -1,6 +1,6 @@
-package com.lette1394.blackjack;
+package com.lette1394.blackjack.domain;
 
-import com.lette1394.blackjack.domain.Player;
+import com.lette1394.blackjack.domain.player.Player;
 
 public class NoOpBlackjackPlayerCommandListener implements BlackjackPlayerCommandListener {
     @Override

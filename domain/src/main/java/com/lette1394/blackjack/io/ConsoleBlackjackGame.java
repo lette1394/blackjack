@@ -6,9 +6,9 @@ import java.util.stream.Collectors;
 
 import lombok.RequiredArgsConstructor;
 
-import com.lette1394.blackjack.BlackjackGameEventListener;
-import com.lette1394.blackjack.domain.Trump;
-import com.lette1394.blackjack.domain.Trumps;
+import com.lette1394.blackjack.domain.BlackjackGameEventListener;
+import com.lette1394.blackjack.domain.trump.Trump;
+import com.lette1394.blackjack.domain.trump.Trumps;
 
 @RequiredArgsConstructor
 public class ConsoleBlackjackGame implements BlackjackGameEventListener {

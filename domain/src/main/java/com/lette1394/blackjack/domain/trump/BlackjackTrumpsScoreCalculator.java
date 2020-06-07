@@ -1,21 +1,21 @@
-package com.lette1394.blackjack.domain;
+package com.lette1394.blackjack.domain.trump;
 
 import com.lette1394.blackjack.mapper.HashMapBasedMapper;
 import com.lette1394.blackjack.mapper.Mapper;
 
-import static com.lette1394.blackjack.domain.Trump.Value.ACE;
-import static com.lette1394.blackjack.domain.Trump.Value.EIGHT;
-import static com.lette1394.blackjack.domain.Trump.Value.FIVE;
-import static com.lette1394.blackjack.domain.Trump.Value.FOUR;
-import static com.lette1394.blackjack.domain.Trump.Value.JACK;
-import static com.lette1394.blackjack.domain.Trump.Value.KING;
-import static com.lette1394.blackjack.domain.Trump.Value.NINE;
-import static com.lette1394.blackjack.domain.Trump.Value.QUEEN;
-import static com.lette1394.blackjack.domain.Trump.Value.SEVEN;
-import static com.lette1394.blackjack.domain.Trump.Value.SIX;
-import static com.lette1394.blackjack.domain.Trump.Value.TEN;
-import static com.lette1394.blackjack.domain.Trump.Value.THREE;
-import static com.lette1394.blackjack.domain.Trump.Value.TWO;
+import static com.lette1394.blackjack.domain.trump.Trump.Value.ACE;
+import static com.lette1394.blackjack.domain.trump.Trump.Value.EIGHT;
+import static com.lette1394.blackjack.domain.trump.Trump.Value.FIVE;
+import static com.lette1394.blackjack.domain.trump.Trump.Value.FOUR;
+import static com.lette1394.blackjack.domain.trump.Trump.Value.JACK;
+import static com.lette1394.blackjack.domain.trump.Trump.Value.KING;
+import static com.lette1394.blackjack.domain.trump.Trump.Value.NINE;
+import static com.lette1394.blackjack.domain.trump.Trump.Value.QUEEN;
+import static com.lette1394.blackjack.domain.trump.Trump.Value.SEVEN;
+import static com.lette1394.blackjack.domain.trump.Trump.Value.SIX;
+import static com.lette1394.blackjack.domain.trump.Trump.Value.TEN;
+import static com.lette1394.blackjack.domain.trump.Trump.Value.THREE;
+import static com.lette1394.blackjack.domain.trump.Trump.Value.TWO;
 
 public class BlackjackTrumpsScoreCalculator implements TrumpsTranslator<Integer> {
     private static final Mapper<Trump.Value, Integer> mapper;

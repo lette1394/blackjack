@@ -1,10 +1,10 @@
-package com.lette1394.blackjack;
+package com.lette1394.blackjack.domain;
 
 import lombok.RequiredArgsConstructor;
 
-import com.lette1394.blackjack.domain.Player;
-import com.lette1394.blackjack.domain.TrumpProvider;
-import com.lette1394.blackjack.domain.Trumps;
+import com.lette1394.blackjack.domain.player.Player;
+import com.lette1394.blackjack.domain.trump.TrumpProvider;
+import com.lette1394.blackjack.domain.trump.Trumps;
 import com.lette1394.blackjack.util.EventAnnouncer;
 
 @RequiredArgsConstructor

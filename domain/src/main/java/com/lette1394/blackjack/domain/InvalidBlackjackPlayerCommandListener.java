@@ -1,4 +1,4 @@
-package com.lette1394.blackjack;
+package com.lette1394.blackjack.domain;
 
 public abstract class InvalidBlackjackPlayerCommandListener extends NoOpBlackjackPlayerCommandListener {
     @Override
