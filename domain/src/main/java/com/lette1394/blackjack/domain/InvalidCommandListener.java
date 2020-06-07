@@ -1,6 +1,6 @@
 package com.lette1394.blackjack.domain;
 
-public abstract class InvalidBlackjackPlayerCommandListener extends NoOpBlackjackPlayerCommandListener {
+public abstract class InvalidCommandListener extends NoOpCommandListener {
     @Override
     public abstract void cannotHandle(final String invalidInput);
 }

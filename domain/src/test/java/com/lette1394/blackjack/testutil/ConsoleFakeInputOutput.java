@@ -3,12 +3,12 @@ package com.lette1394.blackjack.testutil;
 import java.io.OutputStream;
 import java.io.PrintStream;
 
-import com.lette1394.blackjack.io.PlayerInputGameOutput;
+import com.lette1394.blackjack.io.InputOutput;
 
-public class FakePlayer implements PlayerInputGameOutput {
+public class ConsoleFakeInputOutput implements InputOutput {
     private final PrintStream out;
 
-    public FakePlayer(final OutputStream out) {
+    public ConsoleFakeInputOutput(final OutputStream out) {
         this.out = new PrintStream(out, true);
     }
 

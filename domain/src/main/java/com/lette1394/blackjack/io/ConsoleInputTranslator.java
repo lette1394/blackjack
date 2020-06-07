@@ -2,23 +2,23 @@ package com.lette1394.blackjack.io;
 
 import lombok.RequiredArgsConstructor;
 
-import com.lette1394.blackjack.domain.BlackjackPlayerCommandListener;
+import com.lette1394.blackjack.domain.CommandListener;
 import com.lette1394.blackjack.domain.player.PlayerRepository;
 import com.lette1394.blackjack.domain.player.Player;
 import com.lette1394.blackjack.util.EventAnnouncer;
 
 @RequiredArgsConstructor
-public class BlackjackPlayerInputTranslator {
+public class ConsoleInputTranslator {
     private static final String COMMAND_JOIN = "join";
     private static final String COMMAND_STAY = "stay";
     private static final String COMMAND_HIT = "hit";
 
-    private final EventAnnouncer<BlackjackPlayerCommandListener> players = new EventAnnouncer<>(BlackjackPlayerCommandListener.class);
+    private final EventAnnouncer<CommandListener> players = new EventAnnouncer<>(CommandListener.class);
     private final PlayerRepository playerRepository;
 
     public void translate(final String playerInput) {
         try {
-            final CommandLineBlackjackProtocol protocol = new CommandLineBlackjackProtocol(playerInput);
+            final ConsoleBlackjackProtocol protocol = new ConsoleBlackjackProtocol(playerInput);
             final Player player = playerRepository.find(protocol.getPlayerId());
 
             switch (protocol.getCommand()) {
@@ -39,7 +39,7 @@ public class BlackjackPlayerInputTranslator {
         }
     }
 
-    public void addListener(final BlackjackPlayerCommandListener listener) {
+    public void addListener(final CommandListener listener) {
         players.addListener(listener);
     }
 }

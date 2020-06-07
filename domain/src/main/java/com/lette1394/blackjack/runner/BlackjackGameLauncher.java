@@ -3,43 +3,44 @@ package com.lette1394.blackjack.runner;
 import lombok.Builder;
 
 import com.lette1394.blackjack.domain.BlackjackGame;
-import com.lette1394.blackjack.io.ConsoleBlackjackGame;
-import com.lette1394.blackjack.domain.InvalidBlackjackPlayerCommandListener;
+import com.lette1394.blackjack.io.ConsoleOutput;
+import com.lette1394.blackjack.domain.InvalidCommandListener;
 import com.lette1394.blackjack.domain.player.PlayerRepository;
 import com.lette1394.blackjack.domain.trump.RandomTrumpProvider;
-import com.lette1394.blackjack.io.BlackjackPlayerInputTranslator;
-import com.lette1394.blackjack.io.PlayerInputGameOutput;
+import com.lette1394.blackjack.io.ConsoleInputTranslator;
+import com.lette1394.blackjack.io.InputOutput;
 
 public class BlackjackGameLauncher {
     private final PlayerRepository playerRepository;
-    private final PlayerInputGameOutput playerInputGameOutput;
-    private final InvalidBlackjackPlayerCommandListener invalidBlackjackPlayerCommandListener;
+    private final InputOutput inputOutput;
+    private final InvalidCommandListener invalidBlackjackPlayerCommandListener;
     private final int dealerStopScoreInclusive;
     private final int loopIntervalMillis;
 
     @Builder
     public BlackjackGameLauncher(final PlayerRepository playerRepository,
-                                 final PlayerInputGameOutput playerInputGameOutput,
-                                 final InvalidBlackjackPlayerCommandListener invalidBlackjackPlayerCommandListener,
+                                 final InputOutput inputOutput,
+                                 final InvalidCommandListener invalidBlackjackPlayerCommandListener,
                                  final int dealerStopScoreInclusive,
                                  final int loopIntervalMillis) {
         this.playerRepository = playerRepository;
-        this.playerInputGameOutput = playerInputGameOutput;
+        this.inputOutput = inputOutput;
         this.invalidBlackjackPlayerCommandListener = invalidBlackjackPlayerCommandListener;
         this.dealerStopScoreInclusive = dealerStopScoreInclusive;
         this.loopIntervalMillis = loopIntervalMillis;
     }
 
     public void launch() {
-        final BlackjackPlayerInputTranslator blackjackPlayerInputTranslator = new BlackjackPlayerInputTranslator(playerRepository);
-        final BlackjackGameRunner runner = new BlackjackGameRunner(playerInputGameOutput, blackjackPlayerInputTranslator, loopIntervalMillis);
+        final ConsoleInputTranslator consoleInputTranslator = new ConsoleInputTranslator(playerRepository);
+        final BlackjackGameRunner runner = new BlackjackGameRunner(inputOutput,
+                                                                   consoleInputTranslator, loopIntervalMillis);
 
         BlackjackGame blackjackGame = new BlackjackGame(dealerStopScoreInclusive, new RandomTrumpProvider());
-        blackjackGame.addListener(new ConsoleBlackjackGame(playerInputGameOutput));
-        blackjackGame.addListener(new ShutDownHook(playerInputGameOutput, runner));
+        blackjackGame.addListener(new ConsoleOutput(inputOutput));
+        blackjackGame.addListener(new ShutDownHook(inputOutput, runner));
 
-        blackjackPlayerInputTranslator.addListener(blackjackGame);
-        blackjackPlayerInputTranslator.addListener(invalidBlackjackPlayerCommandListener);
+        consoleInputTranslator.addListener(blackjackGame);
+        consoleInputTranslator.addListener(invalidBlackjackPlayerCommandListener);
 
         runner.run();
     }

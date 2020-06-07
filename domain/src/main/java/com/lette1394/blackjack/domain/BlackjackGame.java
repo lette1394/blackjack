@@ -8,16 +8,16 @@ import com.lette1394.blackjack.domain.trump.Trumps;
 import com.lette1394.blackjack.util.EventAnnouncer;
 
 @RequiredArgsConstructor
-public class BlackjackGame extends NoOpBlackjackPlayerCommandListener {
+public class BlackjackGame extends NoOpCommandListener {
 
     private final int dealerStopScoreInclusive;
     private final Trumps trumpsForDealer = new Trumps();
     private final Trumps trumpsForPlayer = new Trumps();
 
     private final TrumpProvider trumpProvider;
-    private final EventAnnouncer<BlackjackGameEventListener> game = new EventAnnouncer<>(BlackjackGameEventListener.class);
+    private final EventAnnouncer<BlackjackEventListener> game = new EventAnnouncer<>(BlackjackEventListener.class);
 
-    public void addListener(final BlackjackGameEventListener listener) {
+    public void addListener(final BlackjackEventListener listener) {
         game.addListener(listener);
     }
 

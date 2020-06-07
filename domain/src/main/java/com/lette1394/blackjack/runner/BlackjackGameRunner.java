@@ -2,20 +2,20 @@ package com.lette1394.blackjack.runner;
 
 import lombok.extern.slf4j.Slf4j;
 
-import com.lette1394.blackjack.io.BlackjackPlayerInputTranslator;
-import com.lette1394.blackjack.io.PlayerInputGameOutput;
+import com.lette1394.blackjack.io.ConsoleInputTranslator;
+import com.lette1394.blackjack.io.InputOutput;
 
 @Slf4j
 public class BlackjackGameRunner implements GameRunner {
     private final GameRunner gameRunner;
 
-    public BlackjackGameRunner(final PlayerInputGameOutput playerInputGameOutput,
-                               final BlackjackPlayerInputTranslator blackjackPlayerInputTranslator,
+    public BlackjackGameRunner(final InputOutput inputOutput,
+                               final ConsoleInputTranslator consoleInputTranslator,
                                final long loopIntervalMillis) {
         this.gameRunner = new SingleThreadGameRunner(new InfiniteLoopGameRunner(() -> {
             try {
-                String userInput = playerInputGameOutput.get();
-                blackjackPlayerInputTranslator.translate(userInput);
+                String userInput = inputOutput.get();
+                consoleInputTranslator.translate(userInput);
                 Thread.sleep(loopIntervalMillis);
             } catch (Exception e) {
                 log.error("unexpected error : " + e);

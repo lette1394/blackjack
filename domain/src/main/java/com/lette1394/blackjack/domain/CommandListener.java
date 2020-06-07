@@ -4,7 +4,7 @@ import java.util.EventListener;
 
 import com.lette1394.blackjack.domain.player.Player;
 
-public interface BlackjackPlayerCommandListener extends EventListener {
+public interface CommandListener extends EventListener {
     void join(Player player);
 
     void hit(Player player);

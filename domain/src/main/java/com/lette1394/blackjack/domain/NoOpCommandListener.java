@@ -2,7 +2,7 @@ package com.lette1394.blackjack.domain;
 
 import com.lette1394.blackjack.domain.player.Player;
 
-public class NoOpBlackjackPlayerCommandListener implements BlackjackPlayerCommandListener {
+public class NoOpCommandListener implements CommandListener {
     @Override
     public void join(final Player player) {
         // no-op

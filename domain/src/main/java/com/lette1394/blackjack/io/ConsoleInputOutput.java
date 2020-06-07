@@ -9,11 +9,11 @@ import java.util.Scanner;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
-public class ConsolePlayerInputGameOutput implements PlayerInputGameOutput {
+public class ConsoleInputOutput implements InputOutput {
     private final Scanner in;
     private final PrintStream out;
 
-    public ConsolePlayerInputGameOutput(InputStream in, OutputStream out) {
+    public ConsoleInputOutput(InputStream in, OutputStream out) {
         this.in = new Scanner(in);
         this.out = new PrintStream(out, true, StandardCharsets.UTF_8);
     }

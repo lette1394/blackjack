@@ -6,13 +6,13 @@ import java.util.stream.Collectors;
 
 import lombok.RequiredArgsConstructor;
 
-import com.lette1394.blackjack.domain.BlackjackGameEventListener;
+import com.lette1394.blackjack.domain.BlackjackEventListener;
 import com.lette1394.blackjack.domain.trump.Trump;
 import com.lette1394.blackjack.domain.trump.Trumps;
 
 @RequiredArgsConstructor
-public class ConsoleBlackjackGame implements BlackjackGameEventListener {
-    private final GameOutput gameOutput;
+public class ConsoleOutput implements BlackjackEventListener {
+    private final Output output;
 
     @Override
     public void start() {
@@ -54,7 +54,7 @@ public class ConsoleBlackjackGame implements BlackjackGameEventListener {
     }
 
     private void send(final String output) {
-        gameOutput.send(output);
+        this.output.send(output);
     }
 
     // TODO: formatter?

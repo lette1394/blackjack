@@ -14,24 +14,24 @@ import com.lette1394.blackjack.domain.BlackjackGame;
 import com.lette1394.blackjack.domain.player.InMemoryPlayerRepository;
 import com.lette1394.blackjack.domain.trump.Trump;
 import com.lette1394.blackjack.domain.trump.TrumpProvider;
-import com.lette1394.blackjack.io.BlackjackPlayerInputTranslator;
-import com.lette1394.blackjack.io.ConsoleBlackjackGame;
-import com.lette1394.blackjack.io.ConsoleInvalidPlayerInputHandler;
+import com.lette1394.blackjack.io.ConsoleInputTranslator;
+import com.lette1394.blackjack.io.ConsoleOutput;
+import com.lette1394.blackjack.io.ConsoleInvalidCommandListener;
 import com.lette1394.blackjack.runner.BlackjackGameRunner;
-import com.lette1394.blackjack.io.ConsolePlayerInputGameOutput;
-import com.lette1394.blackjack.io.HelloMessageConsolePlayerInputGameOutput;
-import com.lette1394.blackjack.io.PlayerInputGameOutput;
-import com.lette1394.blackjack.testutil.FakePlayer;
+import com.lette1394.blackjack.io.ConsoleInputOutput;
+import com.lette1394.blackjack.io.ConsoleHelloMessageInputOutputAdapter;
+import com.lette1394.blackjack.io.InputOutput;
+import com.lette1394.blackjack.testutil.ConsoleFakeInputOutput;
 
 import static com.lette1394.blackjack.domain.trump.TrumpFactory.trump;
 
 @Timeout(1)
-public class ConsoleBlackjackEndToEndTest {
+public class EndToEndTest {
     private BlackjackGameRunner runner;
-    private FakePlayer player;
+    private ConsoleFakeInputOutput player;
     private ConsoleGameRunnerAssertion assertion;
-    private BlackjackPlayerInputTranslator blackjackPlayerInputTranslator;
-    private PlayerInputGameOutput playerInputGameOutput;
+    private ConsoleInputTranslator consoleInputTranslator;
+    private InputOutput inputOutput;
 
     @BeforeEach
     @SneakyThrows
@@ -41,12 +41,12 @@ public class ConsoleBlackjackEndToEndTest {
         PipedInputStream runnerInput = new PipedInputStream();
         PipedOutputStream runnerOutput = new PipedOutputStream(runnerInput);
 
-        playerInputGameOutput = new HelloMessageConsolePlayerInputGameOutput("wait for player...",
-                                                                             new ConsolePlayerInputGameOutput(fakeInput,
-                                                                                                              runnerOutput));
-        blackjackPlayerInputTranslator = new BlackjackPlayerInputTranslator(new InMemoryPlayerRepository());
-        player = new FakePlayer(fakeOutput);
-        runner = new BlackjackGameRunner(playerInputGameOutput, blackjackPlayerInputTranslator, 0);
+        inputOutput = new ConsoleHelloMessageInputOutputAdapter("wait for player...",
+                                                                new ConsoleInputOutput(fakeInput,
+                                                                                runnerOutput));
+        consoleInputTranslator = new ConsoleInputTranslator(new InMemoryPlayerRepository());
+        player = new ConsoleFakeInputOutput(fakeOutput);
+        runner = new BlackjackGameRunner(inputOutput, consoleInputTranslator, 0);
 
         assertion = new ConsoleGameRunnerAssertion(runnerInput);
     }
@@ -223,9 +223,9 @@ public class ConsoleBlackjackEndToEndTest {
 
     private void readyForNewGame(final int dealerStopScore, final TrumpProvider trumpProvider) {
         final BlackjackGame blackjackGame = new BlackjackGame(dealerStopScore, trumpProvider);
-        blackjackGame.addListener(new ConsoleBlackjackGame(playerInputGameOutput));
-        blackjackPlayerInputTranslator.addListener(blackjackGame);
-        blackjackPlayerInputTranslator.addListener(new ConsoleInvalidPlayerInputHandler(playerInputGameOutput));
+        blackjackGame.addListener(new ConsoleOutput(inputOutput));
+        consoleInputTranslator.addListener(blackjackGame);
+        consoleInputTranslator.addListener(new ConsoleInvalidCommandListener(inputOutput));
     }
 
     private TrumpProvider nextTrumps(Trump... trumps) {

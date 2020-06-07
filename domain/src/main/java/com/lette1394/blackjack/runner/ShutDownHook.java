@@ -4,10 +4,10 @@ import java.io.Closeable;
 
 import lombok.SneakyThrows;
 
-import com.lette1394.blackjack.domain.BlackjackGameEventListener;
+import com.lette1394.blackjack.domain.BlackjackEventListener;
 import com.lette1394.blackjack.domain.trump.Trumps;
 
-public class ShutDownHook implements BlackjackGameEventListener {
+public class ShutDownHook implements BlackjackEventListener {
     private final Closeable[] closeables;
 
     public ShutDownHook(final Closeable... closeables) {

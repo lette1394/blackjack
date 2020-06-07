@@ -5,22 +5,22 @@ import org.junit.jupiter.api.Test;
 import org.jmock.Expectations;
 import org.jmock.auto.Mock;
 
-import com.lette1394.blackjack.domain.BlackjackPlayerCommandListener;
+import com.lette1394.blackjack.domain.CommandListener;
 import com.lette1394.blackjack.domain.player.Player;
 import com.lette1394.blackjack.domain.player.PlayerRepository;
-import com.lette1394.blackjack.io.BlackjackPlayerInputTranslator;
+import com.lette1394.blackjack.io.ConsoleInputTranslator;
 import com.lette1394.blackjack.testutil.BaseTest;
 
-class BlackjackPlayerInputTranslatorTest extends BaseTest {
-    @Mock BlackjackPlayerCommandListener listener;
+class ConsoleInputTranslatorTest extends BaseTest {
+    @Mock CommandListener listener;
     @Mock PlayerRepository repository;
-    private BlackjackPlayerInputTranslator translator;
+    private ConsoleInputTranslator translator;
 
     private static final Player player = new Player();
 
     @BeforeEach
     void setUp() {
-        translator = new BlackjackPlayerInputTranslator(repository);
+        translator = new ConsoleInputTranslator(repository);
         translator.addListener(listener);
     }
 

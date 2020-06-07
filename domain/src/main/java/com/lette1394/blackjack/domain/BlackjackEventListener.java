@@ -4,7 +4,7 @@ import java.util.EventListener;
 
 import com.lette1394.blackjack.domain.trump.Trumps;
 
-public interface BlackjackGameEventListener extends EventListener {
+public interface BlackjackEventListener extends EventListener {
     void start();
 
     void playerHandChanged(Trumps trumps);
