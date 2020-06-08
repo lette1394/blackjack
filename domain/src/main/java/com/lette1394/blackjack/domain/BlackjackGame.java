@@ -34,6 +34,12 @@ public class BlackjackGame extends NoOpCommandListener implements ListenersAware
     @Override
     public void onHit(final Player player) {
         drawToPlayer(1);
+
+        if (trumpsForPlayer.computeScore() > 21) {
+            playerTurnEnds();
+            showWinner();
+            end();
+        }
     }
 
     @Override
@@ -56,7 +62,6 @@ public class BlackjackGame extends NoOpCommandListener implements ListenersAware
         for (int i = 0; i < howMany; i++) {
             trumpsForPlayer.add(trumpProvider.provide());
         }
-
         game.announce().onPlayerHandChanged(trumpsForPlayer);
     }
 

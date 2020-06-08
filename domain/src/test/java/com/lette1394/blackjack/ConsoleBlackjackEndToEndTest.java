@@ -225,7 +225,7 @@ public class ConsoleBlackjackEndToEndTest {
     void aPlayerLosesAfterBusts() {
         readyForNewGame(20, nextTrumps(trump("♦️", "Ace"), trump("♣️", "8"),
                                        trump("♥️", "5"), trump("♠️", "6"),
-                                       trump("♠️", "9"), trump("♠️", "2"), trump("♦️", "2")));
+                                       trump("♣️", "9"), trump("♣️", "2"), trump("♦️", "2")));
 
         runner.run();
         assertion.hasShownWaitForPlayer();
