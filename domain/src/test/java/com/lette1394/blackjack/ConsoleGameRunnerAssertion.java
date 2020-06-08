@@ -50,8 +50,8 @@ public class ConsoleGameRunnerAssertion {
         assertThat(nextConsoleInput(), containsString("You WIN"));
     }
 
-    public void hasShownInputIsInvalidAndHelpMessages() {
-        assertThat(nextConsoleInput(), containsString("wrong input: "));
+    public void hasShownInputIsInvalidAndHelpMessages(final String message) {
+        assertThat(nextConsoleInput(), is(message));
     }
 
     public void hasShownPlayerGotBust(final int playerBustScore) {

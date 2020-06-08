@@ -218,7 +218,7 @@ public class ConsoleBlackjackEndToEndTest {
         assertion.hasShownWaitForPlayer();
 
         player.send("some invalid command");
-        assertion.hasShownInputIsInvalidAndHelpMessages();
+        assertion.hasShownInputIsInvalidAndHelpMessages("wrong input: some invalid command");
     }
 
     @Test
@@ -288,9 +288,9 @@ public class ConsoleBlackjackEndToEndTest {
         assertion.hasShownWaitForPlayer();
 
         player.hit();
-        assertion.hasShownInputIsInvalidAndHelpMessages();
+        assertion.hasShownInputIsInvalidAndHelpMessages("wrong input: hit. You can type 'join'");
         player.stay();
-        assertion.hasShownInputIsInvalidAndHelpMessages();
+        assertion.hasShownInputIsInvalidAndHelpMessages("wrong input: stay. You can type 'join'");
 
         player.join();
         assertion.hasShownGameIsStarted();
@@ -312,7 +312,7 @@ public class ConsoleBlackjackEndToEndTest {
         assertion.hasShownDealerGotCards("(♥️5) (??)");
 
         player.join();
-        assertion.hasShownInputIsInvalidAndHelpMessages();
+        assertion.hasShownInputIsInvalidAndHelpMessages("wrong input: join. game already started. you can type 'hit' or 'stay'");
     }
 
     private void readyForNewGame(final int dealerStopScore, final TrumpProvider trumpProvider) {
