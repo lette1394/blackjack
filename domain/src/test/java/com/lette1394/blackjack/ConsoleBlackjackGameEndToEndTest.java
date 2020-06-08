@@ -72,6 +72,8 @@ public class ConsoleBlackjackGameEndToEndTest {
 
         assertion.hasShownPlayerLose();
 
+        assertion.hasShownTryItAgain();
+        player.leave();
         assertion.hasShownGameIsEnded();
     }
 
@@ -96,6 +98,8 @@ public class ConsoleBlackjackGameEndToEndTest {
 
         assertion.hasShownPlayerWin();
 
+        assertion.hasShownTryItAgain();
+        player.leave();
         assertion.hasShownGameIsEnded();
     }
 
@@ -124,6 +128,8 @@ public class ConsoleBlackjackGameEndToEndTest {
 
         assertion.hasShownPlayerLose();
 
+        assertion.hasShownTryItAgain();
+        player.leave();
         assertion.hasShownGameIsEnded();
     }
 
@@ -148,6 +154,8 @@ public class ConsoleBlackjackGameEndToEndTest {
 
         assertion.hasShownPlayerWin();
 
+        assertion.hasShownTryItAgain();
+        player.leave();
         assertion.hasShownGameIsEnded();
     }
 
@@ -179,6 +187,8 @@ public class ConsoleBlackjackGameEndToEndTest {
 
         assertion.hasShownPlayerWin();
 
+        assertion.hasShownTryItAgain();
+        player.leave();
         assertion.hasShownGameIsEnded();
     }
 
@@ -205,6 +215,9 @@ public class ConsoleBlackjackGameEndToEndTest {
         assertion.hasShownDealerScore(20);
 
         assertion.hasShownPlayerLose();
+
+        assertion.hasShownTryItAgain();
+        player.leave();
         assertion.hasShownGameIsEnded();
     }
 
@@ -246,6 +259,8 @@ public class ConsoleBlackjackGameEndToEndTest {
 
         assertion.hasShownPlayerLose();
 
+        assertion.hasShownTryItAgain();
+        player.leave();
         assertion.hasShownGameIsEnded();
     }
 
@@ -277,6 +292,8 @@ public class ConsoleBlackjackGameEndToEndTest {
 
         assertion.hasShownPlayerWin();
 
+        assertion.hasShownTryItAgain();
+        player.leave();
         assertion.hasShownGameIsEnded();
     }
 
@@ -344,8 +361,9 @@ public class ConsoleBlackjackGameEndToEndTest {
 
         assertion.hasShownPlayerLose();
         assertion.hasShownTryItAgain();
-        player.send("yes");
 
+        player.join();
+        assertion.hasShownGameIsStarted();
         assertion.hasShownDrawCardToPlayer("(♦️2) (♣️8)");
         assertion.hasShownDealerGotCards("(♥️3) (??)");
 
@@ -358,8 +376,7 @@ public class ConsoleBlackjackGameEndToEndTest {
         assertion.hasShownPlayerLose();
 
         assertion.hasShownTryItAgain();
-        player.send("no");
-
+        player.leave();
         assertion.hasShownGameIsEnded();
     }
 

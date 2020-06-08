@@ -19,6 +19,11 @@ public class NoOpCommandListener implements CommandListener {
     }
 
     @Override
+    public void onLeave(final Player player) {
+        // no-op
+    }
+
+    @Override
     public void onInvalidCommand(final String rawInput) {
         // no-op
     }

@@ -24,6 +24,10 @@ public class ConsoleFakeInputOutput implements InputOutput {
         send("playerId=1234; command=stay");
     }
 
+    public void leave() {
+        send("playerId=1234; command=leave");
+    }
+
     @Override
     public String get() {
         throw new UnsupportedOperationException();

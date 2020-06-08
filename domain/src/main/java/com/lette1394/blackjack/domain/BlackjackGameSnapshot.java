@@ -10,10 +10,6 @@ public class BlackjackGameSnapshot {
         this.state = state;
     }
 
-    public static BlackjackGameSnapshot newGame() {
-        return waiting();
-    }
-
     public static BlackjackGameSnapshot waiting() {
         return new BlackjackGameSnapshot(State.WAITING);
     }
@@ -29,6 +25,15 @@ public class BlackjackGameSnapshot {
 
     public boolean isRunning() {
         return State.RUNNING.equals(state);
+    }
+
+    public BlackjackGameSnapshot finishing() {
+        checkTransitionTo(State.FINISHING);
+        return new BlackjackGameSnapshot(State.FINISHING);
+    }
+
+    public boolean isFinishing() {
+        return State.FINISHING.equals(state);
     }
 
     public BlackjackGameSnapshot finished() {
@@ -57,7 +62,13 @@ public class BlackjackGameSnapshot {
         RUNNING {
             @Override
             public boolean canTransitTo(final State state) {
-                return FINISHED.equals(state);
+                return FINISHING.equals(state);
+            }
+        },
+        FINISHING {
+            @Override
+            public boolean canTransitTo(final State state) {
+                return RUNNING.equals(state) || FINISHED.equals(state);
             }
         },
         FINISHED {

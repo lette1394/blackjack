@@ -5,6 +5,7 @@ import java.io.Closeable;
 import lombok.SneakyThrows;
 
 import com.lette1394.blackjack.domain.BlackjackEventListener;
+import com.lette1394.blackjack.domain.BlackjackGameSnapshot;
 import com.lette1394.blackjack.domain.trump.Trumps;
 
 public class ShutDownHook implements BlackjackEventListener {
@@ -51,7 +52,11 @@ public class ShutDownHook implements BlackjackEventListener {
 
     @Override
     @SneakyThrows
-    public void onEnd() {
+    public void onEnd(final BlackjackGameSnapshot snapshot) {
+        if (snapshot.isFinished() == false) {
+            return;
+        }
+
         for (final Closeable closeable : closeables) {
             closeable.close();
         }

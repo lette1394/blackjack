@@ -12,13 +12,13 @@ import com.lette1394.blackjack.event.ListenersAware;
 public class BlackjackGame extends NoOpCommandListener implements ListenersAware<BlackjackEventListener> {
 
     private final int dealerStopScoreInclusive;
-    private final Trumps trumpsForDealer = new Trumps();
-    private final Trumps trumpsForPlayer = new Trumps();
+    private Trumps trumpsForDealer = new Trumps();
+    private Trumps trumpsForPlayer = new Trumps();
 
     private final TrumpProvider trumpProvider;
     private final EventAnnouncer<BlackjackEventListener> game = new EventAnnouncer<>(BlackjackEventListener.class);
 
-    private BlackjackGameSnapshot snapshot = BlackjackGameSnapshot.newGame();
+    private BlackjackGameSnapshot snapshot = BlackjackGameSnapshot.waiting();
 
     @Override
     public void addListener(final BlackjackEventListener listener) {
@@ -27,9 +27,14 @@ public class BlackjackGame extends NoOpCommandListener implements ListenersAware
 
     @Override
     public void onJoin(final Player player) {
-        if (snapshot.isWaiting() == false) {
+        if (snapshot.isWaiting() == false && snapshot.isFinishing() == false) {
             game.announce().onIllegalCommand("wrong input: join. game already started. you can type 'hit' or 'stay'");
             return;
+        }
+
+        if (snapshot.isFinishing()) {
+            trumpsForDealer = new Trumps();
+            trumpsForPlayer = new Trumps();
         }
         snapshot = snapshot.running();
         start();
@@ -49,7 +54,9 @@ public class BlackjackGame extends NoOpCommandListener implements ListenersAware
         if (trumpsForPlayer.computeScore() > 21) {
             playerTurnEnds();
             showWinner();
-            end();
+
+            snapshot = snapshot.finishing();
+            tryEnd();
         }
     }
 
@@ -66,7 +73,15 @@ public class BlackjackGame extends NoOpCommandListener implements ListenersAware
         dealerTurnEnds();
 
         showWinner();
-        end();
+
+        snapshot = snapshot.finishing();
+        tryEnd();
+    }
+
+    @Override
+    public void onLeave(final Player player) {
+        snapshot = snapshot.finished();
+        tryEnd();
     }
 
     public void start() {
@@ -110,7 +125,7 @@ public class BlackjackGame extends NoOpCommandListener implements ListenersAware
         game.announce().onShowWinner(trumpsForPlayer, trumpsForDealer);
     }
 
-    public void end() {
-        game.announce().onEnd();
+    public void tryEnd() {
+        game.announce().onEnd(snapshot);
     }
 }

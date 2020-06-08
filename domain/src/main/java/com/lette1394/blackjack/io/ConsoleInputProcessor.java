@@ -10,10 +10,6 @@ import com.lette1394.blackjack.event.ListenersAware;
 
 @RequiredArgsConstructor
 public class ConsoleInputProcessor implements InputProcessor, ListenersAware<CommandListener> {
-    private static final String COMMAND_JOIN = "join";
-    private static final String COMMAND_STAY = "stay";
-    private static final String COMMAND_HIT = "hit";
-
     private final EventAnnouncer<CommandListener> players = new EventAnnouncer<>(CommandListener.class);
     private final PlayerRepository playerRepository;
 
@@ -24,15 +20,17 @@ public class ConsoleInputProcessor implements InputProcessor, ListenersAware<Com
             final Player player = playerRepository.find(protocol.getPlayerId());
 
             switch (protocol.getCommand()) {
-                case COMMAND_JOIN:
+                case "join":
                     players.announce().onJoin(player);
                     break;
-                case COMMAND_STAY:
+                case "stay":
                     players.announce().onStay(player);
                     break;
-                case COMMAND_HIT:
+                case "hit":
                     players.announce().onHit(player);
                     break;
+                case "leave":
+                    players.announce().onLeave(player);
                 default:
                     throw new CannotParseBlackjackProtocolException(playerInput);
             }

@@ -12,4 +12,6 @@ public interface CommandListener extends EventListener {
     void onStay(Player player);
 
     void onInvalidCommand(String rawInput);
+
+    void onLeave(Player player);
 }

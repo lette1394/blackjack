@@ -63,7 +63,7 @@ public class ConsoleGameRunnerAssertion {
     }
 
     public void hasShownTryItAgain() {
-        assertThat(nextConsoleInput(), is("Another game? [Y|N]"));
+        assertThat(nextConsoleInput(), is("Another game? [join|leave]"));
     }
 
     private String nextConsoleInput() {

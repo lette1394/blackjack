@@ -7,6 +7,7 @@ import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 
 import com.lette1394.blackjack.domain.BlackjackEventListener;
+import com.lette1394.blackjack.domain.BlackjackGameSnapshot;
 import com.lette1394.blackjack.domain.trump.Trump;
 import com.lette1394.blackjack.domain.trump.Trumps;
 
@@ -69,7 +70,12 @@ public class ConsoleOutput implements BlackjackEventListener {
     }
 
     @Override
-    public void onEnd() {
+    public void onEnd(final BlackjackGameSnapshot snapshot) {
+        if (snapshot.isFinishing()) {
+            send("Another game? [join|leave]");
+            return;
+        }
+
         send("game ended");
     }
 
