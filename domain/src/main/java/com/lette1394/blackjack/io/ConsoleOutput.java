@@ -73,6 +73,11 @@ public class ConsoleOutput implements BlackjackEventListener {
         send("game ended");
     }
 
+    @Override
+    public void onIllegalCommand() {
+        send("wrong input: ");
+    }
+
     private void send(final String output) {
         this.output.send(output);
     }

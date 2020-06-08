@@ -18,4 +18,6 @@ public interface BlackjackEventListener extends EventListener {
     void onShowWinner(Trumps playerTrumps, Trumps dealerTrumps);
 
     void onEnd();
+
+    void onIllegalCommand();
 }

@@ -18,6 +18,8 @@ public class BlackjackGame extends NoOpCommandListener implements ListenersAware
     private final TrumpProvider trumpProvider;
     private final EventAnnouncer<BlackjackEventListener> game = new EventAnnouncer<>(BlackjackEventListener.class);
 
+    private boolean isJoined = false;
+
     @Override
     public void addListener(final BlackjackEventListener listener) {
         game.addListener(listener);
@@ -25,6 +27,7 @@ public class BlackjackGame extends NoOpCommandListener implements ListenersAware
 
     @Override
     public void onJoin(final Player player) {
+        isJoined = true;
         start();
 
         drawToPlayer(2);
@@ -33,6 +36,10 @@ public class BlackjackGame extends NoOpCommandListener implements ListenersAware
 
     @Override
     public void onHit(final Player player) {
+        if (isJoined == false) {
+            game.announce().onIllegalCommand();
+            return;
+        }
         drawToPlayer(1);
 
         if (trumpsForPlayer.computeScore() > 21) {
@@ -44,6 +51,10 @@ public class BlackjackGame extends NoOpCommandListener implements ListenersAware
 
     @Override
     public void onStay(final Player player) {
+        if (isJoined == false) {
+            game.announce().onIllegalCommand();
+            return;
+        }
         playerTurnEnds();
 
         showDealerCards(2);

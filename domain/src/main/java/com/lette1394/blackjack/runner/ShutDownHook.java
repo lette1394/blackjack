@@ -45,6 +45,11 @@ public class ShutDownHook implements BlackjackEventListener {
     }
 
     @Override
+    public void onIllegalCommand() {
+
+    }
+
+    @Override
     @SneakyThrows
     public void onEnd() {
         for (final Closeable closeable : closeables) {
