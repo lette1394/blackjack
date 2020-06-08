@@ -19,7 +19,7 @@ public class BlackjackGameSnapshot {
     }
 
     public BlackjackGameSnapshot running() {
-        return null;
+        return new BlackjackGameSnapshot(State.RUNNING);
     }
 
 
