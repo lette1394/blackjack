@@ -14,7 +14,7 @@ public class BlackjackGameLauncher {
     private final PlayerRepository playerRepository;
     private final InputOutput inputOutput;
     private final InvalidCommandListener invalidBlackjackPlayerCommandListener;
-    private final int dealerStopScoreInclusive;
+    private final int dealerStopScoreInclusive; // TODO: dealer under over?
     private final int loopIntervalMillis;
     private final boolean isSingleGame;
 
