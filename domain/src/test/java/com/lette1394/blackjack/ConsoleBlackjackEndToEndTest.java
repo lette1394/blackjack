@@ -296,6 +296,25 @@ public class ConsoleBlackjackEndToEndTest {
         assertion.hasShownGameIsStarted();
     }
 
+    @Test
+    void aPlayerSendJoinTwice() {
+        readyForNewGame(16, nextTrumps(trump("♦️", "Ace"), trump("♣️", "8"),
+                                       trump("♥️", "5"), trump("♠️", "6"),
+                                       trump("♣️", "9"),
+                                       trump("♠️", "2"), trump("♠️", "9")));
+
+        runner.run();
+        assertion.hasShownWaitForPlayer();
+
+        player.join();
+        assertion.hasShownGameIsStarted();
+        assertion.hasShownDrawCardToPlayer("(♦️A) (♣️8)");
+        assertion.hasShownDealerGotCards("(♥️5) (??)");
+
+        player.join();
+        assertion.hasShownInputIsInvalidAndHelpMessages();
+    }
+
     private void readyForNewGame(final int dealerStopScore, final TrumpProvider trumpProvider) {
         final BlackjackGame blackjackGame = new BlackjackGame(dealerStopScore, trumpProvider);
         blackjackGame.addListener(new ConsoleOutput(inputOutput));
