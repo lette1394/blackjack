@@ -14,19 +14,19 @@ import com.lette1394.blackjack.domain.BlackjackGame;
 import com.lette1394.blackjack.domain.player.InMemoryPlayerRepository;
 import com.lette1394.blackjack.domain.trump.Trump;
 import com.lette1394.blackjack.domain.trump.TrumpProvider;
-import com.lette1394.blackjack.io.ConsoleInputProcessor;
-import com.lette1394.blackjack.io.ConsoleOutput;
-import com.lette1394.blackjack.io.ConsoleInvalidCommandListener;
-import com.lette1394.blackjack.runner.BlackjackGameRunner;
-import com.lette1394.blackjack.io.ConsoleInputOutput;
 import com.lette1394.blackjack.io.ConsoleHelloMessageInputOutputAdapter;
+import com.lette1394.blackjack.io.ConsoleInputOutput;
+import com.lette1394.blackjack.io.ConsoleInputProcessor;
+import com.lette1394.blackjack.io.ConsoleInvalidCommandListener;
+import com.lette1394.blackjack.io.ConsoleOutput;
 import com.lette1394.blackjack.io.InputOutput;
+import com.lette1394.blackjack.runner.BlackjackGameRunner;
 import com.lette1394.blackjack.testutil.ConsoleFakeInputOutput;
 
 import static com.lette1394.blackjack.domain.trump.TrumpFactory.trump;
 
 @Timeout(1)
-public class ConsoleSingleBlackjackGameEndToEndTest {
+public class ConsoleBlackjackGameEndToEndTest {
     private BlackjackGameRunner runner;
     private ConsoleFakeInputOutput player;
     private ConsoleGameRunnerAssertion assertion;
@@ -312,7 +312,55 @@ public class ConsoleSingleBlackjackGameEndToEndTest {
         assertion.hasShownDealerGotCards("(♥️5) (??)");
 
         player.join();
-        assertion.hasShownInputIsInvalidAndHelpMessages("wrong input: join. game already started. you can type 'hit' or 'stay'");
+        assertion.hasShownInputIsInvalidAndHelpMessages(
+                "wrong input: join. game already started. you can type 'hit' or 'stay'");
+    }
+
+    @Test
+    void aPlayerCanPlayTwoGameContinuously() {
+        final BlackjackGame blackjackGame = new BlackjackGame(12, nextTrumps(trump("♦️", "2"), trump("♣️", "8"),
+                                                                             trump("♥️", "3"), trump("♠️", "9"),
+
+                                                                             trump("♦️", "2"), trump("♣️", "8"),
+                                                                             trump("♥️", "3"), trump("♠️", "9")));
+        blackjackGame.addListener(new ConsoleOutput(inputOutput));
+        consoleInputTranslator.addListener(blackjackGame);
+        consoleInputTranslator.addListener(new ConsoleInvalidCommandListener(inputOutput));
+
+
+        runner.run();
+        assertion.hasShownWaitForPlayer();
+
+        player.join();
+        assertion.hasShownGameIsStarted();
+        assertion.hasShownDrawCardToPlayer("(♦️2) (♣️8)");
+        assertion.hasShownDealerGotCards("(♥️3) (??)");
+
+        player.stay();
+        assertion.hasShownPlayerScore(10);
+
+        assertion.hasShownDealerGotCards("(♥️3) (♠️9)");
+        assertion.hasShownDealerScore(12);
+
+        assertion.hasShownPlayerLose();
+        assertion.hasShownTryItAgain();
+        player.send("yes");
+
+        assertion.hasShownDrawCardToPlayer("(♦️2) (♣️8)");
+        assertion.hasShownDealerGotCards("(♥️3) (??)");
+
+        player.stay();
+        assertion.hasShownPlayerScore(10);
+
+        assertion.hasShownDealerGotCards("(♥️3) (♠️9)");
+        assertion.hasShownDealerScore(12);
+
+        assertion.hasShownPlayerLose();
+
+        assertion.hasShownTryItAgain();
+        player.send("no");
+
+        assertion.hasShownGameIsEnded();
     }
 
     private void readyForNewGame(final int dealerStopScore, final TrumpProvider trumpProvider) {
