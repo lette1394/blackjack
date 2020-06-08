@@ -3,11 +3,11 @@ package com.lette1394.blackjack.runner;
 import lombok.Builder;
 
 import com.lette1394.blackjack.domain.BlackjackGame;
-import com.lette1394.blackjack.io.ConsoleOutput;
 import com.lette1394.blackjack.domain.InvalidCommandListener;
 import com.lette1394.blackjack.domain.player.PlayerRepository;
 import com.lette1394.blackjack.domain.trump.RandomTrumpProvider;
 import com.lette1394.blackjack.io.ConsoleInputProcessor;
+import com.lette1394.blackjack.io.ConsoleOutput;
 import com.lette1394.blackjack.io.InputOutput;
 
 public class BlackjackGameLauncher {
@@ -16,18 +16,21 @@ public class BlackjackGameLauncher {
     private final InvalidCommandListener invalidBlackjackPlayerCommandListener;
     private final int dealerStopScoreInclusive;
     private final int loopIntervalMillis;
+    private final boolean isSingleGame;
 
     @Builder
     public BlackjackGameLauncher(final PlayerRepository playerRepository,
                                  final InputOutput inputOutput,
                                  final InvalidCommandListener invalidBlackjackPlayerCommandListener,
                                  final int dealerStopScoreInclusive,
-                                 final int loopIntervalMillis) {
+                                 final int loopIntervalMillis,
+                                 final boolean isSingleGame) {
         this.playerRepository = playerRepository;
         this.inputOutput = inputOutput;
         this.invalidBlackjackPlayerCommandListener = invalidBlackjackPlayerCommandListener;
         this.dealerStopScoreInclusive = dealerStopScoreInclusive;
         this.loopIntervalMillis = loopIntervalMillis;
+        this.isSingleGame = isSingleGame;
     }
 
     public void launch() {
@@ -37,7 +40,9 @@ public class BlackjackGameLauncher {
 
         BlackjackGame blackjackGame = new BlackjackGame(dealerStopScoreInclusive, new RandomTrumpProvider());
         blackjackGame.addListener(new ConsoleOutput(inputOutput));
-        blackjackGame.addListener(new ShutDownHook(inputOutput, runner));
+        if (isSingleGame) {
+            blackjackGame.addListener(new ShutDownHook(inputOutput, runner));
+        }
 
         consoleInputTranslator.addListener(blackjackGame);
         consoleInputTranslator.addListener(invalidBlackjackPlayerCommandListener);
