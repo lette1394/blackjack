@@ -28,7 +28,7 @@ public class BlackjackGame extends NoOpCommandListener implements ListenersAware
     @Override
     public void onJoin(final Player player) {
         if (isJoined == true){
-            game.announce().onIllegalCommand();
+            game.announce().onIllegalCommand("wrong input: join. game already started. you can type 'hit' or 'stay'");
             return;
         }
         isJoined = true;
@@ -41,7 +41,7 @@ public class BlackjackGame extends NoOpCommandListener implements ListenersAware
     @Override
     public void onHit(final Player player) {
         if (isJoined == false) {
-            game.announce().onIllegalCommand();
+            game.announce().onIllegalCommand("wrong input: hit. You can type 'join'");
             return;
         }
         drawToPlayer(1);
@@ -56,7 +56,7 @@ public class BlackjackGame extends NoOpCommandListener implements ListenersAware
     @Override
     public void onStay(final Player player) {
         if (isJoined == false) {
-            game.announce().onIllegalCommand();
+            game.announce().onIllegalCommand("wrong input: stay. You can type 'join'");
             return;
         }
         playerTurnEnds();

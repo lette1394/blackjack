@@ -74,8 +74,8 @@ public class ConsoleOutput implements BlackjackEventListener {
     }
 
     @Override
-    public void onIllegalCommand() {
-        send("wrong input: ");
+    public void onIllegalCommand(final String message) {
+        send(message);
     }
 
     private void send(final String output) {

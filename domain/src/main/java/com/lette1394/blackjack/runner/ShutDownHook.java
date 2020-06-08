@@ -45,7 +45,7 @@ public class ShutDownHook implements BlackjackEventListener {
     }
 
     @Override
-    public void onIllegalCommand() {
+    public void onIllegalCommand(final String message) {
 
     }
 

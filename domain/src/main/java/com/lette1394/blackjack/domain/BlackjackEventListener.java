@@ -19,5 +19,5 @@ public interface BlackjackEventListener extends EventListener {
 
     void onEnd();
 
-    void onIllegalCommand();
+    void onIllegalCommand(String message);
 }
