@@ -18,14 +18,26 @@ public class BlackjackGameSnapshot {
         return new BlackjackGameSnapshot(State.WAITING);
     }
 
+    public boolean isWaiting() {
+        return State.WAITING.equals(state);
+    }
+
     public BlackjackGameSnapshot running() {
         checkTransitionTo(State.RUNNING);
         return new BlackjackGameSnapshot(State.RUNNING);
     }
 
+    public boolean isRunning() {
+        return State.RUNNING.equals(state);
+    }
+
     public BlackjackGameSnapshot finished() {
         checkTransitionTo(State.FINISHED);
         return new BlackjackGameSnapshot(State.FINISHED);
+    }
+
+    public boolean isFinished() {
+        return State.FINISHED.equals(state);
     }
 
     private void checkTransitionTo(final State to) {

@@ -18,7 +18,7 @@ public class BlackjackGame extends NoOpCommandListener implements ListenersAware
     private final TrumpProvider trumpProvider;
     private final EventAnnouncer<BlackjackEventListener> game = new EventAnnouncer<>(BlackjackEventListener.class);
 
-    private boolean isJoined = false;
+    private BlackjackGameSnapshot snapshot = BlackjackGameSnapshot.newGame();
 
     @Override
     public void addListener(final BlackjackEventListener listener) {
@@ -27,11 +27,11 @@ public class BlackjackGame extends NoOpCommandListener implements ListenersAware
 
     @Override
     public void onJoin(final Player player) {
-        if (isJoined == true){
+        if (snapshot.isWaiting() == false) {
             game.announce().onIllegalCommand("wrong input: join. game already started. you can type 'hit' or 'stay'");
             return;
         }
-        isJoined = true;
+        snapshot = snapshot.running();
         start();
 
         drawToPlayer(2);
@@ -40,7 +40,7 @@ public class BlackjackGame extends NoOpCommandListener implements ListenersAware
 
     @Override
     public void onHit(final Player player) {
-        if (isJoined == false) {
+        if (snapshot.isRunning() == false) {
             game.announce().onIllegalCommand("wrong input: hit. You can type 'join'");
             return;
         }
@@ -55,7 +55,7 @@ public class BlackjackGame extends NoOpCommandListener implements ListenersAware
 
     @Override
     public void onStay(final Player player) {
-        if (isJoined == false) {
+        if (snapshot.isRunning() == false) {
             game.announce().onIllegalCommand("wrong input: stay. You can type 'join'");
             return;
         }
