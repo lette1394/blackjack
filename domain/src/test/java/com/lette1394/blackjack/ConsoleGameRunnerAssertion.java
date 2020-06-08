@@ -58,6 +58,10 @@ public class ConsoleGameRunnerAssertion {
         assertThat(nextConsoleInput(), is("You got BUST. score: " + playerBustScore));
     }
 
+    public void hasShownDealerGotBust(final int dealerBustScore) {
+        assertThat(nextConsoleInput(), is("Dealer got BUST. score: " + dealerBustScore));
+    }
+
     private String nextConsoleInput() {
         return userInput.nextLine();
     }
