@@ -32,6 +32,7 @@ public class BlackjackGame extends NoOpCommandListener implements ListenersAware
             return;
         }
 
+        // TODO: immutable
         if (snapshot.isFinishing()) {
             trumpsForDealer = new Trumps();
             trumpsForPlayer = new Trumps();

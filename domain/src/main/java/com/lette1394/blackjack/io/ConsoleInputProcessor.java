@@ -19,6 +19,7 @@ public class ConsoleInputProcessor implements InputProcessor, ListenersAware<Com
             final ConsoleBlackjackProtocol protocol = new ConsoleBlackjackProtocol(playerInput);
             final Player player = playerRepository.find(protocol.getPlayerId());
 
+            // TODO: command ENUM 만들기
             switch (protocol.getCommand()) {
                 case "join":
                     players.announce().onJoin(player);
