@@ -31,6 +31,11 @@ public class ConsoleOutput implements BlackjackEventListener {
 
     @Override
     public void onDealerTurnEnds(final Trumps trumps) {
+        final int score = trumps.computeScore();
+        if (score > 21) {
+            send("Dealer got BUST. score: " + trumps.computeScore());
+            return;
+        }
         send("Dealer's Score: " + trumps.computeScore());
     }
 
@@ -48,6 +53,11 @@ public class ConsoleOutput implements BlackjackEventListener {
     public void onShowWinner(final Trumps playerTrumps, final Trumps dealerTrumps) {
         if (playerTrumps.computeScore() > 21) {
             send("You LOSE");
+            return;
+        }
+
+        if (dealerTrumps.computeScore() > 21) {
+            send("You WIN");
             return;
         }
 

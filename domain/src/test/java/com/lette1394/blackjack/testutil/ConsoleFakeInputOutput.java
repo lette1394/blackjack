@@ -36,6 +36,6 @@ public class ConsoleFakeInputOutput implements InputOutput {
 
     @Override
     public void close() {
-
+        out.close();
     }
 }
