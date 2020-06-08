@@ -19,13 +19,43 @@ public class BlackjackGameSnapshot {
     }
 
     public BlackjackGameSnapshot running() {
+        checkTransitionTo(State.RUNNING);
         return new BlackjackGameSnapshot(State.RUNNING);
     }
 
+    public BlackjackGameSnapshot finished() {
+        checkTransitionTo(State.FINISHED);
+        return new BlackjackGameSnapshot(State.FINISHED);
+    }
+
+    private void checkTransitionTo(final State to) {
+        final State from = state;
+        if (from.canTransitTo(to) == false) {
+            throw new IllegalStateException(String.format("cannot transit %s -> %s", from, to));
+        }
+    }
 
     public enum State {
-        WAITING,
-        RUNNING,
-        FINISHED
+        WAITING {
+            @Override
+            public boolean canTransitTo(final State state) {
+                return RUNNING.equals(state);
+            }
+        },
+        RUNNING {
+            @Override
+            public boolean canTransitTo(final State state) {
+                return FINISHED.equals(state);
+            }
+        },
+        FINISHED {
+            @Override
+            public boolean canTransitTo(final State state) {
+                return false;
+            }
+        },
+        ;
+
+        public abstract boolean canTransitTo(State state);
     }
 }
