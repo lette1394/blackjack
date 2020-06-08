@@ -13,4 +13,12 @@ class BlackjackGameSnapshotTest {
         BlackjackGameSnapshot snapshot = BlackjackGameSnapshot.newGame();
         assertThat(snapshot, is(BlackjackGameSnapshot.waiting()));
     }
+
+    @Test
+    void newGameToRunning() {
+        BlackjackGameSnapshot snapshot = BlackjackGameSnapshot.newGame();
+        snapshot = snapshot.running();
+
+        assertThat(snapshot, is(new BlackjackGameSnapshot(BlackjackGameSnapshot.State.RUNNING)));
+    }
 }

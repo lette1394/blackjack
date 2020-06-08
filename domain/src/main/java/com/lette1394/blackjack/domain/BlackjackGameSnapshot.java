@@ -6,7 +6,7 @@ import lombok.EqualsAndHashCode;
 public class BlackjackGameSnapshot {
     private final State state;
 
-    private BlackjackGameSnapshot(State state) {
+    public BlackjackGameSnapshot(State state) {
         this.state = state;
     }
 
@@ -18,9 +18,12 @@ public class BlackjackGameSnapshot {
         return new BlackjackGameSnapshot(State.WAITING);
     }
 
+    public BlackjackGameSnapshot running() {
+        return null;
+    }
 
 
-    private enum State {
+    public enum State {
         WAITING,
         RUNNING,
         FINISHED
