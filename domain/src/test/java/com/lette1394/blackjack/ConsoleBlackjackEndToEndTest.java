@@ -280,6 +280,22 @@ public class ConsoleBlackjackEndToEndTest {
         assertion.hasShownGameIsEnded();
     }
 
+    @Test
+    void aPlayerSendCommandInWrongState() {
+        readyForNewGame(-1, null);
+
+        runner.run();
+        assertion.hasShownWaitForPlayer();
+
+        player.hit();
+        assertion.hasShownInputIsInvalidAndHelpMessages();
+        player.stay();
+        assertion.hasShownInputIsInvalidAndHelpMessages();
+
+        player.join();
+        assertion.hasShownGameIsStarted();
+    }
+
     private void readyForNewGame(final int dealerStopScore, final TrumpProvider trumpProvider) {
         final BlackjackGame blackjackGame = new BlackjackGame(dealerStopScore, trumpProvider);
         blackjackGame.addListener(new ConsoleOutput(inputOutput));
