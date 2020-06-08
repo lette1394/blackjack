@@ -27,6 +27,10 @@ public class BlackjackGame extends NoOpCommandListener implements ListenersAware
 
     @Override
     public void onJoin(final Player player) {
+        if (isJoined == true){
+            game.announce().onIllegalCommand();
+            return;
+        }
         isJoined = true;
         start();
 
