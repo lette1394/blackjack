@@ -84,12 +84,12 @@ stateDiagram
     [*] --> waiting
     finishing --> [*]
     
-	waiting --> running : join 
+    waiting --> running : join 
     running --> running: rejoin
     running --> finishing : leave
-	waiting --> waiting : history
+    waiting --> waiting : history
 
-	state running {
+    state running {
         [*] --> betting
         betting --> drawing : bet
         drawing --> drawing : hit 
