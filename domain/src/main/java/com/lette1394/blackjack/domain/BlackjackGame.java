@@ -32,20 +32,7 @@ public class BlackjackGame extends NoOpCommandListener implements ListenersAware
             return;
         }
 
-        // TODO: immutable
-        if (snapshot.isFinishing()) {
-            trumpsForDealer = new Trumps();
-            trumpsForPlayer = new Trumps();
-        }
-        snapshot = snapshot.betting();
-        snapshot = snapshot.drawing();
-        game.announce().onStart();
-
-        drawToPlayer(2);
-        game.announce().onPlayerHandChanged(trumpsForPlayer);
-
-        drawToDealer(1);
-        game.announce().onDealerHandChanged(1, trumpsForDealer);
+        startThenSetup();
     }
 
     @Override
@@ -89,6 +76,10 @@ public class BlackjackGame extends NoOpCommandListener implements ListenersAware
 
     @Override
     public void onRejoin(final Player player) {
+        startThenSetup();
+    }
+
+    private void startThenSetup() {
         snapshot = snapshot.betting();
         snapshot = snapshot.drawing();
 
