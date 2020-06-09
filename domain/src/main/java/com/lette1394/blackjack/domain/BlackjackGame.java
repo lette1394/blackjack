@@ -48,9 +48,13 @@ public class BlackjackGame extends NoOpCommandListener implements ListenersAware
         if (trumpsForPlayer.computeScore() > 21) {
             game.announce().onPlayerTurnEnds(trumpsForPlayer);
 
-            snapshot = snapshot.scoring();
-            game.announce().onShowWinner(snapshot, trumpsForPlayer, trumpsForDealer);
+            scoring();
         }
+    }
+
+    private void scoring() {
+        snapshot = snapshot.scoring();
+        game.announce().onShowWinner(snapshot, trumpsForPlayer, trumpsForDealer);
     }
 
     @Override
@@ -70,8 +74,7 @@ public class BlackjackGame extends NoOpCommandListener implements ListenersAware
 
         game.announce().onDealerTurnEnds(trumpsForDealer);
 
-        snapshot = snapshot.scoring();
-        game.announce().onShowWinner(snapshot, trumpsForPlayer, trumpsForDealer);
+        scoring();
     }
 
     @Override
