@@ -3,6 +3,8 @@ package com.lette1394.blackjack.domain;
 import com.google.common.collect.Sets;
 import lombok.EqualsAndHashCode;
 
+import com.lette1394.blackjack.domain.player.Player;
+
 @EqualsAndHashCode
 public class BlackjackGameSnapshot {
     private final State state;
@@ -55,6 +57,10 @@ public class BlackjackGameSnapshot {
         return State.FINISHING.equals(state);
     }
 
+    public int getScore(Player player) {
+        throw new UnsupportedOperationException();
+    }
+
     private void checkTransitionTo(final State to) {
         final State from = state;
         if (from.canTransitTo(to) == false) {
@@ -62,7 +68,7 @@ public class BlackjackGameSnapshot {
         }
     }
 
-    public enum State {
+    private enum State {
         WAITING {
             @Override
             public boolean canTransitTo(final State state) {
