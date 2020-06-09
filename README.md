@@ -73,3 +73,27 @@
 - [ ] 게임 통계
 - [ ] 21과 blackjack 구분 
 - [ ] 기타 추가 규칙 구현
+
+
+=========
+### Game Status 
+[![](https://mermaid.ink/img/eyJjb2RlIjoic3RhdGVEaWFncmFtXG4gICAgWypdIC0tPiB3YWl0aW5nXG4gICAgZmluaXNoaW5nIC0tPiBbKl1cbiAgICBcblx0d2FpdGluZyAtLT4gcnVubmluZyA6IGpvaW4gXG4gICAgcnVubmluZyAtLT4gcnVubmluZzogcmVqb2luXG4gICAgcnVubmluZyAtLT4gZmluaXNoaW5nIDogbGVhdmVcblx0d2FpdGluZyAtLT4gd2FpdGluZyA6IGhpc3RvcnlcblxuXHRzdGF0ZSBydW5uaW5nIHtcbiAgICAgICAgWypdIC0tPiBiZXR0aW5nXG4gICAgICAgIGJldHRpbmcgLS0-IGRyYXdpbmcgOiBiZXRcbiAgICAgICAgZHJhd2luZyAtLT4gZHJhd2luZyA6IGhpdCBcbiAgICAgICAgZHJhd2luZyAtLT4gc2NvcmluZyA6IHN0YXlcbiAgICAgICAgc2NvcmluZyAtLT4gWypdXG4gICAgfSIsIm1lcm1haWQiOnsidGhlbWUiOiJkZWZhdWx0In0sInVwZGF0ZUVkaXRvciI6ZmFsc2V9)](https://mermaid-js.github.io/mermaid-live-editor/#/edit/eyJjb2RlIjoic3RhdGVEaWFncmFtXG4gICAgWypdIC0tPiB3YWl0aW5nXG4gICAgZmluaXNoaW5nIC0tPiBbKl1cbiAgICBcblx0d2FpdGluZyAtLT4gcnVubmluZyA6IGpvaW4gXG4gICAgcnVubmluZyAtLT4gcnVubmluZzogcmVqb2luXG4gICAgcnVubmluZyAtLT4gZmluaXNoaW5nIDogbGVhdmVcblx0d2FpdGluZyAtLT4gd2FpdGluZyA6IGhpc3RvcnlcblxuXHRzdGF0ZSBydW5uaW5nIHtcbiAgICAgICAgWypdIC0tPiBiZXR0aW5nXG4gICAgICAgIGJldHRpbmcgLS0-IGRyYXdpbmcgOiBiZXRcbiAgICAgICAgZHJhd2luZyAtLT4gZHJhd2luZyA6IGhpdCBcbiAgICAgICAgZHJhd2luZyAtLT4gc2NvcmluZyA6IHN0YXlcbiAgICAgICAgc2NvcmluZyAtLT4gWypdXG4gICAgfSIsIm1lcm1haWQiOnsidGhlbWUiOiJkZWZhdWx0In0sInVwZGF0ZUVkaXRvciI6ZmFsc2V9)
+
+```
+stateDiagram
+    [*] --> waiting
+    finishing --> [*]
+    
+	waiting --> running : join 
+    running --> running: rejoin
+    running --> finishing : leave
+	waiting --> waiting : history
+
+	state running {
+        [*] --> betting
+        betting --> drawing : bet
+        drawing --> drawing : hit 
+        drawing --> scoring : stay
+        scoring --> [*]
+    }
+```
