@@ -76,8 +76,8 @@
 
 
 =========
-### Game Status 
-[![](https://mermaid.ink/img/eyJjb2RlIjoic3RhdGVEaWFncmFtXG4gICAgWypdIC0tPiB3YWl0aW5nXG4gICAgZmluaXNoaW5nIC0tPiBbKl1cbiAgICBcblx0d2FpdGluZyAtLT4gcnVubmluZyA6IGpvaW4gXG4gICAgcnVubmluZyAtLT4gcnVubmluZzogcmVqb2luXG4gICAgcnVubmluZyAtLT4gZmluaXNoaW5nIDogbGVhdmVcblx0cnVubmluZyAtLT4gZmluaXNoaW5nIDogYmFua3J1cHRlZFxuICAgIHdhaXRpbmcgLS0-IHdhaXRpbmcgOiBoaXN0b3J5XG5cblx0c3RhdGUgcnVubmluZyB7XG4gICAgICAgIFsqXSAtLT4gYmV0dGluZ1xuICAgICAgICBiZXR0aW5nIC0tPiBkcmF3aW5nIDogYmV0XG4gICAgICAgIGRyYXdpbmcgLS0-IGRyYXdpbmcgOiBoaXQgXG4gICAgICAgIGRyYXdpbmcgLS0-IHNjb3JpbmcgOiBzdGF5XG4gICAgICAgIHNjb3JpbmcgLS0-IFsqXVxuICAgIH0iLCJtZXJtYWlkIjp7InRoZW1lIjoibmV1dHJhbCJ9LCJ1cGRhdGVFZGl0b3IiOmZhbHNlfQ)](https://mermaid-js.github.io/mermaid-live-editor/#/edit/eyJjb2RlIjoic3RhdGVEaWFncmFtXG4gICAgWypdIC0tPiB3YWl0aW5nXG4gICAgZmluaXNoaW5nIC0tPiBbKl1cbiAgICBcblx0d2FpdGluZyAtLT4gcnVubmluZyA6IGpvaW4gXG4gICAgcnVubmluZyAtLT4gcnVubmluZzogcmVqb2luXG4gICAgcnVubmluZyAtLT4gZmluaXNoaW5nIDogbGVhdmVcblx0cnVubmluZyAtLT4gZmluaXNoaW5nIDogYmFua3J1cHRlZFxuICAgIHdhaXRpbmcgLS0-IHdhaXRpbmcgOiBoaXN0b3J5XG5cblx0c3RhdGUgcnVubmluZyB7XG4gICAgICAgIFsqXSAtLT4gYmV0dGluZ1xuICAgICAgICBiZXR0aW5nIC0tPiBkcmF3aW5nIDogYmV0XG4gICAgICAgIGRyYXdpbmcgLS0-IGRyYXdpbmcgOiBoaXQgXG4gICAgICAgIGRyYXdpbmcgLS0-IHNjb3JpbmcgOiBzdGF5XG4gICAgICAgIHNjb3JpbmcgLS0-IFsqXVxuICAgIH0iLCJtZXJtYWlkIjp7InRoZW1lIjoibmV1dHJhbCJ9LCJ1cGRhdGVFZGl0b3IiOmZhbHNlfQ)
+### Game State
+[![](https://mermaid.ink/img/eyJjb2RlIjoic3RhdGVEaWFncmFtXG4gICAgWypdIC0tPiB3YWl0aW5nXG4gICAgZmluaXNoaW5nIC0tPiBbKl1cbiAgICBcbiAgICB3YWl0aW5nIC0tPiBydW5uaW5nIDogam9pbiBcbiAgICBydW5uaW5nIC0tPiBmaW5pc2hpbmcgOiBsZWF2ZVxuICAgIHJ1bm5pbmcgLS0-IGZpbmlzaGluZyA6IGJhbmtydXB0ZWRcbiAgICB3YWl0aW5nIC0tPiB3YWl0aW5nIDogaGlzdG9yeVxuXG4gICAgc3RhdGUgcnVubmluZyB7XG4gICAgICAgIFsqXSAtLT4gYmV0dGluZ1xuICAgICAgICBiZXR0aW5nIC0tPiBkcmF3aW5nIDogYmV0XG4gICAgICAgIGRyYXdpbmcgLS0-IGRyYXdpbmcgOiBoaXQgXG4gICAgICAgIGRyYXdpbmcgLS0-IHNjb3JpbmcgOiBzdGF5XG4gICAgICAgIHNjb3JpbmcgLS0-IGJldHRpbmc6IHJlam9pblxuICAgICAgICBzY29yaW5nIC0tPiBbKl1cbiAgICB9IiwibWVybWFpZCI6eyJ0aGVtZSI6Im5ldXRyYWwifSwidXBkYXRlRWRpdG9yIjpmYWxzZX0)](https://mermaid-js.github.io/mermaid-live-editor/#/edit/eyJjb2RlIjoic3RhdGVEaWFncmFtXG4gICAgWypdIC0tPiB3YWl0aW5nXG4gICAgZmluaXNoaW5nIC0tPiBbKl1cbiAgICBcbiAgICB3YWl0aW5nIC0tPiBydW5uaW5nIDogam9pbiBcbiAgICBydW5uaW5nIC0tPiBmaW5pc2hpbmcgOiBsZWF2ZVxuICAgIHJ1bm5pbmcgLS0-IGZpbmlzaGluZyA6IGJhbmtydXB0ZWRcbiAgICB3YWl0aW5nIC0tPiB3YWl0aW5nIDogaGlzdG9yeVxuXG4gICAgc3RhdGUgcnVubmluZyB7XG4gICAgICAgIFsqXSAtLT4gYmV0dGluZ1xuICAgICAgICBiZXR0aW5nIC0tPiBkcmF3aW5nIDogYmV0XG4gICAgICAgIGRyYXdpbmcgLS0-IGRyYXdpbmcgOiBoaXQgXG4gICAgICAgIGRyYXdpbmcgLS0-IHNjb3JpbmcgOiBzdGF5XG4gICAgICAgIHNjb3JpbmcgLS0-IGJldHRpbmc6IHJlam9pblxuICAgICAgICBzY29yaW5nIC0tPiBbKl1cbiAgICB9IiwibWVybWFpZCI6eyJ0aGVtZSI6Im5ldXRyYWwifSwidXBkYXRlRWRpdG9yIjpmYWxzZX0)
 
 ```
 stateDiagram
@@ -85,7 +85,6 @@ stateDiagram
     finishing --> [*]
     
     waiting --> running : join 
-    running --> running: rejoin
     running --> finishing : leave
     running --> finishing : bankrupted
     waiting --> waiting : history
@@ -95,6 +94,7 @@ stateDiagram
         betting --> drawing : bet
         drawing --> drawing : hit 
         drawing --> scoring : stay
+        scoring --> betting: rejoin
         scoring --> [*]
     }
 ```
