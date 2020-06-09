@@ -5,6 +5,8 @@ import lombok.EqualsAndHashCode;
 
 import com.lette1394.blackjack.domain.player.Player;
 
+// TODO: 이거, snapshot은 모두 immutable로 하고
+//  게임 상태를 변경하고 카드를 드로우하는 것은 별도의 클래스로 만들어야 하나?
 @EqualsAndHashCode
 public class BlackjackGameSnapshot {
     private final State state;
