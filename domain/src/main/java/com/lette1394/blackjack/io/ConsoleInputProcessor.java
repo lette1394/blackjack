@@ -21,14 +21,24 @@ public class ConsoleInputProcessor implements InputProcessor, ListenersAware<Com
 
             // TODO: command ENUM 만들기
             switch (protocol.getCommand()) {
+                case "history":
+                    players.announce().onHistory(player);
+                    break;
                 case "join":
                     players.announce().onJoin(player);
+                    break;
+                case "bet":
+                    // TODO: how much?
+                    players.announce().onBet(player);
                     break;
                 case "stay":
                     players.announce().onStay(player);
                     break;
                 case "hit":
                     players.announce().onHit(player);
+                    break;
+                case "rejoin":
+                    players.announce().onRejoin(player);
                     break;
                 case "leave":
                     players.announce().onLeave(player);

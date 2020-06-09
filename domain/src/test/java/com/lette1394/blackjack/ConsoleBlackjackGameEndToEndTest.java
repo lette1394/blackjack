@@ -362,7 +362,7 @@ public class ConsoleBlackjackGameEndToEndTest {
         assertion.hasShownPlayerLose();
         assertion.hasShownTryItAgain();
 
-        player.join();
+        player.rejoin();
         assertion.hasShownGameIsStarted();
         assertion.hasShownDrawCardToPlayer("(♦️2) (♣️8)");
         assertion.hasShownDealerGotCards("(♥️3) (??)");

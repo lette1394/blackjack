@@ -7,8 +7,11 @@ import com.lette1394.blackjack.domain.trump.Trumps;
 // TODO: start, end 이런거 다 onGameStateChanged(); 같은걸로 변경
 public interface BlackjackEventListener extends EventListener {
 
+    void onGameStateChanged(BlackjackGameSnapshot snapshot);
+
     void onStart();
 
+    // TODO: player랑 dealer랑 구분없이 callback trigger
     void onPlayerHandChanged(Trumps trumps);
 
     void onDealerHandChanged(int showCards, Trumps trumps);
@@ -17,7 +20,7 @@ public interface BlackjackEventListener extends EventListener {
 
     void onDealerTurnEnds(Trumps trumps);
 
-    void onShowWinner(Trumps playerTrumps, Trumps dealerTrumps);
+    void onShowWinner(BlackjackGameSnapshot snapshot, Trumps playerTrumps, Trumps dealerTrumps);
 
     void onEnd(BlackjackGameSnapshot snapshot);
 

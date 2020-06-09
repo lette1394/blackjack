@@ -37,96 +37,86 @@ public class BlackjackGame extends NoOpCommandListener implements ListenersAware
             trumpsForDealer = new Trumps();
             trumpsForPlayer = new Trumps();
         }
-        snapshot = snapshot.running();
-        start();
+        snapshot = snapshot.betting();
+        snapshot = snapshot.drawing();
+        game.announce().onStart();
 
         drawToPlayer(2);
+        game.announce().onPlayerHandChanged(trumpsForPlayer);
+
         drawToDealer(1);
+        game.announce().onDealerHandChanged(1, trumpsForDealer);
     }
 
     @Override
     public void onHit(final Player player) {
-        if (snapshot.isRunning() == false) {
+        if (snapshot.isDrawing() == false) {
             game.announce().onIllegalCommand("wrong input: hit. You can type 'join'");
             return;
         }
+
         drawToPlayer(1);
+        game.announce().onPlayerHandChanged(trumpsForPlayer);
 
         if (trumpsForPlayer.computeScore() > 21) {
-            playerTurnEnds();
-            showWinner();
+            game.announce().onPlayerTurnEnds(trumpsForPlayer);
 
-            snapshot = snapshot.finishing();
-            tryEnd();
+            snapshot = snapshot.scoring();
+            game.announce().onShowWinner(snapshot, trumpsForPlayer, trumpsForDealer);
         }
     }
 
     @Override
     public void onStay(final Player player) {
-        if (snapshot.isRunning() == false) {
+        if (snapshot.isDrawing() == false) {
             game.announce().onIllegalCommand("wrong input: stay. You can type 'join'");
             return;
         }
-        playerTurnEnds();
+        game.announce().onPlayerTurnEnds(trumpsForPlayer);
 
-        showDealerCards(2);
-        drawToDealerAtLeast(dealerStopScoreInclusive);
-        dealerTurnEnds();
+        game.announce().onDealerHandChanged(2, trumpsForDealer);
 
-        showWinner();
+        while (trumpsForDealer.computeScore() < dealerStopScoreInclusive) {
+            trumpsForDealer.add(trumpProvider.provide());
+            game.announce().onDealerHandChanged(trumpsForDealer.size(), trumpsForDealer);
+        }
 
-        snapshot = snapshot.finishing();
-        tryEnd();
+        game.announce().onDealerTurnEnds(trumpsForDealer);
+
+        snapshot = snapshot.scoring();
+        game.announce().onShowWinner(snapshot, trumpsForPlayer, trumpsForDealer);
+    }
+
+    @Override
+    public void onRejoin(final Player player) {
+        snapshot = snapshot.betting();
+        snapshot = snapshot.drawing();
+
+        game.announce().onStart();
+        trumpsForDealer = new Trumps();
+        trumpsForPlayer = new Trumps();
+
+        drawToPlayer(2);
+        game.announce().onPlayerHandChanged(trumpsForPlayer);
+
+        drawToDealer(1);
+        game.announce().onDealerHandChanged(1, trumpsForDealer);
     }
 
     @Override
     public void onLeave(final Player player) {
-        snapshot = snapshot.finished();
-        tryEnd();
-    }
-
-    public void start() {
-        game.announce().onStart();
+        snapshot = snapshot.finishing();
+        game.announce().onEnd(snapshot);
     }
 
     public void drawToPlayer(int howMany) {
         for (int i = 0; i < howMany; i++) {
             trumpsForPlayer.add(trumpProvider.provide());
         }
-        game.announce().onPlayerHandChanged(trumpsForPlayer);
-    }
-
-    public void playerTurnEnds() {
-        game.announce().onPlayerTurnEnds(trumpsForPlayer);
     }
 
     public void drawToDealer(int showCards) {
         trumpsForDealer.add(trumpProvider.provide());
         trumpsForDealer.add(trumpProvider.provide());
-
-        game.announce().onDealerHandChanged(showCards, trumpsForDealer);
-    }
-
-    public void drawToDealerAtLeast(int score) {
-        while (trumpsForDealer.computeScore() < score) {
-            trumpsForDealer.add(trumpProvider.provide());
-            game.announce().onDealerHandChanged(trumpsForDealer.size(), trumpsForDealer);
-        }
-    }
-
-    public void showDealerCards(int showCards) {
-        game.announce().onDealerHandChanged(showCards, trumpsForDealer);
-    }
-
-    public void dealerTurnEnds() {
-        game.announce().onDealerTurnEnds(trumpsForDealer);
-    }
-
-    public void showWinner() {
-        game.announce().onShowWinner(trumpsForPlayer, trumpsForDealer);
-    }
-
-    public void tryEnd() {
-        game.announce().onEnd(snapshot);
     }
 }

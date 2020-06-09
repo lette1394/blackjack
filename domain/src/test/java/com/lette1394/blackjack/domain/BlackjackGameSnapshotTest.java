@@ -17,14 +17,14 @@ class BlackjackGameSnapshotTest {
     @Test
     void newGameToRunning() {
         BlackjackGameSnapshot snapshot = BlackjackGameSnapshot.waiting();
-        snapshot = snapshot.running();
+        snapshot = snapshot.betting();
 
-        assertThat(snapshot, is(new BlackjackGameSnapshot(BlackjackGameSnapshot.State.RUNNING)));
+        assertThat(snapshot, is(new BlackjackGameSnapshot(BlackjackGameSnapshot.State.BETTING)));
     }
 
     @Test
     void cannotChangeNewGameToFinished() {
         BlackjackGameSnapshot snapshot = BlackjackGameSnapshot.waiting();
-        assertThrows(IllegalStateException.class, () -> snapshot.finished());
+        assertThrows(IllegalStateException.class, () -> snapshot.finishing());
     }
 }

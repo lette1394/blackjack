@@ -16,6 +16,11 @@ public class ShutDownHook implements BlackjackEventListener {
     }
 
     @Override
+    public void onGameStateChanged(final BlackjackGameSnapshot snapshot) {
+
+    }
+
+    @Override
     public void onStart() {
 
     }
@@ -41,7 +46,9 @@ public class ShutDownHook implements BlackjackEventListener {
     }
 
     @Override
-    public void onShowWinner(final Trumps playerTrumps, final Trumps dealerTrumps) {
+    public void onShowWinner(final BlackjackGameSnapshot snapshot,
+                             final Trumps playerTrumps,
+                             final Trumps dealerTrumps) {
 
     }
 
@@ -53,7 +60,7 @@ public class ShutDownHook implements BlackjackEventListener {
     @Override
     @SneakyThrows
     public void onEnd(final BlackjackGameSnapshot snapshot) {
-        if (snapshot.isFinished() == false) {
+        if (snapshot.isFinishing() == false) {
             return;
         }
 

@@ -24,6 +24,10 @@ public class ConsoleFakeInputOutput implements InputOutput {
         send("playerId=1234; command=stay");
     }
 
+    public void rejoin() {
+        send("playerId=1234; command=rejoin");
+    }
+
     public void leave() {
         send("playerId=1234; command=leave");
     }

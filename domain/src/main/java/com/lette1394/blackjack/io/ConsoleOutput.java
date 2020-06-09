@@ -16,6 +16,22 @@ public class ConsoleOutput implements BlackjackEventListener {
     private final Output output;
 
     @Override
+    public void onGameStateChanged(final BlackjackGameSnapshot snapshot) {
+//        if (snapshot.isRunning()) {
+//            send("new blackjack game start");
+//            return;
+//        }
+//        if (snapshot.isFinishing()) {
+//            send("Another game? [join|leave]");
+//            return;
+//        }
+//        if (snapshot.isFinished()) {
+//            send("game ended");
+//            return;
+//        }
+    }
+
+    @Override
     public void onStart() {
         send("new blackjack game start");
     }
@@ -51,14 +67,18 @@ public class ConsoleOutput implements BlackjackEventListener {
     }
 
     @Override
-    public void onShowWinner(final Trumps playerTrumps, final Trumps dealerTrumps) {
+    public void onShowWinner(final BlackjackGameSnapshot snapshot,
+                             final Trumps playerTrumps,
+                             final Trumps dealerTrumps) {
         if (playerTrumps.computeScore() > 21) {
             send("You LOSE");
+            send("Another game? [join|leave]");
             return;
         }
 
         if (dealerTrumps.computeScore() > 21) {
             send("You WIN");
+            send("Another game? [join|leave]");
             return;
         }
 
@@ -67,15 +87,12 @@ public class ConsoleOutput implements BlackjackEventListener {
         } else {
             send("You LOSE");
         }
+
+        send("Another game? [join|leave]");
     }
 
     @Override
     public void onEnd(final BlackjackGameSnapshot snapshot) {
-        if (snapshot.isFinishing()) {
-            send("Another game? [join|leave]");
-            return;
-        }
-
         send("game ended");
     }
 

@@ -1,5 +1,6 @@
 package com.lette1394.blackjack.domain;
 
+import com.google.common.collect.Sets;
 import lombok.EqualsAndHashCode;
 
 @EqualsAndHashCode
@@ -14,17 +15,19 @@ public class BlackjackGameSnapshot {
         return new BlackjackGameSnapshot(State.WAITING);
     }
 
-    public boolean isWaiting() {
-        return State.WAITING.equals(state);
+    public BlackjackGameSnapshot betting() {
+        checkTransitionTo(State.BETTING);
+        return new BlackjackGameSnapshot(State.BETTING);
     }
 
-    public BlackjackGameSnapshot running() {
-        checkTransitionTo(State.RUNNING);
-        return new BlackjackGameSnapshot(State.RUNNING);
+    public BlackjackGameSnapshot drawing() {
+        checkTransitionTo(State.DRAWING);
+        return new BlackjackGameSnapshot(State.DRAWING);
     }
 
-    public boolean isRunning() {
-        return State.RUNNING.equals(state);
+    public BlackjackGameSnapshot scoring() {
+        checkTransitionTo(State.SCORING);
+        return new BlackjackGameSnapshot(State.SCORING);
     }
 
     public BlackjackGameSnapshot finishing() {
@@ -32,17 +35,24 @@ public class BlackjackGameSnapshot {
         return new BlackjackGameSnapshot(State.FINISHING);
     }
 
+    public boolean isWaiting() {
+        return State.WAITING.equals(state);
+    }
+
+    public boolean isBetting() {
+        return State.BETTING.equals(state);
+    }
+
+    public boolean isDrawing() {
+        return State.DRAWING.equals(state);
+    }
+
+    public boolean isScoring() {
+        return State.SCORING.equals(state);
+    }
+
     public boolean isFinishing() {
         return State.FINISHING.equals(state);
-    }
-
-    public BlackjackGameSnapshot finished() {
-        checkTransitionTo(State.FINISHED);
-        return new BlackjackGameSnapshot(State.FINISHED);
-    }
-
-    public boolean isFinished() {
-        return State.FINISHED.equals(state);
     }
 
     private void checkTransitionTo(final State to) {
@@ -56,22 +66,32 @@ public class BlackjackGameSnapshot {
         WAITING {
             @Override
             public boolean canTransitTo(final State state) {
-                return RUNNING.equals(state);
+                return BETTING.equals(state);
             }
         },
-        RUNNING {
+
+        BETTING {
             @Override
             public boolean canTransitTo(final State state) {
-                return FINISHING.equals(state);
+                return DRAWING.equals(state);
             }
         },
+
+        DRAWING {
+            @Override
+            public boolean canTransitTo(final State state) {
+                return Sets.newHashSet(DRAWING, SCORING).contains(state);
+            }
+        },
+
+        SCORING {
+            @Override
+            public boolean canTransitTo(final State state) {
+                return Sets.newHashSet(BETTING, FINISHING).contains(state);
+            }
+        },
+
         FINISHING {
-            @Override
-            public boolean canTransitTo(final State state) {
-                return RUNNING.equals(state) || FINISHED.equals(state);
-            }
-        },
-        FINISHED {
             @Override
             public boolean canTransitTo(final State state) {
                 return false;
