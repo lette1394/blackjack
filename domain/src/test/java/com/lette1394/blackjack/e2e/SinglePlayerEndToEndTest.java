@@ -56,9 +56,8 @@ public class SinglePlayerEndToEndTest {
 
     @Test
     void aPlayerLoseAfterStay() {
-        readyForNewGame(12, nextTrumps(trump("♦️", "2"), trump("♣️", "8"),
-                                       trump("♥️", "3"), trump("♠️", "9")));
-
+        final BlackjackGame game = readyForNewGame(12, nextTrumps(trump("♦️", "2"), trump("♣️", "8"),
+                                                                  trump("♥️", "3"), trump("♠️", "9")));
         runner.run();
         assertion.hasShownWaitForPlayer();
 
@@ -94,6 +93,10 @@ public class SinglePlayerEndToEndTest {
         assertion.hasShownWaitForPlayer();
 
         player.join();
+        assertion.hasShownPlayerJoin(playerId);
+        assertion.hasShownPlayerRemainingCoins(1000);
+
+        player.bet(100);
         assertion.hasShownGameIsStarted();
         assertion.hasShownDrawCardToPlayer("(♦️5) (♣️5)");
         assertion.hasShownDealerGotCards("(♥️3) (??)");
@@ -105,6 +108,7 @@ public class SinglePlayerEndToEndTest {
         assertion.hasShownDealerScore(5);
 
         assertion.hasShownPlayerWin();
+        assertion.hasShownPlayerRemainingCoins(900);
 
         assertion.hasShownTryItAgain();
         player.leave();
@@ -121,6 +125,10 @@ public class SinglePlayerEndToEndTest {
         assertion.hasShownWaitForPlayer();
 
         player.join();
+        assertion.hasShownPlayerJoin(playerId);
+        assertion.hasShownPlayerRemainingCoins(1000);
+
+        player.bet(100);
         assertion.hasShownGameIsStarted();
         assertion.hasShownDrawCardToPlayer("(♦️5) (♣️5)");
         assertion.hasShownDealerGotCards("(♥️10) (??)");
@@ -135,6 +143,7 @@ public class SinglePlayerEndToEndTest {
         assertion.hasShownDealerScore(20);
 
         assertion.hasShownPlayerLose();
+        assertion.hasShownPlayerRemainingCoins(900);
 
         assertion.hasShownTryItAgain();
         player.leave();
@@ -150,6 +159,10 @@ public class SinglePlayerEndToEndTest {
         assertion.hasShownWaitForPlayer();
 
         player.join();
+        assertion.hasShownPlayerJoin(playerId);
+        assertion.hasShownPlayerRemainingCoins(1000);
+
+        player.bet(100);
         assertion.hasShownGameIsStarted();
         assertion.hasShownDrawCardToPlayer("(♦️A) (♣️8)");
         assertion.hasShownDealerGotCards("(♥️5) (??)");
@@ -161,6 +174,7 @@ public class SinglePlayerEndToEndTest {
         assertion.hasShownDealerScore(11);
 
         assertion.hasShownPlayerWin();
+        assertion.hasShownPlayerRemainingCoins(900);
 
         assertion.hasShownTryItAgain();
         player.leave();
@@ -177,6 +191,10 @@ public class SinglePlayerEndToEndTest {
         assertion.hasShownWaitForPlayer();
 
         player.join();
+        assertion.hasShownPlayerJoin(playerId);
+        assertion.hasShownPlayerRemainingCoins(1000);
+
+        player.bet(100);
         assertion.hasShownGameIsStarted();
         assertion.hasShownDrawCardToPlayer("(♦️A) (♣️8)");
         assertion.hasShownDealerGotCards("(♥️5) (??)");
@@ -194,6 +212,7 @@ public class SinglePlayerEndToEndTest {
         assertion.hasShownDealerScore(11);
 
         assertion.hasShownPlayerWin();
+        assertion.hasShownPlayerRemainingCoins(900);
 
         assertion.hasShownTryItAgain();
         player.leave();
@@ -210,6 +229,10 @@ public class SinglePlayerEndToEndTest {
         assertion.hasShownWaitForPlayer();
 
         player.join();
+        assertion.hasShownPlayerJoin(playerId);
+        assertion.hasShownPlayerRemainingCoins(1000);
+
+        player.bet(100);
         assertion.hasShownGameIsStarted();
         assertion.hasShownDrawCardToPlayer("(♦️A) (♣️8)");
         assertion.hasShownDealerGotCards("(♥️5) (??)");
@@ -223,6 +246,7 @@ public class SinglePlayerEndToEndTest {
         assertion.hasShownDealerScore(20);
 
         assertion.hasShownPlayerLose();
+        assertion.hasShownPlayerRemainingCoins(900);
 
         assertion.hasShownTryItAgain();
         player.leave();
@@ -252,6 +276,10 @@ public class SinglePlayerEndToEndTest {
         assertion.hasShownWaitForPlayer();
 
         player.join();
+        assertion.hasShownPlayerJoin(playerId);
+        assertion.hasShownPlayerRemainingCoins(1000);
+
+        player.bet(100);
         assertion.hasShownGameIsStarted();
         assertion.hasShownDrawCardToPlayer("(♦️A) (♣️8)");
         assertion.hasShownDealerGotCards("(♥️5) (??)");
@@ -266,6 +294,7 @@ public class SinglePlayerEndToEndTest {
         assertion.hasShownPlayerGotBust(22);
 
         assertion.hasShownPlayerLose();
+        assertion.hasShownPlayerRemainingCoins(900);
 
         assertion.hasShownTryItAgain();
         player.leave();
@@ -283,6 +312,10 @@ public class SinglePlayerEndToEndTest {
         assertion.hasShownWaitForPlayer();
 
         player.join();
+        assertion.hasShownPlayerJoin(playerId);
+        assertion.hasShownPlayerRemainingCoins(1000);
+
+        player.bet(100);
         assertion.hasShownGameIsStarted();
         assertion.hasShownDrawCardToPlayer("(♦️A) (♣️8)");
         assertion.hasShownDealerGotCards("(♥️5) (??)");
@@ -299,6 +332,7 @@ public class SinglePlayerEndToEndTest {
         assertion.hasShownDealerGotBust(22);
 
         assertion.hasShownPlayerWin();
+        assertion.hasShownPlayerRemainingCoins(900);
 
         assertion.hasShownTryItAgain();
         player.leave();
@@ -318,6 +352,10 @@ public class SinglePlayerEndToEndTest {
         assertion.hasShownInputIsInvalidAndHelpMessages("wrong input: stay. You can type 'join'");
 
         player.join();
+        assertion.hasShownPlayerJoin(playerId);
+        assertion.hasShownPlayerRemainingCoins(1000);
+
+        player.bet(100);
         assertion.hasShownGameIsStarted();
     }
 
@@ -332,6 +370,10 @@ public class SinglePlayerEndToEndTest {
         assertion.hasShownWaitForPlayer();
 
         player.join();
+        assertion.hasShownPlayerJoin(playerId);
+        assertion.hasShownPlayerRemainingCoins(1000);
+
+        player.bet(100);
         assertion.hasShownGameIsStarted();
         assertion.hasShownDrawCardToPlayer("(♦️A) (♣️8)");
         assertion.hasShownDealerGotCards("(♥️5) (??)");
@@ -357,6 +399,10 @@ public class SinglePlayerEndToEndTest {
         assertion.hasShownWaitForPlayer();
 
         player.join();
+        assertion.hasShownPlayerJoin(playerId);
+        assertion.hasShownPlayerRemainingCoins(1000);
+
+        player.bet(100);
         assertion.hasShownGameIsStarted();
         assertion.hasShownDrawCardToPlayer("(♦️2) (♣️8)");
         assertion.hasShownDealerGotCards("(♥️3) (??)");
@@ -368,6 +414,8 @@ public class SinglePlayerEndToEndTest {
         assertion.hasShownDealerScore(12);
 
         assertion.hasShownPlayerLose();
+        assertion.hasShownPlayerRemainingCoins(900);
+
         assertion.hasShownTryItAgain();
 
         player.rejoin();
@@ -382,17 +430,20 @@ public class SinglePlayerEndToEndTest {
         assertion.hasShownDealerScore(12);
 
         assertion.hasShownPlayerLose();
+        assertion.hasShownPlayerRemainingCoins(900);
 
         assertion.hasShownTryItAgain();
         player.leave();
         assertion.hasShownGameIsEnded();
     }
 
-    private void readyForNewGame(final int dealerStopScore, final TrumpProvider trumpProvider) {
+    private BlackjackGame readyForNewGame(final int dealerStopScore, final TrumpProvider trumpProvider) {
         final BlackjackGame blackjackGame = new BlackjackGame(dealerStopScore, trumpProvider);
         blackjackGame.addListener(new ConsoleOutput(inputOutput));
         consoleInputTranslator.addListener(blackjackGame);
         consoleInputTranslator.addListener(new ConsoleInvalidCommandListener(inputOutput));
+
+        return blackjackGame;
     }
 
     private TrumpProvider nextTrumps(Trump... trumps) {

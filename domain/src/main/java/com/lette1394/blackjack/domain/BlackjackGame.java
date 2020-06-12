@@ -1,6 +1,7 @@
 package com.lette1394.blackjack.domain;
 
 import lombok.RequiredArgsConstructor;
+import lombok.Setter;
 
 import com.lette1394.blackjack.domain.player.Player;
 import com.lette1394.blackjack.domain.trump.TrumpProvider;
@@ -34,6 +35,11 @@ public class BlackjackGame extends NoOpCommandListener implements ListenersAware
             return;
         }
 
+        game.announce().onNewPlayerJoin(player);
+    }
+
+    @Override
+    public void onBet(final Player player) {
         startThenSetup();
     }
 
@@ -45,7 +51,7 @@ public class BlackjackGame extends NoOpCommandListener implements ListenersAware
         }
 
         drawToPlayer(1);
-        checkOrFirePlayerGotBust();
+        checkOrFirePlayerGotBust(player);
     }
 
     @Override
@@ -65,7 +71,7 @@ public class BlackjackGame extends NoOpCommandListener implements ListenersAware
         game.announce().onDealerTurnEnds(trumpsForDealer);
 
 
-        scoring();
+        scoring(player);
     }
 
     @Override
@@ -96,9 +102,9 @@ public class BlackjackGame extends NoOpCommandListener implements ListenersAware
         trumpsForPlayer = new Trumps();
     }
 
-    private void scoring() {
+    private void scoring(final Player player) {
         state = state.scoring();
-        game.announce().onShowWinner(state, trumpsForPlayer, trumpsForDealer);
+        game.announce().onShowWinner(player, trumpsForPlayer, trumpsForDealer);
     }
 
     public void drawToPlayer(int howMany) {
@@ -114,10 +120,10 @@ public class BlackjackGame extends NoOpCommandListener implements ListenersAware
         game.announce().onDealerHandChanged(showCards, trumpsForDealer);
     }
 
-    private void checkOrFirePlayerGotBust() {
+    private void checkOrFirePlayerGotBust(final Player player) {
         if (trumpsForPlayer.computeScore() > 21) {
             game.announce().onPlayerTurnEnds(trumpsForPlayer);
-            scoring();
+            scoring(player);
         }
     }
 }

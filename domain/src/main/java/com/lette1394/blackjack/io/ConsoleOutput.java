@@ -8,6 +8,7 @@ import lombok.RequiredArgsConstructor;
 
 import com.lette1394.blackjack.domain.BlackjackEventListener;
 import com.lette1394.blackjack.domain.BlackjackGameState;
+import com.lette1394.blackjack.domain.player.Player;
 import com.lette1394.blackjack.domain.trump.Trump;
 import com.lette1394.blackjack.domain.trump.Trumps;
 
@@ -25,6 +26,12 @@ public class ConsoleOutput implements BlackjackEventListener {
             send("game ended");
             return;
         }
+    }
+
+    @Override
+    public void onNewPlayerJoin(final Player player) {
+        send(String.format("playerId:[%s] joined", player.getId()));
+        send(String.format("Your coins: %s", 1000));
     }
 
     @Override
@@ -58,17 +65,19 @@ public class ConsoleOutput implements BlackjackEventListener {
     }
 
     @Override
-    public void onShowWinner(final BlackjackGameState snapshot,
+    public void onShowWinner(final Player player,
                              final Trumps playerTrumps,
                              final Trumps dealerTrumps) {
         if (playerTrumps.computeScore() > 21) {
             send("You LOSE");
+            send("Your coins: " + player.getCoins());
             send("Another game? [join|leave]");
             return;
         }
 
         if (dealerTrumps.computeScore() > 21) {
             send("You WIN");
+            send("Your coins: " + player.getCoins());
             send("Another game? [join|leave]");
             return;
         }
@@ -79,6 +88,7 @@ public class ConsoleOutput implements BlackjackEventListener {
             send("You LOSE");
         }
 
+        send("Your coins: " + player.getCoins());
         send("Another game? [join|leave]");
     }
 

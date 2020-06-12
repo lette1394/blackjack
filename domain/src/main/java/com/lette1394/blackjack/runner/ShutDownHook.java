@@ -6,6 +6,7 @@ import lombok.SneakyThrows;
 
 import com.lette1394.blackjack.domain.BlackjackEventListener;
 import com.lette1394.blackjack.domain.BlackjackGameState;
+import com.lette1394.blackjack.domain.player.Player;
 import com.lette1394.blackjack.domain.trump.Trumps;
 
 public class ShutDownHook implements BlackjackEventListener {
@@ -23,6 +24,11 @@ public class ShutDownHook implements BlackjackEventListener {
                 closeable.close();
             }
         }
+    }
+
+    @Override
+    public void onNewPlayerJoin(final Player player) {
+
     }
 
     @Override
@@ -46,7 +52,7 @@ public class ShutDownHook implements BlackjackEventListener {
     }
 
     @Override
-    public void onShowWinner(final BlackjackGameState snapshot,
+    public void onShowWinner(final Player player,
                              final Trumps playerTrumps,
                              final Trumps dealerTrumps) {
 
