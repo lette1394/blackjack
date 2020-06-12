@@ -22,6 +22,8 @@ public interface BlackjackEventListener extends EventListener {
     void onShowWinner(Player player, GameWinner winner);
 
     // TODO: rename. illegal state transition?
+    //  이거 에러 코드를 정해서 처리할 수 있나?
+    //  아니면 exception type을 정해서 핸들링?
     void onIllegalCommand(String message);
 
 
