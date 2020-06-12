@@ -14,8 +14,8 @@ import com.lette1394.blackjack.domain.trump.Trumps;
 // TODO: 이거, snapshot은 모두 immutable로 하고
 //  게임 상태를 변경하고 카드를 드로우하는 것은 별도의 클래스로 만들어야 하나?
 
-@RequiredArgsConstructor
 @EqualsAndHashCode
+@RequiredArgsConstructor
 public class BlackjackGameState {
     private final State state;
     private final Map<Player, Trumps> playerTrumpsMap;
@@ -88,6 +88,10 @@ public class BlackjackGameState {
         }
     }
 
+    public BlackjackGameState snapshot() {
+        return new BlackjackGameState(state, new HashMap<>(playerTrumpsMap));
+    }
+
     private enum State {
         WAITING {
             @Override
@@ -128,3 +132,4 @@ public class BlackjackGameState {
         public abstract boolean canTransitTo(State state);
     }
 }
+

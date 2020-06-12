@@ -17,23 +17,15 @@ public class ConsoleOutput implements BlackjackEventListener {
 
     @Override
     public void onGameStateChanged(final BlackjackGameState snapshot) {
-//        if (snapshot.isRunning()) {
-//            send("new blackjack game start");
-//            return;
-//        }
-//        if (snapshot.isFinishing()) {
-//            send("Another game? [join|leave]");
-//            return;
-//        }
-//        if (snapshot.isFinished()) {
-//            send("game ended");
-//            return;
-//        }
+        if (snapshot.isDrawing()) {
+            send("new blackjack game start");
+            return;
+        }
     }
 
     @Override
     public void onStart() {
-        send("new blackjack game start");
+//        send("new blackjack game start");
     }
 
     @Override

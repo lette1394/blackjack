@@ -88,6 +88,7 @@ public class BlackjackGame extends NoOpCommandListener implements ListenersAware
         state = state.betting();
         state = state.drawing();
 
+        game.announce().onGameStateChanged(state.snapshot());
         game.announce().onStart();
         trumpsForDealer = new Trumps();
         trumpsForPlayer = new Trumps();
