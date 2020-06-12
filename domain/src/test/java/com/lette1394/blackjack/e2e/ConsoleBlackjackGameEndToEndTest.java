@@ -1,4 +1,4 @@
-package com.lette1394.blackjack;
+package com.lette1394.blackjack.e2e;
 
 import java.io.PipedInputStream;
 import java.io.PipedOutputStream;
@@ -10,6 +10,7 @@ import org.junit.jupiter.api.Timeout;
 import com.google.common.collect.Lists;
 import lombok.SneakyThrows;
 
+import com.lette1394.blackjack.ConsoleGameRunnerAssertion;
 import com.lette1394.blackjack.domain.BlackjackGame;
 import com.lette1394.blackjack.domain.player.InMemoryPlayerRepository;
 import com.lette1394.blackjack.domain.trump.Trump;
