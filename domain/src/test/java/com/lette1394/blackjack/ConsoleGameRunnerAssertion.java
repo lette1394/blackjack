@@ -78,6 +78,10 @@ public class ConsoleGameRunnerAssertion {
         assertThat(nextConsoleInput(), is("Another game? [join|leave]"));
     }
 
+    public void hasShownPlayerGotBankrupt() {
+        assertThat(nextConsoleInput(), is("GAME OVER. You got bankrupt."));
+    }
+
     private String nextConsoleInput() {
         return userInput.nextLine();
     }

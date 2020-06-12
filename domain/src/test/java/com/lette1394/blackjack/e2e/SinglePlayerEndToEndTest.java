@@ -470,6 +470,62 @@ public class SinglePlayerEndToEndTest {
         assertion.hasShownGameIsEnded();
     }
 
+    @Test
+    void aPlayerGotBankrupt() {
+        final BlackjackGame blackjackGame = new BlackjackGame(12, nextTrumps(trump("♦️", "2"), trump("♣️", "8"),
+                                                                             trump("♥️", "3"), trump("♠️", "9"),
+
+                                                                             trump("♦️", "2"), trump("♣️", "8"),
+                                                                             trump("♥️", "3"), trump("♠️", "9")));
+        blackjackGame.addListener(new ConsoleOutput(inputOutput));
+        consoleInputTranslator.addListener(blackjackGame);
+        consoleInputTranslator.addListener(new ConsoleInvalidCommandListener(inputOutput));
+
+
+        runner.run();
+        assertion.hasShownWaitForPlayer();
+
+        player.join();
+        assertion.hasShownPlayerJoin(playerId);
+        assertion.hasShownPlayerRemainingCoins(1000);
+
+        player.bet(600);
+        assertion.hasShownGameIsStarted();
+        assertion.hasShownDrawCardToPlayer("(♦️2) (♣️8)");
+        assertion.hasShownDealerGotCards("(♥️3) (??)");
+
+        player.stay();
+        assertion.hasShownPlayerScore(10);
+
+        assertion.hasShownDealerGotCards("(♥️3) (♠️9)");
+        assertion.hasShownDealerScore(12);
+
+        assertion.hasShownPlayerLose();
+        assertion.hasShownPlayerRemainingCoins(400);
+
+        assertion.hasShownTryItAgain();
+
+        player.rejoin();
+        assertion.hasShownPlayerRemainingCoins(400);
+
+        player.bet(400);
+        assertion.hasShownGameIsStarted();
+        assertion.hasShownDrawCardToPlayer("(♦️2) (♣️8)");
+        assertion.hasShownDealerGotCards("(♥️3) (??)");
+
+        player.stay();
+        assertion.hasShownPlayerScore(10);
+
+        assertion.hasShownDealerGotCards("(♥️3) (♠️9)");
+        assertion.hasShownDealerScore(12);
+
+        assertion.hasShownPlayerLose();
+        assertion.hasShownPlayerRemainingCoins(0);
+
+        assertion.hasShownPlayerGotBankrupt();
+        assertion.hasShownGameIsEnded();
+    }
+
     private BlackjackGame readyForNewGame(final int dealerStopScore, final TrumpProvider trumpProvider) {
         final BlackjackGame blackjackGame = new BlackjackGame(dealerStopScore, trumpProvider);
         blackjackGame.addListener(new ConsoleOutput(inputOutput));

@@ -20,4 +20,12 @@ public class Player {
     public String getId() {
         return id;
     }
+
+    public void bet(int coin) {
+        throw new UnsupportedOperationException();
+    }
+
+    public void win() {
+        throw new UnsupportedOperationException();
+    }
 }
