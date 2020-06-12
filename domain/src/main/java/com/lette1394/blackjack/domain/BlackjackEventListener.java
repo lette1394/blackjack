@@ -7,7 +7,7 @@ import com.lette1394.blackjack.domain.trump.Trumps;
 // TODO: start, end 이런거 다 onGameStateChanged(); 같은걸로 변경
 public interface BlackjackEventListener extends EventListener {
 
-    void onGameStateChanged(BlackjackGameSnapshot snapshot);
+    void onGameStateChanged(BlackjackGameState snapshot);
 
     void onStart();
 
@@ -20,9 +20,9 @@ public interface BlackjackEventListener extends EventListener {
 
     void onDealerTurnEnds(Trumps trumps);
 
-    void onShowWinner(BlackjackGameSnapshot snapshot, Trumps playerTrumps, Trumps dealerTrumps);
+    void onShowWinner(BlackjackGameState snapshot, Trumps playerTrumps, Trumps dealerTrumps);
 
-    void onEnd(BlackjackGameSnapshot snapshot);
+    void onEnd(BlackjackGameState snapshot);
 
     // TODO: rename. illegal state transition?
     void onIllegalCommand(String message);

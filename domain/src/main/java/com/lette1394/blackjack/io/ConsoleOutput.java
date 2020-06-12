@@ -7,7 +7,7 @@ import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 
 import com.lette1394.blackjack.domain.BlackjackEventListener;
-import com.lette1394.blackjack.domain.BlackjackGameSnapshot;
+import com.lette1394.blackjack.domain.BlackjackGameState;
 import com.lette1394.blackjack.domain.trump.Trump;
 import com.lette1394.blackjack.domain.trump.Trumps;
 
@@ -16,7 +16,7 @@ public class ConsoleOutput implements BlackjackEventListener {
     private final Output output;
 
     @Override
-    public void onGameStateChanged(final BlackjackGameSnapshot snapshot) {
+    public void onGameStateChanged(final BlackjackGameState snapshot) {
 //        if (snapshot.isRunning()) {
 //            send("new blackjack game start");
 //            return;
@@ -67,7 +67,7 @@ public class ConsoleOutput implements BlackjackEventListener {
     }
 
     @Override
-    public void onShowWinner(final BlackjackGameSnapshot snapshot,
+    public void onShowWinner(final BlackjackGameState snapshot,
                              final Trumps playerTrumps,
                              final Trumps dealerTrumps) {
         if (playerTrumps.computeScore() > 21) {
@@ -92,7 +92,7 @@ public class ConsoleOutput implements BlackjackEventListener {
     }
 
     @Override
-    public void onEnd(final BlackjackGameSnapshot snapshot) {
+    public void onEnd(final BlackjackGameState snapshot) {
         send("game ended");
     }
 

@@ -16,7 +16,7 @@ class ConsoleInputProcessorTest extends BaseTest {
     @Mock PlayerRepository repository;
     private ConsoleInputProcessor processor;
 
-    private static final Player player = new Player();
+    private static final Player player = new Player("");
 
     @BeforeEach
     void setUp() {

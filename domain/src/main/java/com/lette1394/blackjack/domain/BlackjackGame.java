@@ -18,7 +18,7 @@ public class BlackjackGame extends NoOpCommandListener implements ListenersAware
     private final TrumpProvider trumpProvider;
     private final EventAnnouncer<BlackjackEventListener> game = new EventAnnouncer<>(BlackjackEventListener.class);
 
-    private BlackjackGameSnapshot snapshot = BlackjackGameSnapshot.waiting();
+    private BlackjackGameState snapshot = BlackjackGameState.waiting();
 
     @Override
     public void addListener(final BlackjackEventListener listener) {
