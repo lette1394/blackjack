@@ -27,6 +27,8 @@ public class BlackjackGame extends NoOpCommandListener implements ListenersAware
 
     @Override
     public void onJoin(final Player player) {
+        // TODO: 상태를 검사하기만 하는 decorator를 끼워넣어야 겠다.
+        // TODO: 이렇게 검사하지말고, state 한테 물어보자.
         if (state.isWaiting() == false && state.isFinishing() == false) {
             game.announce().onIllegalCommand("wrong input: join. game already started. you can type 'hit' or 'stay'");
             return;
