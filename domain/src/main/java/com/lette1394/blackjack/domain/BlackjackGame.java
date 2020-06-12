@@ -81,8 +81,7 @@ public class BlackjackGame extends NoOpCommandListener implements ListenersAware
     @Override
     public void onRejoin(final Player player) {
         // TODO: 이거 input validation 검사하는 코드 짜기전에, 테스트를 짜보자.
-        game.announce().onPlayerBetting(player, 900);
-//        onBet(player);
+        game.announce().onPlayerBetting(player);
     }
 
     @Override

@@ -360,6 +360,36 @@ public class SinglePlayerEndToEndTest {
     }
 
     @Test
+    void aPlayerAndDealerInDraw() {
+        readyForNewGame(15, nextTrumps(trump("♦️", "7"), trump("♣️", "8"),
+                                       trump("♥️", "8"), trump("♠️", "7")));
+
+        runner.run();
+        assertion.hasShownWaitForPlayer();
+
+        player.join();
+        assertion.hasShownPlayerJoin(playerId);
+        assertion.hasShownPlayerRemainingCoins(1000);
+
+        player.bet(100);
+        assertion.hasShownGameIsStarted();
+        assertion.hasShownDrawCardToPlayer("(♦️7) (♣️8)");
+        assertion.hasShownDealerGotCards("(♥️8) (??)");
+
+        player.stay();
+        assertion.hasShownPlayerScore(15);
+        assertion.hasShownDealerGotCards("(♥️8) (♠️7)");
+        assertion.hasShownDealerScore(15);
+
+        assertion.hasShownPlayerDraw();
+        assertion.hasShownPlayerRemainingCoins(1000);
+
+        assertion.hasShownTryItAgain();
+        player.leave();
+        assertion.hasShownGameIsEnded();
+    }
+
+    @Test
     void aPlayerSendJoinTwice() {
         readyForNewGame(16, nextTrumps(trump("♦️", "Ace"), trump("♣️", "8"),
                                        trump("♥️", "5"), trump("♠️", "6"),

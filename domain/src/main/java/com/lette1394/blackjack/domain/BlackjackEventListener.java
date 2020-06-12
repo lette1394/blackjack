@@ -28,5 +28,5 @@ public interface BlackjackEventListener extends EventListener {
 
     void onNewPlayerJoin(Player player);
 
-    void onPlayerBetting(Player player, int coin);
+    void onPlayerBetting(Player player);
 }

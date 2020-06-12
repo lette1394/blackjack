@@ -32,7 +32,7 @@ public class ShutDownHook implements BlackjackEventListener {
     }
 
     @Override
-    public void onPlayerBetting(final Player player, final int coin) {
+    public void onPlayerBetting(final Player player) {
 
     }
 

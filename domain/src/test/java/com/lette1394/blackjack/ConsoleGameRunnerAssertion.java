@@ -50,6 +50,10 @@ public class ConsoleGameRunnerAssertion {
         assertThat(nextConsoleInput(), containsString("You LOSE"));
     }
 
+    public void hasShownPlayerDraw() {
+        assertThat(nextConsoleInput(), containsString("Game DRAW"));
+    }
+
     public void hasShownPlayerWin() {
         assertThat(nextConsoleInput(), containsString("You WIN"));
     }

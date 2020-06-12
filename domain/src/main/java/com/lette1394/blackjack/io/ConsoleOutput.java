@@ -35,8 +35,8 @@ public class ConsoleOutput implements BlackjackEventListener {
     }
 
     @Override
-    public void onPlayerBetting(final Player player, final int coin) {
-        send(String.format("Your coins: %s", coin));
+    public void onPlayerBetting(final Player player) {
+        send(String.format("Your coins: %s", player.getCoins()));
     }
 
     @Override
@@ -109,7 +109,7 @@ public class ConsoleOutput implements BlackjackEventListener {
             sb.append(" ");
             i++;
         }
-        return sb.toString().substring(0, sb.toString().length() - 1);
+        return sb.substring(0, sb.toString().length() - 1);
     }
 
     private static class TrumpToStringFormatter {
