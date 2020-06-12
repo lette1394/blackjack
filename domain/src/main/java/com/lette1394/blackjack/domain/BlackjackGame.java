@@ -108,24 +108,29 @@ public class BlackjackGame extends NoOpCommandListener implements ListenersAware
 
     private void scoring(final Player player) {
         state = state.scoring();
-        if (trumpsForPlayer.computeScore() > 21) {
+        final int playerScore = trumpsForPlayer.computeScore();
+        final int dealerScore = trumpsForDealer.computeScore();
+
+        if (playerScore > 21) {
             player.setCoins(player.getCoins() - bet);
-            game.announce().onShowWinner(player, false);
+            game.announce().onShowWinner(player, GameWinner.DEALER);
             return;
         }
 
-        if (trumpsForDealer.computeScore() > 21) {
+        if (dealerScore > 21) {
             player.setCoins(player.getCoins() + bet);
-            game.announce().onShowWinner(player, true);
+            game.announce().onShowWinner(player, GameWinner.PLAYER);
             return;
         }
 
-        if (trumpsForPlayer.computeScore() > trumpsForDealer.computeScore()) {
+        if (playerScore == dealerScore) {
+            game.announce().onShowWinner(player, GameWinner.DRAW);
+        } else if (playerScore > dealerScore) {
             player.setCoins(player.getCoins() + bet);
-            game.announce().onShowWinner(player, true);
+            game.announce().onShowWinner(player, GameWinner.PLAYER);
         } else {
             player.setCoins(player.getCoins() - bet);
-            game.announce().onShowWinner(player, false);
+            game.announce().onShowWinner(player, GameWinner.DEALER);
         }
     }
 

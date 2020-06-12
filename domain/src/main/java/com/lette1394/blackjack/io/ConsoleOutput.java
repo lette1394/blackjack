@@ -8,6 +8,7 @@ import lombok.RequiredArgsConstructor;
 
 import com.lette1394.blackjack.domain.BlackjackEventListener;
 import com.lette1394.blackjack.domain.BlackjackGameState;
+import com.lette1394.blackjack.domain.GameWinner;
 import com.lette1394.blackjack.domain.player.Player;
 import com.lette1394.blackjack.domain.trump.Trump;
 import com.lette1394.blackjack.domain.trump.Trumps;
@@ -70,11 +71,13 @@ public class ConsoleOutput implements BlackjackEventListener {
     }
 
     @Override
-    public void onShowWinner(final Player player, final boolean isPlayerWin) {
-        if (isPlayerWin) {
+    public void onShowWinner(final Player player, final GameWinner winner) {
+        if (winner == GameWinner.PLAYER) {
             send("You WIN");
-        } else {
+        } else if (winner == GameWinner.DEALER) {
             send("You LOSE");
+        } else {
+            send("Game DRAW");
         }
         send("Your coins: " + player.getCoins());
         send("Another game? [join|leave]");

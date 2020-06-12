@@ -6,6 +6,7 @@ import lombok.SneakyThrows;
 
 import com.lette1394.blackjack.domain.BlackjackEventListener;
 import com.lette1394.blackjack.domain.BlackjackGameState;
+import com.lette1394.blackjack.domain.GameWinner;
 import com.lette1394.blackjack.domain.player.Player;
 import com.lette1394.blackjack.domain.trump.Trumps;
 
@@ -57,7 +58,7 @@ public class ShutDownHook implements BlackjackEventListener {
     }
 
     @Override
-    public void onShowWinner(final Player player, final boolean isPlayerWin) {
+    public void onShowWinner(final Player player, final GameWinner winner) {
 
     }
 
