@@ -43,6 +43,11 @@ public class BlackjackGame extends NoOpCommandListener implements ListenersAware
 
     @Override
     public void onBet(final Player player, int coin) {
+        if (coin > player.getCoins()) {
+            game.announce().onIllegalCommand("Cannot bet money over " + player.getCoins());
+            return;
+        }
+
         this.bet = coin;
         state = state.betting();
         startThenSetup();
