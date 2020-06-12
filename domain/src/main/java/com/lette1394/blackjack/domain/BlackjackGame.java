@@ -44,6 +44,7 @@ public class BlackjackGame extends NoOpCommandListener implements ListenersAware
     @Override
     public void onBet(final Player player, int coin) {
         this.bet = coin;
+        state = state.betting();
         startThenSetup();
     }
 
@@ -98,12 +99,12 @@ public class BlackjackGame extends NoOpCommandListener implements ListenersAware
     }
 
     private void start() {
-        state = state.betting();
         state = state.drawing();
 
-        game.announce().onGameStateChanged(state);
         trumpsForDealer = new Trumps();
         trumpsForPlayer = new Trumps();
+
+        game.announce().onGameStateChanged(state);
     }
 
     private void scoring(final Player player) {
