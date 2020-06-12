@@ -108,7 +108,7 @@ public class SinglePlayerEndToEndTest {
         assertion.hasShownDealerScore(5);
 
         assertion.hasShownPlayerWin();
-        assertion.hasShownPlayerRemainingCoins(900);
+        assertion.hasShownPlayerRemainingCoins(1100);
 
         assertion.hasShownTryItAgain();
         player.leave();
@@ -174,7 +174,7 @@ public class SinglePlayerEndToEndTest {
         assertion.hasShownDealerScore(11);
 
         assertion.hasShownPlayerWin();
-        assertion.hasShownPlayerRemainingCoins(900);
+        assertion.hasShownPlayerRemainingCoins(1100);
 
         assertion.hasShownTryItAgain();
         player.leave();
@@ -212,7 +212,7 @@ public class SinglePlayerEndToEndTest {
         assertion.hasShownDealerScore(11);
 
         assertion.hasShownPlayerWin();
-        assertion.hasShownPlayerRemainingCoins(900);
+        assertion.hasShownPlayerRemainingCoins(1100);
 
         assertion.hasShownTryItAgain();
         player.leave();
@@ -332,7 +332,7 @@ public class SinglePlayerEndToEndTest {
         assertion.hasShownDealerGotBust(22);
 
         assertion.hasShownPlayerWin();
-        assertion.hasShownPlayerRemainingCoins(900);
+        assertion.hasShownPlayerRemainingCoins(1100);
 
         assertion.hasShownTryItAgain();
         player.leave();

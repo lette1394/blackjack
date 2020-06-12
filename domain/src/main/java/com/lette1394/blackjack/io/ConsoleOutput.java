@@ -31,7 +31,12 @@ public class ConsoleOutput implements BlackjackEventListener {
     @Override
     public void onNewPlayerJoin(final Player player) {
         send(String.format("playerId:[%s] joined", player.getId()));
-        send(String.format("Your coins: %s", 1000));
+        send(String.format("Your coins: %s", player.getCoins()));
+    }
+
+    @Override
+    public void onPlayerBetting(final Player player, final int coin) {
+        send(String.format("Your coins: %s", coin));
     }
 
     @Override
@@ -65,29 +70,12 @@ public class ConsoleOutput implements BlackjackEventListener {
     }
 
     @Override
-    public void onShowWinner(final Player player,
-                             final Trumps playerTrumps,
-                             final Trumps dealerTrumps) {
-        if (playerTrumps.computeScore() > 21) {
-            send("You LOSE");
-            send("Your coins: " + player.getCoins());
-            send("Another game? [join|leave]");
-            return;
-        }
-
-        if (dealerTrumps.computeScore() > 21) {
-            send("You WIN");
-            send("Your coins: " + player.getCoins());
-            send("Another game? [join|leave]");
-            return;
-        }
-
-        if (playerTrumps.computeScore() > dealerTrumps.computeScore()) {
+    public void onShowWinner(final Player player, final boolean isPlayerWin) {
+        if (isPlayerWin) {
             send("You WIN");
         } else {
             send("You LOSE");
         }
-
         send("Your coins: " + player.getCoins());
         send("Another game? [join|leave]");
     }

@@ -32,6 +32,11 @@ public class ShutDownHook implements BlackjackEventListener {
     }
 
     @Override
+    public void onPlayerBetting(final Player player, final int coin) {
+
+    }
+
+    @Override
     public void onPlayerHandChanged(final Trumps trumps) {
 
     }
@@ -52,9 +57,7 @@ public class ShutDownHook implements BlackjackEventListener {
     }
 
     @Override
-    public void onShowWinner(final Player player,
-                             final Trumps playerTrumps,
-                             final Trumps dealerTrumps) {
+    public void onShowWinner(final Player player, final boolean isPlayerWin) {
 
     }
 

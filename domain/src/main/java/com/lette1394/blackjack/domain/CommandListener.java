@@ -9,7 +9,7 @@ public interface CommandListener extends EventListener {
 
     void onJoin(Player player);
 
-    void onBet(Player player);
+    void onBet(Player player, int coin);
 
     void onHit(Player player);
 

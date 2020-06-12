@@ -1,7 +1,6 @@
 package com.lette1394.blackjack.domain;
 
 import lombok.RequiredArgsConstructor;
-import lombok.Setter;
 
 import com.lette1394.blackjack.domain.player.Player;
 import com.lette1394.blackjack.domain.trump.TrumpProvider;
@@ -21,6 +20,10 @@ public class BlackjackGame extends NoOpCommandListener implements ListenersAware
 
     private BlackjackGameState state = BlackjackGameState.waiting();
 
+
+
+    private int bet;
+
     @Override
     public void addListener(final BlackjackEventListener listener) {
         game.addListener(listener);
@@ -39,7 +42,8 @@ public class BlackjackGame extends NoOpCommandListener implements ListenersAware
     }
 
     @Override
-    public void onBet(final Player player) {
+    public void onBet(final Player player, int coin) {
+        this.bet = coin;
         startThenSetup();
     }
 
@@ -77,7 +81,8 @@ public class BlackjackGame extends NoOpCommandListener implements ListenersAware
     @Override
     public void onRejoin(final Player player) {
         // TODO: 이거 input validation 검사하는 코드 짜기전에, 테스트를 짜보자.
-        startThenSetup();
+        game.announce().onPlayerBetting(player, 900);
+//        onBet(player);
     }
 
     @Override
@@ -104,7 +109,25 @@ public class BlackjackGame extends NoOpCommandListener implements ListenersAware
 
     private void scoring(final Player player) {
         state = state.scoring();
-        game.announce().onShowWinner(player, trumpsForPlayer, trumpsForDealer);
+        if (trumpsForPlayer.computeScore() > 21) {
+            player.setCoins(player.getCoins() - bet);
+            game.announce().onShowWinner(player, false);
+            return;
+        }
+
+        if (trumpsForDealer.computeScore() > 21) {
+            player.setCoins(player.getCoins() + bet);
+            game.announce().onShowWinner(player, true);
+            return;
+        }
+
+        if (trumpsForPlayer.computeScore() > trumpsForDealer.computeScore()) {
+            player.setCoins(player.getCoins() + bet);
+            game.announce().onShowWinner(player, true);
+        } else {
+            player.setCoins(player.getCoins() - bet);
+            game.announce().onShowWinner(player, false);
+        }
     }
 
     public void drawToPlayer(int howMany) {

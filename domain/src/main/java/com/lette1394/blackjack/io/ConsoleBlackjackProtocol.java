@@ -17,6 +17,7 @@ public class ConsoleBlackjackProtocol {
 
     private static final String PLAYER = "playerId";
     private static final String COMMAND = "command";
+    private static final String COIN = "coin";
 
     private static final Set<String> MANDATORY_KEYS = Sets.newHashSet(PLAYER, COMMAND);
 
@@ -89,5 +90,9 @@ public class ConsoleBlackjackProtocol {
 
     public String getCommand() {
         return map.get(COMMAND);
+    }
+
+    public int getCoin() {
+        return Integer.parseInt(map.get(COIN));
     }
 }

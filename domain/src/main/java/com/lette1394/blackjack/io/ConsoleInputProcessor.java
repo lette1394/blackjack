@@ -28,8 +28,7 @@ public class ConsoleInputProcessor implements InputProcessor, ListenersAware<Com
                     players.announce().onJoin(player);
                     break;
                 case "bet":
-                    // TODO: how much?
-                    players.announce().onBet(player);
+                    players.announce().onBet(player, protocol.getCoin());
                     break;
                 case "stay":
                     players.announce().onStay(player);

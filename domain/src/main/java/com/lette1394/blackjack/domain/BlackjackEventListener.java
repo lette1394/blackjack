@@ -19,7 +19,7 @@ public interface BlackjackEventListener extends EventListener {
 
     void onDealerTurnEnds(Trumps trumps);
 
-    void onShowWinner(Player player, Trumps playerTrumps, Trumps dealerTrumps);
+    void onShowWinner(Player player, boolean isPlayerWin);
 
     // TODO: rename. illegal state transition?
     void onIllegalCommand(String message);
@@ -27,4 +27,6 @@ public interface BlackjackEventListener extends EventListener {
 
 
     void onNewPlayerJoin(Player player);
+
+    void onPlayerBetting(Player player, int coin);
 }

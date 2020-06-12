@@ -14,7 +14,7 @@ public class NoOpCommandListener implements CommandListener {
     }
 
     @Override
-    public void onBet(final Player player) {
+    public void onBet(final Player player, int coin) {
         // no-op
     }
 
