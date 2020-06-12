@@ -56,8 +56,8 @@ public class SinglePlayerEndToEndTest {
 
     @Test
     void aPlayerLoseAfterStay() {
-        final BlackjackGame game = readyForNewGame(12, nextTrumps(trump("♦️", "2"), trump("♣️", "8"),
-                                                                  trump("♥️", "3"), trump("♠️", "9")));
+        readyForNewGame(12, nextTrumps(trump("♦️", "2"), trump("♣️", "8"),
+                                       trump("♥️", "3"), trump("♠️", "9")));
         runner.run();
         assertion.hasShownWaitForPlayer();
 
@@ -419,6 +419,9 @@ public class SinglePlayerEndToEndTest {
         assertion.hasShownTryItAgain();
 
         player.rejoin();
+        assertion.hasShownPlayerRemainingCoins(900);
+
+        player.bet(200);
         assertion.hasShownGameIsStarted();
         assertion.hasShownDrawCardToPlayer("(♦️2) (♣️8)");
         assertion.hasShownDealerGotCards("(♥️3) (??)");
@@ -430,7 +433,7 @@ public class SinglePlayerEndToEndTest {
         assertion.hasShownDealerScore(12);
 
         assertion.hasShownPlayerLose();
-        assertion.hasShownPlayerRemainingCoins(900);
+        assertion.hasShownPlayerRemainingCoins(700);
 
         assertion.hasShownTryItAgain();
         player.leave();
