@@ -133,6 +133,13 @@ public class BlackjackGame extends NoOpCommandListener implements ListenersAware
             player.setCoins(player.getCoins() - bet);
             game.announce().onShowWinner(player, GameWinner.DEALER);
         }
+
+
+
+        if (player.getCoins() == 0) {
+            state = state.finishing();
+            game.announce().onGameStateChanged(state);
+        }
     }
 
     public void drawToPlayer(int howMany) {

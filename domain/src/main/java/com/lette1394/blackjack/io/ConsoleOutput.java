@@ -79,8 +79,13 @@ public class ConsoleOutput implements BlackjackEventListener {
         } else {
             send("Game DRAW");
         }
+
         send("Your coins: " + player.getCoins());
-        send("Another game? [join|leave]");
+        if (player.getCoins() == 0) {
+            send("GAME OVER. You got bankrupt.");
+        } else {
+            send("Another game? [join|leave]");
+        }
     }
 
     @Override
