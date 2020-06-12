@@ -21,11 +21,6 @@ public class ShutDownHook implements BlackjackEventListener {
     }
 
     @Override
-    public void onStart() {
-
-    }
-
-    @Override
     public void onPlayerHandChanged(final Trumps trumps) {
 
     }

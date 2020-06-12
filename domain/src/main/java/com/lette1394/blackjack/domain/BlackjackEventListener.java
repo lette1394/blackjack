@@ -9,8 +9,6 @@ public interface BlackjackEventListener extends EventListener {
 
     void onGameStateChanged(BlackjackGameState snapshot);
 
-    void onStart();
-
     // TODO: player랑 dealer랑 구분없이 callback trigger
     void onPlayerHandChanged(Trumps trumps);
 

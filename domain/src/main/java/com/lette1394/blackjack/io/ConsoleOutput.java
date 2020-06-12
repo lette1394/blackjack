@@ -24,11 +24,6 @@ public class ConsoleOutput implements BlackjackEventListener {
     }
 
     @Override
-    public void onStart() {
-//        send("new blackjack game start");
-    }
-
-    @Override
     public void onPlayerHandChanged(final Trumps trumps) {
         send("Your Cards: " + formatTrump(trumps));
     }
