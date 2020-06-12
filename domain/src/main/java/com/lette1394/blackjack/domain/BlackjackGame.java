@@ -18,7 +18,7 @@ public class BlackjackGame extends NoOpCommandListener implements ListenersAware
     private final TrumpProvider trumpProvider;
     private final EventAnnouncer<BlackjackEventListener> game = new EventAnnouncer<>(BlackjackEventListener.class);
 
-    private BlackjackGameState snapshot = BlackjackGameState.waiting();
+    private BlackjackGameState state = BlackjackGameState.waiting();
 
     @Override
     public void addListener(final BlackjackEventListener listener) {
@@ -27,7 +27,7 @@ public class BlackjackGame extends NoOpCommandListener implements ListenersAware
 
     @Override
     public void onJoin(final Player player) {
-        if (snapshot.isWaiting() == false && snapshot.isFinishing() == false) {
+        if (state.isWaiting() == false && state.isFinishing() == false) {
             game.announce().onIllegalCommand("wrong input: join. game already started. you can type 'hit' or 'stay'");
             return;
         }
@@ -37,7 +37,7 @@ public class BlackjackGame extends NoOpCommandListener implements ListenersAware
 
     @Override
     public void onHit(final Player player) {
-        if (snapshot.isDrawing() == false) {
+        if (state.isDrawing() == false) {
             game.announce().onIllegalCommand("wrong input: hit. You can type 'join'");
             return;
         }
@@ -48,7 +48,7 @@ public class BlackjackGame extends NoOpCommandListener implements ListenersAware
 
     @Override
     public void onStay(final Player player) {
-        if (snapshot.isDrawing() == false) {
+        if (state.isDrawing() == false) {
             game.announce().onIllegalCommand("wrong input: stay. You can type 'join'");
             return;
         }
@@ -73,8 +73,8 @@ public class BlackjackGame extends NoOpCommandListener implements ListenersAware
 
     @Override
     public void onLeave(final Player player) {
-        snapshot = snapshot.finishing();
-        game.announce().onEnd(snapshot);
+        state = state.finishing();
+        game.announce().onEnd(state);
     }
 
     private void startThenSetup() {
@@ -85,8 +85,8 @@ public class BlackjackGame extends NoOpCommandListener implements ListenersAware
     }
 
     private void start() {
-        snapshot = snapshot.betting();
-        snapshot = snapshot.drawing();
+        state = state.betting();
+        state = state.drawing();
 
         game.announce().onStart();
         trumpsForDealer = new Trumps();
@@ -94,8 +94,8 @@ public class BlackjackGame extends NoOpCommandListener implements ListenersAware
     }
 
     private void scoring() {
-        snapshot = snapshot.scoring();
-        game.announce().onShowWinner(snapshot, trumpsForPlayer, trumpsForDealer);
+        state = state.scoring();
+        game.announce().onShowWinner(state, trumpsForPlayer, trumpsForDealer);
     }
 
     public void drawToPlayer(int howMany) {
