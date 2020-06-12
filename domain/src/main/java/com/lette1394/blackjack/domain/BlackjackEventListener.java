@@ -20,8 +20,6 @@ public interface BlackjackEventListener extends EventListener {
 
     void onShowWinner(BlackjackGameState snapshot, Trumps playerTrumps, Trumps dealerTrumps);
 
-    void onEnd(BlackjackGameState snapshot);
-
     // TODO: rename. illegal state transition?
     void onIllegalCommand(String message);
 }

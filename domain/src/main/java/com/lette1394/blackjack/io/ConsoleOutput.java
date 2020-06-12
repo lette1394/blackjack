@@ -21,6 +21,10 @@ public class ConsoleOutput implements BlackjackEventListener {
             send("new blackjack game start");
             return;
         }
+        if (snapshot.isFinishing()) {
+            send("game ended");
+            return;
+        }
     }
 
     @Override
@@ -76,11 +80,6 @@ public class ConsoleOutput implements BlackjackEventListener {
         }
 
         send("Another game? [join|leave]");
-    }
-
-    @Override
-    public void onEnd(final BlackjackGameState snapshot) {
-        send("game ended");
     }
 
     @Override

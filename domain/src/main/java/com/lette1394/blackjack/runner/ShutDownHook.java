@@ -16,8 +16,13 @@ public class ShutDownHook implements BlackjackEventListener {
     }
 
     @Override
+    @SneakyThrows
     public void onGameStateChanged(final BlackjackGameState snapshot) {
-
+        if (snapshot.isFinishing()) {
+            for (final Closeable closeable : closeables) {
+                closeable.close();
+            }
+        }
     }
 
     @Override
@@ -50,17 +55,5 @@ public class ShutDownHook implements BlackjackEventListener {
     @Override
     public void onIllegalCommand(final String message) {
 
-    }
-
-    @Override
-    @SneakyThrows
-    public void onEnd(final BlackjackGameState snapshot) {
-        if (snapshot.isFinishing() == false) {
-            return;
-        }
-
-        for (final Closeable closeable : closeables) {
-            closeable.close();
-        }
     }
 }

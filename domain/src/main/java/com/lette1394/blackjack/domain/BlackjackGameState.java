@@ -1,15 +1,8 @@
 package com.lette1394.blackjack.domain;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import com.google.common.collect.Sets;
 import lombok.EqualsAndHashCode;
 import lombok.RequiredArgsConstructor;
-
-import com.lette1394.blackjack.domain.player.Player;
-import com.lette1394.blackjack.domain.trump.Trump;
-import com.lette1394.blackjack.domain.trump.Trumps;
 
 // TODO: 이거, snapshot은 모두 immutable로 하고
 //  게임 상태를 변경하고 카드를 드로우하는 것은 별도의 클래스로 만들어야 하나?
@@ -18,30 +11,29 @@ import com.lette1394.blackjack.domain.trump.Trumps;
 @RequiredArgsConstructor
 public class BlackjackGameState {
     private final State state;
-    private final Map<Player, Trumps> playerTrumpsMap;
 
     public static BlackjackGameState waiting() {
-        return new BlackjackGameState(State.WAITING, new HashMap<>());
+        return to(State.WAITING);
     }
 
     public BlackjackGameState betting() {
         checkTransitionTo(State.BETTING);
-        return new BlackjackGameState(State.BETTING, new HashMap<>(playerTrumpsMap));
+        return to(State.BETTING);
     }
 
     public BlackjackGameState drawing() {
         checkTransitionTo(State.DRAWING);
-        return new BlackjackGameState(State.DRAWING, new HashMap<>(playerTrumpsMap));
+        return to(State.DRAWING);
     }
 
     public BlackjackGameState scoring() {
         checkTransitionTo(State.SCORING);
-        return new BlackjackGameState(State.SCORING, new HashMap<>(playerTrumpsMap));
+        return to(State.SCORING);
     }
 
     public BlackjackGameState finishing() {
         checkTransitionTo(State.FINISHING);
-        return new BlackjackGameState(State.FINISHING, new HashMap<>(playerTrumpsMap));
+        return to(State.FINISHING);
     }
 
     public boolean isWaiting() {
@@ -64,21 +56,8 @@ public class BlackjackGameState {
         return State.FINISHING.equals(state);
     }
 
-    public int getScore(Player player) {
-        if (playerTrumpsMap.containsKey(player) == false) {
-            throw new IllegalArgumentException();
-        }
-        return playerTrumpsMap.get(player)
-                              .computeScore();
-    }
-
-    public void addPlayer(final Player player) {
-        playerTrumpsMap.put(player, new Trumps());
-    }
-
-    public void addDraw(final Player player, final Trump trump) {
-        playerTrumpsMap.get(player)
-                       .add(trump);
+    private static BlackjackGameState to(final State state) {
+        return new BlackjackGameState(state);
     }
 
     private void checkTransitionTo(final State to) {
@@ -86,10 +65,6 @@ public class BlackjackGameState {
         if (from.canTransitTo(to) == false) {
             throw new IllegalStateException(String.format("cannot transit %s -> %s", from, to));
         }
-    }
-
-    public BlackjackGameState snapshot() {
-        return new BlackjackGameState(state, new HashMap<>(playerTrumpsMap));
     }
 
     private enum State {
