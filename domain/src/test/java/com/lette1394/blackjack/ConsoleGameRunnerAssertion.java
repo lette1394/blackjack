@@ -82,6 +82,10 @@ public class ConsoleGameRunnerAssertion {
         assertThat(nextConsoleInput(), is("GAME OVER. You got bankrupt."));
     }
 
+    public void hasShownCannotBetMoneyOver(final int atMost) {
+        assertThat(nextConsoleInput(), is("Cannot bet money over " + atMost));
+    }
+
     private String nextConsoleInput() {
         return userInput.nextLine();
     }

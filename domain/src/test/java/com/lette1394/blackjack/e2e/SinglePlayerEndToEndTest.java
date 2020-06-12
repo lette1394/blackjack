@@ -415,14 +415,11 @@ public class SinglePlayerEndToEndTest {
 
     @Test
     void aPlayerCanPlayTwoGameContinuously() {
-        final BlackjackGame blackjackGame = new BlackjackGame(12, nextTrumps(trump("♦️", "2"), trump("♣️", "8"),
-                                                                             trump("♥️", "3"), trump("♠️", "9"),
+        readyForNewGame(12, nextTrumps(trump("♦️", "2"), trump("♣️", "8"),
+                                       trump("♥️", "3"), trump("♠️", "9"),
 
-                                                                             trump("♦️", "2"), trump("♣️", "8"),
-                                                                             trump("♥️", "3"), trump("♠️", "9")));
-        blackjackGame.addListener(new ConsoleOutput(inputOutput));
-        consoleInputTranslator.addListener(blackjackGame);
-        consoleInputTranslator.addListener(new ConsoleInvalidCommandListener(inputOutput));
+                                       trump("♦️", "2"), trump("♣️", "8"),
+                                       trump("♥️", "3"), trump("♠️", "9")));
 
 
         runner.run();
@@ -472,15 +469,11 @@ public class SinglePlayerEndToEndTest {
 
     @Test
     void aPlayerGotBankrupt() {
-        final BlackjackGame blackjackGame = new BlackjackGame(12, nextTrumps(trump("♦️", "2"), trump("♣️", "8"),
-                                                                             trump("♥️", "3"), trump("♠️", "9"),
+        readyForNewGame(12, nextTrumps(trump("♦️", "2"), trump("♣️", "8"),
+                                       trump("♥️", "3"), trump("♠️", "9"),
 
-                                                                             trump("♦️", "2"), trump("♣️", "8"),
-                                                                             trump("♥️", "3"), trump("♠️", "9")));
-        blackjackGame.addListener(new ConsoleOutput(inputOutput));
-        consoleInputTranslator.addListener(blackjackGame);
-        consoleInputTranslator.addListener(new ConsoleInvalidCommandListener(inputOutput));
-
+                                       trump("♦️", "2"), trump("♣️", "8"),
+                                       trump("♥️", "3"), trump("♠️", "9")));
 
         runner.run();
         assertion.hasShownWaitForPlayer();
@@ -524,6 +517,25 @@ public class SinglePlayerEndToEndTest {
 
         assertion.hasShownPlayerGotBankrupt();
         assertion.hasShownGameIsEnded();
+    }
+
+    @Test
+    void aPlayerCannotBetMoneyOver() {
+        readyForNewGame(12, nextTrumps(trump("♦️", "2"), trump("♣️", "8"),
+                                       trump("♥️", "3"), trump("♠️", "9")));
+
+        runner.run();
+        assertion.hasShownWaitForPlayer();
+
+        player.join();
+        assertion.hasShownPlayerJoin(playerId);
+        assertion.hasShownPlayerRemainingCoins(1000);
+
+        player.bet(1001);
+        assertion.hasShownCannotBetMoneyOver(1000);
+
+        player.bet(1000);
+        assertion.hasShownGameIsStarted();
     }
 
     private BlackjackGame readyForNewGame(final int dealerStopScore, final TrumpProvider trumpProvider) {
