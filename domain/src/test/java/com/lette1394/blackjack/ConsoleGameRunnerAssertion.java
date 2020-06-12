@@ -18,6 +18,10 @@ public class ConsoleGameRunnerAssertion {
         assertThat(nextConsoleInput(), is("wait for player..."));
     }
 
+    public void hasShownPlayerJoin(final String playerId) {
+        assertThat(nextConsoleInput(), is(String.format("playerId:[%s] joined", playerId)));
+    }
+
     public void hasShownGameIsStarted() {
         assertThat(nextConsoleInput(), is("new blackjack game start"));
     }
@@ -56,6 +60,10 @@ public class ConsoleGameRunnerAssertion {
 
     public void hasShownPlayerGotBust(final int playerBustScore) {
         assertThat(nextConsoleInput(), is("You got BUST. score: " + playerBustScore));
+    }
+
+    public void hasShownPlayerRemainingCoins(final int coin) {
+        assertThat(nextConsoleInput(), is("Your coins: " + coin));
     }
 
     public void hasShownDealerGotBust(final int dealerBustScore) {

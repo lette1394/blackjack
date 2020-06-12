@@ -27,7 +27,9 @@ import com.lette1394.blackjack.testutil.ConsoleFakeInputOutput;
 import static com.lette1394.blackjack.domain.trump.TrumpFactory.trump;
 
 @Timeout(1)
-public class ConsoleBlackjackGameEndToEndTest {
+public class SinglePlayerEndToEndTest {
+    private static final String playerId = "1234";
+
     private BlackjackGameRunner runner;
     private ConsoleFakeInputOutput player;
     private ConsoleGameRunnerAssertion assertion;
@@ -46,7 +48,7 @@ public class ConsoleBlackjackGameEndToEndTest {
                                                                 new ConsoleInputOutput(fakeInput,
                                                                                        runnerOutput));
         consoleInputTranslator = new ConsoleInputProcessor(new InMemoryPlayerRepository());
-        player = new ConsoleFakeInputOutput(fakeOutput);
+        player = new ConsoleFakeInputOutput(fakeOutput, playerId);
         runner = new BlackjackGameRunner(inputOutput, consoleInputTranslator, 0);
 
         assertion = new ConsoleGameRunnerAssertion(runnerInput);
@@ -61,6 +63,10 @@ public class ConsoleBlackjackGameEndToEndTest {
         assertion.hasShownWaitForPlayer();
 
         player.join();
+        assertion.hasShownPlayerJoin(playerId);
+        assertion.hasShownPlayerRemainingCoins(1000);
+
+        player.bet(100);
         assertion.hasShownGameIsStarted();
         assertion.hasShownDrawCardToPlayer("(♦️2) (♣️8)");
         assertion.hasShownDealerGotCards("(♥️3) (??)");
@@ -72,6 +78,7 @@ public class ConsoleBlackjackGameEndToEndTest {
         assertion.hasShownDealerScore(12);
 
         assertion.hasShownPlayerLose();
+        assertion.hasShownPlayerRemainingCoins(900);
 
         assertion.hasShownTryItAgain();
         player.leave();

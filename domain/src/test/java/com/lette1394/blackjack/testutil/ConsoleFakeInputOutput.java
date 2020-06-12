@@ -7,29 +7,35 @@ import com.lette1394.blackjack.io.InputOutput;
 
 public class ConsoleFakeInputOutput implements InputOutput {
     private final PrintStream out;
+    private final String playerId;
 
-    public ConsoleFakeInputOutput(final OutputStream out) {
+    public ConsoleFakeInputOutput(final OutputStream out, final String playerId) {
         this.out = new PrintStream(out, true);
+        this.playerId = playerId;
     }
 
     public void join() {
-        send("playerId=1234; command=join");
+        send(String.format("playerId=%s; command=join", playerId));
+    }
+
+    public void bet(final int coin) {
+        send(String.format("playerId=%s; command=bet; coin=%s", playerId, coin));
     }
 
     public void hit() {
-        send("playerId=1234; command=hit");
+        send(String.format("playerId=%s; command=hit", playerId));
     }
 
     public void stay() {
-        send("playerId=1234; command=stay");
+        send(String.format("playerId=%s; command=stay", playerId));
     }
 
     public void rejoin() {
-        send("playerId=1234; command=rejoin");
+        send(String.format("playerId=%s; command=rejoin", playerId));
     }
 
     public void leave() {
-        send("playerId=1234; command=leave");
+        send(String.format("playerId=%s; command=leave", playerId));
     }
 
     @Override
